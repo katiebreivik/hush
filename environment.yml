@@ -1,8 +1,16 @@
 channels:
   - defaults
 dependencies:
-  - numpy>=1.20
+  - numpy>=1.4.1
   - pip>=20.3.3
-  - python=3.9
+  - python=3.7
   - pip:
-      - matplotlib>=3.3.3
+      - matplotlib==3.3.4
+      - legwork>=0.1.6
+      - seaborn==0.11.2
+      - pandas
+      - astropy
+      - h5py 
+      - tables
+      - schwimmbad
+      - tqdm
