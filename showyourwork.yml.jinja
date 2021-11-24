@@ -3,8 +3,8 @@ verbose: true
 
 zenodo:
     - src/data/FIRE.h5: &deposit
-        id: 962668
-        sandbox: true
+        id: 5722451
+        sandbox: false
 
 {% for i in range(15) %}
     - src/data/fiducial_10_10_{{i}}.h5:
@@ -58,7 +58,7 @@ zenodo:
 
     - src/data/results.hdf:
         script: src/figures/pipeline.py
-        sandbox: True
+        sandbox: False
         token_name: ZENODO_KEY
         title: Post-processing results for Thiele+2021
         description: >-
