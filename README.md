@@ -18,7 +18,9 @@
 </a>
 </p>
 
-## You're all set!
+## Welcome to _hush_!
+
+This repository contains all of the code necessary to create the results and figures in [Thiele+2021](https://arxiv.org). In this study, Milky Way-like galaxies of double white dwarf binaries are simulated which are orbiting in the frequency band observable by the space-based gravitational wave observatory [LISA](https://www.elisascience.org) (Laser Interferometer Space Antenna), and is the first binary population simulation which incorporates the [metallicity-dependent binary fraction](https://iopscience.iop.org/article/10.3847/1538-4357/ab0d88).  
 
 Your new repository is set up and ready to go. Click on the badges at the top to take you to the compiled article PDF or to a tarball containing all of the manuscript files. Both the PDF and the tarball are automatically updated every time you push changes to this repo; note that builds usually take a few minutes (or more, depending on what you're doing).
 
