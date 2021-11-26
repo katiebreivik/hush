@@ -28,7 +28,7 @@ This repository contains all of the code necessary to create the results and fig
 
 To begin, clone the _hush_ repository to a local directory. Dependencies are laid out in [environment.yml](https://github.com/katiebreivik/hush/blob/1eaf321cc5bc97dbc260139181cf2618bc16f833/environment.yml). 
 
-There are two levels of complexity at which you can run this pipeline for yourself. 
+There are two levels of complexity at which you can run the paper pipeline for yourself. 
 
 The first is to run the entire project pipeline start to finish, which can be done by simply moving into your `hush` directory and running the command `make pdf`. 
 
