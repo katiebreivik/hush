@@ -22,17 +22,17 @@
 
 ## Welcome to _hush_!
 
-This repository contains all of the code necessary to create the results and figures in [Thiele+2021](https://arxiv.org). In this study, Milky Way-like galaxies of double white dwarf binaries are simulated, which are orbiting in the frequency band observable by the future space-based gravitational wave detector [LISA](https://www.elisascience.org). This study is the first binary population simulation which incorporates the [metallicity-dependent binary fraction](https://iopscience.iop.org/article/10.3847/1538-4357/ab0d88). 
+This repository contains all of the code necessary to create the results and figures in [Thiele+2021](https://arxiv.org). In this study, we simulate populations of double white dwarf binaries which are orbiting in the frequency band observable by the future space-based gravitational wave detector [LISA](https://www.elisascience.org). Specificially, we investigate the effects of incorporating a [metallicity-dependent binary fraction](https://iopscience.iop.org/article/10.3847/1538-4357/ab0d88) for the first time. 
 
 ### Getting started and usage:
 
-To begin, clone the _hush_ repository to a local directory. Dependencies are laid out in [environment.yml](https://github.com/katiebreivik/hush/blob/1eaf321cc5bc97dbc260139181cf2618bc16f833/environment.yml). 
+To begin, clone the _hush_ repository to a local repository. Dependencies are detailed in [environment.yml](https://github.com/katiebreivik/hush/blob/1eaf321cc5bc97dbc260139181cf2618bc16f833/environment.yml). 
 
 There are two levels of complexity at which you can run the paper pipeline for yourself. 
 
 The first is to run the entire project pipeline start to finish, which can be done by simply moving into your `hush` directory and running the command `make pdf`. 
 
-__!!WARNING!! This process will generate 60+ GB of data on your local disk, and requires sufficient computational power to run the simulations.__ If you have questions about computational requirements, feel free to reach out to the authors by selecting the contact badge above.
+__!!WARNING!! This process will generate 60+ GB of data on your local disk, and requires ~20 GB of ram to run the simulations.__ If you have questions about computational requirements, feel free to reach out to the authors using the contact badge above.
 
 Running the `make pdf` command will...
 - download all the COSMIC + Ananke simulations which lie in [this](https://zenodo.org/record/5722451#.YZ152fHMLyg) Zenodo, and which form the base data for the simulations. These files will be downloaded in your hush directory within `/src/data/`. These can also be downloaded on your own. Once downloaded, the `make pdf` command will not re-download them each time.
@@ -46,4 +46,4 @@ The second, and less computationally intense option is to skip the galactic simu
 
 Instead of running the pipeline, you can also just compile the paper directly from this GitHub. It will reference our existing data - which was created using this pipeline - in their respective Zenodo sites. When clicked, the "pdf" and "tarball" badges at the top of this README will compile and download the article PDF, or download a tarball containing all of the manuscript files, respectively.
 
-This repository was created using the <img width = "100" src="https://raw.githubusercontent.com/rodluger/showyourwork/img/showyourwork.png" alt="showyourwork"/> framework. if you run into any trouble, please check out the [showyourwork documentation](https://showyourwork.readthedocs.io) or reach out to us. If you think you've encountered a bug, head to the [issues page](https://github.com/rodluger/showyourwork/issues) and raise a new one if needed.
+This repository was created using the [showyourwork](https://github.com/rodluger/showyourwork) [showyourwork documentation] framework. If you'd like to show your own work, check out the [showyourwork docs](https://showyourwork.readthedocs.io) here!
