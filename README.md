@@ -17,7 +17,7 @@
 </a>
 </p>
 
-## Welcome to hush
+## Welcome to __hush__
 
 Your new repository is set up and ready to go. Click on the badges at the top to take you to the compiled article PDF or to a tarball containing all of the manuscript files. Both the PDF and the tarball are automatically updated every time you push changes to this repo; note that builds usually take a few minutes (or more, depending on what you're doing).
 
