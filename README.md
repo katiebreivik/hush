@@ -3,20 +3,20 @@
 </a>
 <br>
 <br>
-<a href="https://github.com/katiebreivik/hush/actions/workflows/showyourwork.yml">
-<img src="https://github.com/katiebreivik/hush/actions/workflows/showyourwork.yml/badge.svg" alt="Article status"/>
-</a>
-<a href="https://github.com/katiebreivik/hush/raw/main-pdf/arxiv.tar.gz">
-<img src="https://img.shields.io/badge/article-tarball-blue.svg?style=flat" alt="Article tarball"/>
-</a>
-<a href="https://github.com/katiebreivik/hush/raw/main-pdf/dag.pdf">
-<img src="https://img.shields.io/badge/article-dag-blue.svg?style=flat" alt="Article graph"/>
+<a href="mailto:sarahgthiele@gmail.com?cc=kbreivik@flatironinstitute.org">
+      <img src="https://img.shields.io/badge/contact-authors-blueviolet.svg?style=flat" alt="Email the authors"/>
 </a>
 <a href="https://github.com/katiebreivik/hush/raw/main-pdf/ms.pdf">
 <img src="https://img.shields.io/badge/article-pdf-blue.svg?style=flat" alt="Read the article"/>
 </a>
-<a href="mailto:sarahgthiele@gmail.com?cc=kbreivik@flatironinstitute.org">
-      <img src="https://img.shields.io/badge/contact-authors-blueviolet.svg?style=flat" alt="Email the authors"/>
+<a href="https://github.com/katiebreivik/hush/raw/main-pdf/arxiv.tar.gz">
+<img src="https://img.shields.io/badge/article-tarball-blue.svg?style=flat" alt="Article tarball"/>
+</a>
+<a href="https://github.com/katiebreivik/hush/actions/workflows/showyourwork.yml">
+<img src="https://github.com/katiebreivik/hush/actions/workflows/showyourwork.yml/badge.svg" alt="Article status"/>
+</a>
+<a href="https://github.com/katiebreivik/hush/raw/main-pdf/dag.pdf">
+<img src="https://img.shields.io/badge/article-dag-blue.svg?style=flat" alt="Article graph"/>
 </a>
 </p>
 
@@ -40,6 +40,6 @@ The second and less intense option is if you'd like to work with just the data u
 
 ### Accessing the paper from this GitHub repo:
 
-The badges at the top of this README will take you to the compiled article PDF, or to a tarball containing all of the manuscript files.
+The "pdf" and "tarball" badges at the top of this README will take you to the compiled article PDF, or to a tarball containing all of the manuscript files, respectively.
 
 This repository was created using the <img width = "150" src="https://raw.githubusercontent.com/rodluger/showyourwork/img/showyourwork.png" alt="showyourwork"/> framework. if you run into any trouble, please check out the [showyourwork documentation](https://showyourwork.readthedocs.io) or reach out to the authors. If you think you've encountered a bug, head to the [issues page](https://github.com/rodluger/showyourwork/issues) and raise a new one if needed.
