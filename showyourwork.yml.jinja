@@ -3,8 +3,8 @@ verbose: true
 
 zenodo:
     - src/data/FIRE.h5: &deposit
-        id: 962668
-        sandbox: true
+        id: 5722451
+        sandbox: false
 
 {% for i in range(15) %}
     - src/data/fiducial_10_10_{{i}}.h5:
@@ -58,12 +58,11 @@ zenodo:
 
     - src/data/results.hdf:
         script: src/figures/pipeline.py
-        sandbox: True
-        token_name: ZENODO_KEY
-        title: Post-processing results for Thiele+2021
+        sandbox: False
+        token_name: ZENODO_TOKEN
+        title: Applying the metallicity-dependent binary fraction to double white dwarf formation, Implications for LISA, results
         description: >-
-            This dataset contains data to produce the figures 
-            from Thiele, Breivik, and Sanderson 2021
+            This dataset contains data created by post-processing pipeline to produce the figures from Thiele+2021
         creators:
             - Thiele, Sarah
             - Breivik, Katelyn
@@ -114,3 +113,7 @@ dependencies:
     src/figures/model_comp.py:
         - src/data/results.hdf
 
+arxiv_tarball_exclude:
+  - src/data/*.hdf
+  - src/data/*.h5
+  - src/ms.bib
