@@ -20,7 +20,7 @@
 </a>
 </p>
 
-## Welcome to _hush_ !
+## Welcome to _hush_!
 
 This repository contains all of the code necessary to create the results and figures in [Thiele+2021](https://arxiv.org). In this study, Milky Way-like galaxies of double white dwarf binaries are simulated which are orbiting in the frequency band observable by the future space-based gravitational wave detector [LISA](https://www.elisascience.org). This study is the first binary population simulation which incorporates the [metallicity-dependent binary fraction](https://iopscience.iop.org/article/10.3847/1538-4357/ab0d88). 
 
