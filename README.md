@@ -44,6 +44,6 @@ The second, and less computationally intense option is to work with just the dat
 
 ### Accessing the paper from this GitHub repo:
 
-The "pdf" and "tarball" badges at the top of this README will take you to the compiled article PDF, or to a tarball containing all of the manuscript files, respectively.
+The "pdf" and "tarball" badges at the top of this README will compile and download the article PDF, or download a tarball containing all of the manuscript files, respectively.
 
 This repository was created using the <img width = "150" src="https://raw.githubusercontent.com/rodluger/showyourwork/img/showyourwork.png" alt="showyourwork"/> framework. if you run into any trouble, please check out the [showyourwork documentation](https://showyourwork.readthedocs.io) or reach out to the authors. If you think you've encountered a bug, head to the [issues page](https://github.com/rodluger/showyourwork/issues) and raise a new one if needed.
