@@ -28,7 +28,9 @@ This repository contains all of the code necessary to create the results and fig
 
 To begin, clone the _hush_ repository to a local directory. Dependencies are laid out in [environment.yml](https://github.com/katiebreivik/hush/blob/1eaf321cc5bc97dbc260139181cf2618bc16f833/environment.yml). 
 
-There are two levels of complexity at which you can run this pipeline for yourself. The first is to run the entire project pipeline start to finish, which can be done by simply moving into your `hush` directory and running the command `make pdf`. __!!WARNING!!: This process will generate 60+ GB of data on your local disk, and requires sufficient computational power to run the simulations.__ If you have questions about computational requirements, feel free to reach out to the authors by selecting the contact badge above.
+There are two levels of complexity at which you can run this pipeline for yourself. 
+
+The first is to run the entire project pipeline start to finish, which can be done by simply moving into your `hush` directory and running the command `make pdf`. __!!WARNING!!: This process will generate 60+ GB of data on your local disk, and requires sufficient computational power to run the simulations.__ If you have questions about computational requirements, feel free to reach out to the authors by selecting the contact badge above.
 
 The pipeline that will then be run will...
 - download all the COSMIC + Ananke simulations which lie in [this](https://zenodo.org/record/5722451#.YZ152fHMLyg) Zenodo, and which form the base data for the simulations. These can also be downloaded on your own. Once these files are in your hush directory within `/src/data/`, the `make pdf` command will not re-download them each time.
