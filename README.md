@@ -32,7 +32,7 @@ There are two levels of complexity at which you can run the paper pipeline for y
 
 The first is to run the entire project pipeline start to finish, which can be done by simply moving into your `hush` directory and running the command `make pdf`. 
 
-__!!WARNING!!: This process will generate 60+ GB of data on your local disk, and requires sufficient computational power to run the simulations.__ If you have questions about computational requirements, feel free to reach out to the authors by selecting the contact badge above.
+__!!WARNING!! This process will generate 60+ GB of data on your local disk, and requires sufficient computational power to run the simulations.__ If you have questions about computational requirements, feel free to reach out to the authors by selecting the contact badge above.
 
 The full pipeline will...
 - download all the COSMIC + Ananke simulations which lie in [this](https://zenodo.org/record/5722451#.YZ152fHMLyg) Zenodo, and which form the base data for the simulations. These can also be downloaded on your own. Once these files are in your hush directory within `/src/data/`, the `make pdf` command will not re-download them each time.
