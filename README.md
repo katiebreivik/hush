@@ -1,6 +1,5 @@
 <p align="center">
 <a href="https://github.com/rodluger/showyourwork">
-#<img width = "450" src="https://raw.githubusercontent.com/rodluger/showyourwork/img/showyourwork.png" alt="showyourwork"/>
 </a>
 <br>
 <br>
