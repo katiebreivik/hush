@@ -46,4 +46,4 @@ The second, and less computationally intense option is to skip the galactic simu
 
 Instead of running the pipeline, you can also just compile the paper directly from this GitHub. It will reference our existing data - which was created using this pipeline - in their respective Zenodo sites. When clicked, the "pdf" and "tarball" badges at the top of this README will compile and download the article PDF, or download a tarball containing all of the manuscript files, respectively.
 
-This repository was created using the [showyourwork](https://github.com/rodluger/showyourwork) [showyourwork documentation] framework. If you'd like to show your own work, check out the [showyourwork docs](https://showyourwork.readthedocs.io) here!
+This repository was created using the [showyourwork](https://github.com/rodluger/showyourwork) framework. If you'd like to _show your own work_, check out the [showyourwork docs](https://showyourwork.readthedocs.io) here!
