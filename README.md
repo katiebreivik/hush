@@ -30,7 +30,9 @@ To begin, clone the _hush_ repository to a local repository. Dependencies are de
 
 There are two levels of complexity at which you can run the paper pipeline for yourself. 
 
-The first is to run the entire project pipeline start to finish, which can be done by simply moving into your `hush` directory and running the command `make pdf`. 
+The first is to download the data created by the pipeline that is required to make the figures. This can be done by running the command `make fast` in the `hush` directory. This will dowload the `results.hdf` data set from [this](https://zenodo.org/record/5722715#.YaA2Sy0ZPOQ) Zenodo and the `FIRE.h5` data set from [this](https://zenodo.org/record/5722451#.YZ152fHMLyg) Zenodo. Finally, the scripts to produce each figure will be run: `CEsep.py`, `LISA_SNR.py`, `Mc_vs_dist.py`, `PSD.py`, `form_eff.py`, `lisa_nums.py`, `model_comp.py`, and `sfh_vs_fb.py`. 
+
+You can also run the entire project pipeline start to finish, which can be done running the command `make pdf` from the `hush` directory.
 
 __!!WARNING!! This process will generate 60+ GB of data on your local disk, and requires ~20 GB of ram to run the simulations.__ If you have questions about computational requirements, feel free to reach out to the authors using the contact badge above.
 
@@ -39,8 +41,6 @@ Running the `make pdf` command will...
 - simulate the double white dwarf populations and produce their corresponding data files which again will be in `/src/data/`.
 - run the [scripts](https://github.com/katiebreivik/hush/tree/main/src/figures) to create the paper figure data, which will be contained in a single HDF5 file, `results.hdf`.
 - generate figures and compile the paper, whose text is contained in [ms.tex](https://github.com/katiebreivik/hush/blob/1eaf321cc5bc97dbc260139181cf2618bc16f833/src/ms.tex)
-
-The second, and less computationally intense option is to skip the galactic simulations and work with just the already-simulated data which we used to generate the paper figures. `results.hdf` can be downloaded from [this](https://zenodo.org/record/5722715#.YaA2Sy0ZPOQ) Zenodo. The other figure file needed, `FIRE.h5`, holds the data to implement a metallicity-dependent star formation history, and can be downloaded from [this](https://zenodo.org/record/5722451#.YZ152fHMLyg) Zenodo. The paper figures can be generated using `CEsep.py`, `LISA_SNR.py`, `Mc_vs_dist.py`, `PSD.py`, `form_eff.py`, `lisa_nums.py`, `model_comp.py`, and `sfh_vs_fb.py`. 
 
 ### Accessing the paper from this GitHub repo:
 
