@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import astropy.units as u
+import paths
 
 models = ["log_uniform", "qcflag_4", "alpha_0.25", "alpha_5"]
 model_names = ["fiducial", "q3", "alpha25", "alpha5"]
@@ -32,12 +33,19 @@ popt_F50_list = []
 popt_FZ_list = []
 
 for model in model_names:
-    numsFZ = pd.read_hdf("../data/results.hdf", key="numLISA_30bins_{}_{}".format("FZ", model))
-    numsF50 = pd.read_hdf("../data/results.hdf", key="numLISA_30bins_{}_{}".format("F50", model))
+    numsFZ = pd.read_hdf(
+        paths.data / "results.hdf", key="numLISA_30bins_{}_{}".format("FZ", model)
+    )
+    numsF50 = pd.read_hdf(
+        paths.data / "results.hdf", key="numLISA_30bins_{}_{}".format("F50", model)
+    )
 
-
-    popt_F50 = pd.read_hdf("../data/results.hdf", key="conf_fit_DWDs_{}_{}".format("F50", model))
-    popt_FZ = pd.read_hdf("../data/results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", model))
+    popt_F50 = pd.read_hdf(
+        paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("F50", model)
+    )
+    popt_FZ = pd.read_hdf(
+        paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", model)
+    )
 
     n_lisa_F50 = np.sum(numsF50.values.flatten())
     n_lisa_FZ = np.sum(numsFZ.values.flatten())
@@ -125,4 +133,4 @@ ax_dict["B"].set_xlabel(r"N$_{\rm{LISA, F50}}$", size=18)
 ax_dict["A"].tick_params(labelsize=14)
 ax_dict["B"].tick_params(labelsize=14)
 plt.tight_layout()
-plt.savefig("model_comp.pdf", dpi=100)
+plt.savefig(paths.figures / "model_comp.pdf", dpi=100)

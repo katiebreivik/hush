@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+import paths
 
 model = "fiducial"
 FIREmin = 0.00015
@@ -13,10 +14,10 @@ met_bins = np.logspace(np.log10(FIREmin), np.log10(FIREmax), num)
 met_mids = (met_bins[1:] + met_bins[:-1]) / 2
 whichsep = "CEsep"
 
-Heinter = pd.read_hdf("../data/results.hdf", key='intersep_{}_{}_{}_{}'.format(10, 10, "FZ", "fiducial"))
-COHeinter = pd.read_hdf("../data/results.hdf", key='intersep_{}_{}_{}_{}'.format(11, 10, "FZ", "fiducial"))
-COinter = pd.read_hdf("../data/results.hdf", key='intersep_{}_{}_{}_{}'.format(11, 11, "FZ", "fiducial"))
-ONeinter = pd.read_hdf("../data/results.hdf", key='intersep_{}_{}_{}_{}'.format(12, 10, "FZ", "fiducial"))
+Heinter = pd.read_hdf(paths.data / "results.hdf", key='intersep_{}_{}_{}_{}'.format(10, 10, "FZ", "fiducial"))
+COHeinter = pd.read_hdf(paths.data / "results.hdf", key='intersep_{}_{}_{}_{}'.format(11, 10, "FZ", "fiducial"))
+COinter = pd.read_hdf(paths.data / "results.hdf", key='intersep_{}_{}_{}_{}'.format(11, 11, "FZ", "fiducial"))
+ONeinter = pd.read_hdf(paths.data / "results.hdf", key='intersep_{}_{}_{}_{}'.format(12, 10, "FZ", "fiducial"))
 
 Heavgs = []
 Hecovs = []
@@ -152,4 +153,4 @@ ax[3].set_ylim(top=3.05)
 plt.tight_layout()
 plt.subplots_adjust(wspace=0.25)
 
-plt.savefig("CEsep.pdf", dpi=100)
+plt.savefig(paths.figures / "CEsep.pdf", dpi=100)

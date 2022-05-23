@@ -6,6 +6,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
+import paths
 
 
 def get_FeH_from_Z(Z, Z_sun=0.02):
@@ -58,7 +59,7 @@ met_arr = np.append(0.0, met_arr)
 
 Z_sun = 0.02
 
-FIRE = pd.read_hdf("../data/FIRE.h5")
+FIRE = pd.read_hdf(paths.data / "FIRE.h5")
 fig, ax = plt.subplots()
 plt.grid(lw=0.25, which="both")
 bins = np.append(met_arr[1:-1] / Z_sun, FIRE.met.max())
@@ -99,7 +100,7 @@ ax.legend(
     borderaxespad=0,
     frameon=False,
 )
-   
+
 ax.set_zorder(ax2.get_zorder() + 1)
 ax.patch.set_visible(False)
 ax.set_xlabel("Log$_{10}$(Z/Z$_\odot$)", size=18)
@@ -109,5 +110,5 @@ ax2.set_yticks([1e4, 1e5, 1e6, 1e7])
 ax2.set_yticklabels(["7e7", "7e8", "7e9", "7e10"])
 ax2.tick_params(labelsize=15)
 ax.tick_params(labelsize=15)
-ax2.set_ylim(1e4-0.1e4, 1e7+0.1e7)
-plt.savefig("sfh_vs_fb.pdf",  bbox_inches='tight', dpi=100)
+ax2.set_ylim(1e4 - 0.1e4, 1e7 + 0.1e7)
+plt.savefig(paths.figures / "sfh_vs_fb.pdf", bbox_inches="tight", dpi=100)
