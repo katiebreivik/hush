@@ -17,40 +17,47 @@ import postproc as pp
 
 
 DWD_list = ['He_He', 'CO_He', 'CO_CO', 'ONe_X']
-dat_path = "../data/"
+dat_path = "../data/cosmic_dat/"
+LISA_path = "../data/postproc/"
 FIRE_path = "../data/"
-models = ['fiducial', 'alpha25', 'alpha5', 'q3']
+results_path = "../data/"
+models = ['fiducial', 'fiducial_Z', 'alpha25', 'alpha25_Z', 'alpha5', 'alpha5_Z', 'q3', 'q3_Z']
 interfile = False
-nproc = 4
+nproc = 128
 
 for model in models:
-    pp.save_full_galaxy(
-        DWD_list, dat_path, FIRE_path, dat_path, interfile, model, nproc
-    )
-    print('Gx done!')
+    print(model)
+    #pp.save_full_galaxy(
+    #    DWD_list, dat_path, FIRE_path, LISA_path, interfile, model, nproc
+    #)
+    #print('Gx done!')
 
-    if model == 'fiducial':
+    if model in ['fiducial_Z', 'fiducial']:
         pp.get_formeff(
-            pathtodat=dat_path, pathtosave=dat_path
+            pathtodat=dat_path, pathtosave=results_path, model=model
         )
     print('formation efficiency done')
-
-    pp.get_interactionsep_and_numLISA(
-        pathtodat=dat_path, pathtosave=dat_path, model=model, var=True
-    )
-    print('interaction sep FZ done')
- 
-    pp.get_interactionsep_and_numLISA(
-        pathtodat=dat_path, pathtosave=dat_path, model=model, var=False
-    )
-    print('interaction sep F50 done')
     
-    pp.get_resolvedDWDs(
-        dat_path, dat_path, var=True, model=model, window=1000
-    )
-    print('resolved FZ done')
-    pp.get_resolvedDWDs(
-        dat_path, dat_path, var=False, model=model, window=1000
-    )
-
-    print('resolved F50 done')
+    if 'Z' in model:
+        pp.get_interactionsep_and_numLISA(
+            pathtocosmic=dat_path, pathtoLISA=LISA_path, pathtoresults=results_path, model=model, var=True,     
+        )
+        print('interaction sep done')
+        
+        pp.get_resolvedDWDs(
+            pathtoLISA=LISA_path, pathtosave=results_path, var=True, model=model, window=1000
+        )
+        print('resolved FZ done')
+    else:
+        pp.get_interactionsep_and_numLISA(
+            pathtocosmic=dat_path, pathtoLISA=LISA_path, pathtoresults=results_path, model=model, var=False,     
+        )
+        print('interaction sep done')
+    
+    
+        pp.get_resolvedDWDs(
+           pathtoLISA=LISA_path, pathtosave=results_path, var=False, model=model, window=1000
+        )
+    
+        print('resolved done')
+    

@@ -13,10 +13,10 @@ met_bins = np.logspace(np.log10(FIREmin), np.log10(FIREmax), num)
 met_mids = (met_bins[1:] + met_bins[:-1]) / 2
 whichsep = "CEsep"
 
-Heinter = pd.read_hdf("../data/results.hdf", key='intersep_{}_{}_{}_{}'.format(10, 10, "FZ", "fiducial"))
-COHeinter = pd.read_hdf("../data/results.hdf", key='intersep_{}_{}_{}_{}'.format(11, 10, "FZ", "fiducial"))
-COinter = pd.read_hdf("../data/results.hdf", key='intersep_{}_{}_{}_{}'.format(11, 11, "FZ", "fiducial"))
-ONeinter = pd.read_hdf("../data/results.hdf", key='intersep_{}_{}_{}_{}'.format(12, 10, "FZ", "fiducial"))
+Heinter = pd.read_hdf("../data/results.hdf", key = 'intersep_{}_{}_{}_{}'.format(10, 10, "F50", model))
+COHeinter = pd.read_hdf("../data/results.hdf", key='intersep_{}_{}_{}_{}'.format(11, 10,  "F50", model))
+COinter = pd.read_hdf("../data/results.hdf", key='intersep_{}_{}_{}_{}'.format(11, 11,  "F50", model))
+ONeinter = pd.read_hdf("../data/results.hdf", key='intersep_{}_{}_{}_{}'.format(12, 10,  "F50", model))
 
 Heavgs = []
 Hecovs = []

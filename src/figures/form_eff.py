@@ -29,8 +29,11 @@ kstar2_list = ['10', '10', '11', '10_12']
 labels = ['10_10', '11_10', '11_11', '12']
 pathtodat = "../data/"
 
-DWDeff = pd.read_hdf('../data/results.hdf', key='DWDeff_{}_{}'.format("FZ", "fiducial"))
-DWDeff05 = pd.read_hdf('../data/results.hdf', key='DWDeff_{}_{}'.format("F50", "fiducial"))
+model_FZ = "fiducial_Z"
+model_F50 = "fiducial"
+
+DWDeff = pd.read_hdf(pathtodat+'results.hdf', key='DWDeff_{}'.format(model_FZ))
+DWDeff05 = pd.read_hdf(pathtodat+'results.hdf', key='DWDeff_{}'.format(model_F50))
 
 effHe = DWDeff.He.values
 effCOHe = DWDeff.COHe.values
@@ -146,10 +149,11 @@ for i in range(4):
 plt.tight_layout()
 plt.subplots_adjust(wspace=0.25)
 ax[0].set_yticks(np.arange(0.25, 2.75, 0.5))
-ax[1].set_yticks(np.arange(0.75, 4.0, 0.75))
-ax[1].set_ylim(top=3.85)
+ax[1].set_yticks(np.arange(1.5, 10.0, 0.75))
+ax[1].set_ylim(top=6)
 ax[2].set_yticks(np.arange(1, 7, 1.25))
 ax[3].set_yticks(np.arange(0.1, 0.5, 0.1))
 ax[3].set_yticklabels(['0.10', '0.20', '0.30', '0.40'])
+
 
 plt.savefig("form_eff.pdf", dpi=100)

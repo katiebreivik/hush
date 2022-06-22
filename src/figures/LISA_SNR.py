@@ -6,7 +6,7 @@ from legwork.visualisation import plot_sensitivity_curve
 from legwork import psd
 
 
-def plot_LISAcurves(model):
+def plot_LISAcurves(var, model):
     def func(x, a, b, c, d, e):
         return a + b * x + c * x ** 2 + d * x ** 3 + e * x ** 4
 
@@ -25,9 +25,10 @@ def plot_LISAcurves(model):
 
         psd_plus_conf = conf + lisa_psd_no_conf
         return psd_plus_conf.to(u.Hz ** (-1))
-
-    resolved = pd.read_hdf("../data/results.hdf", key="resolved_DWDs_{}_{}".format(model, "fiducial"))
-    popt = pd.read_hdf("../data/results.hdf", key="conf_fit_DWDs_{}_{}".format(model, "fiducial"))
+    print("resolved_DWDs_{}_{}".format(var, model))
+    resolved = pd.read_hdf("../data/results.hdf", key="resolved_DWDs_{}_{}".format(var, model))
+    
+    popt = pd.read_hdf("../data/results.hdf", key="conf_fit_DWDs_{}_{}".format(var, model))
     popt = popt.values.flatten()
     
     resolved_HeHe = resolved.loc[(resolved.kstar_1 == 10) & (resolved.kstar_2 == 10)]
@@ -112,5 +113,5 @@ def plot_LISAcurves(model):
     return
 
 
-for model in ["F50", "FZ"]:
-    plot_LISAcurves(model=model)
+for var, model in zip(["F50", "FZ"], ["fiducial", "fiducial_Z"]):
+    plot_LISAcurves(var=var, model=model)

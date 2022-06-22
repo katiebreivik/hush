@@ -3,8 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
 
+model_Z = "fiducial_Z"
 model = "fiducial"
-numsFZ = pd.read_hdf("../data/results.hdf", key="numLISA_30bins_{}_{}".format("FZ", model))
+numsFZ = pd.read_hdf("../data/results.hdf", key="numLISA_30bins_{}_{}".format("FZ", model_Z))
 numsF50 = pd.read_hdf("../data/results.hdf", key="numLISA_30bins_{}_{}".format("F50", model))
 
 FIREmin = 0.00015

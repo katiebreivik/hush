@@ -6,7 +6,7 @@ import pandas as pd
 import astropy.units as u
 from astropy.time import Time
 import astropy.constants as const
-import astropy.coordinates as coords
+import astropy.coordinates as coord
 from astropy.coordinates import SkyCoord
 from scipy.interpolate import interp1d, UnivariateSpline
 from scipy.optimize import curve_fit
@@ -17,7 +17,6 @@ from legwork import psd, strain, utils
 import legwork.source as source
 
 pd.options.mode.chained_assignment = None
-
 
 # Specific to Thiele et al. (2021), here are the used metallicity
 # array, the associated binary fractions for each Z value, and the ratios 
@@ -49,8 +48,8 @@ sec_Myr = u.Myr.to('s')  # seconds in a million years
 m_kpc = u.kpc.to('m')  # metres in a kiloparsec
 L_sol = const.L_sun.value  # solar luminosity in Watts
 Z_sun = 0.02  # solar metallicity
-sun = coords.get_sun(Time("2021-04-23T00:00:00", scale='utc'))  # sun coordinates
-sun_g = sun.transform_to(coords.Galactocentric)
+sun = coord.get_sun(Time("2021-04-23T00:00:00", scale='utc'))  # sun coordinates
+sun_g = sun.transform_to(coord.Galactocentric)
 sun_yGx = sun_g.galcen_distance.to('kpc').value
 sun_zGx = sun_g.z.to('kpc').value
 M_astro = 7070  # FIRE star particle mass in solar masses
@@ -644,6 +643,9 @@ def make_galaxy(dat, verbose=False):
                 jlast = int(jlast)
                 if jlast > N_sample_int:
                     jlast = N_sample_int
+            #LISA_band_list = []
+            #for dat in dat_filter:
+            #    LISA_band_list.append(filter_population(dat))
             with MultiPool(processes=nproc) as pool:
                 LISA_band_list = list(pool.map(filter_population, dat_filter))
             
@@ -723,49 +725,52 @@ def save_full_galaxy(DWD_list, pathtodat, fire_path, pathtosave, interfile, mode
         fnames, label = dutil.getfiles(kstar1=kstar1, kstar2=kstar2, model=model)
         i = 0
         for f, ratio, binfrac in zip(fnames, ratios, binfracs):
-            dat.append([pathtodat, fire_path, pathtosave, f, i, label, ratio, binfrac, interfile, model, nproc])
-            i += 1
-        i = 0
-        for f, ratio, binfrac in zip(fnames, ratios, binfracs):
-            dat.append([pathtodat, fire_path, pathtosave, f, i, label, ratio_05, 0.5, interfile, model, nproc])
-            i += 1
-    dwd_eff_dat = []
-    for d in dat:
-        dwd_eff_dat.append(make_galaxy(d))
+            if 'Z' in model:
+                dat_list = [pathtodat, fire_path, pathtosave, f, i, label, 0.0, binfrac, interfile, model, nproc]
+            else:
+                dat_list = [pathtodat, fire_path, pathtosave, f, i, label, ratio_05, 0.5, interfile, model, nproc]
 
-    if len(dwd_eff_dat[0][0]) > 1:
-        dwd_eff_dat = pd.DataFrame(dwd_eff_dat, 
-                                      columns = ['form_eff', 'label', 'met', 'binfrac'])
-    
-        for var in [True, False]:
-            eff = []
-            for DWD in DWD_list:
-                if DWD == 'He_He':
-                    label='10_10'
-                elif DWD == 'CO_He':
-                    label='11_10'
-                elif DWD == 'CO_CO':
-                    label='11_11'
-                elif DWD == 'ONe_X':
-                    label='12'
-                
-                if var:
-                    dwd_eff_select = dwd_eff_dat.loc[(dwd_eff_dat.binfrac < 0.5)  & 
-                                                     (dwd_eff_dat.label == label)]
-                    bin_var = 'FZ'
-                else:
-                    dwd_eff_select = dwd_eff_dat.loc[(dwd_eff_dat.binfrac == 0.5) & 
-                                                     (dwd_eff_dat.label == label)]
-                    bin_var = 'F50'
-                    
-                eff.append(dwd_eff_select.sort_values('met').form_eff.values)
-            DWDeff = pd.DataFrame(np.array(eff).T, columns=['He', 'COHe', 'CO', 'ONe'])
-            DWDeff.to_hdf(pathtosave + 'results.hdf', key='DWDeff_{}_{}'.format(bin_var, model))
+            dat.append(dat_list)
+            
+            i += 1
+    for d in dat:
+        _ = make_galaxy(d)
+    #with MultiPool(processes=nproc) as pool:
+    #    dwd_eff_dat = list(pool.map(make_galaxy, dat))
+
+    #if len(dwd_eff_dat[0][0]) > 1:
+    #    dwd_eff_dat = pd.DataFrame(dwd_eff_dat, 
+    #                                  columns = ['form_eff', 'label', 'met', 'binfrac'])
+    #
+    #    for var in [True, False]:
+    #        eff = []
+    #        for DWD in DWD_list:
+    #            if DWD == 'He_He':
+    #                label='10_10'
+    #            elif DWD == 'CO_He':
+    #                label='11_10'
+    #            elif DWD == 'CO_CO':
+    #                label='11_11'
+    #            elif DWD == 'ONe_X':
+    #                label='12'
+    #            
+    #            if var:
+    #                dwd_eff_select = dwd_eff_dat.loc[(dwd_eff_dat.binfrac < 0.5)  & 
+    #                                                 (dwd_eff_dat.label == label)]
+    #                bin_var = 'FZ'
+    #            else:
+    #                dwd_eff_select = dwd_eff_dat.loc[(dwd_eff_dat.binfrac == 0.5) & 
+    #                                                 (dwd_eff_dat.label == label)]
+    #                bin_var = 'F50'
+    #                
+    #            eff.append(dwd_eff_select.sort_values('met').form_eff.values)
+    #        DWDeff = pd.DataFrame(np.array(eff).T, columns=['He', 'COHe', 'CO', 'ONe'])
+    #        DWDeff.to_hdf(pathtosave + 'results.hdf', key='DWDeff_{}_{}'.format(bin_var, model))
     
     return
 
 
-def get_interactionsep_and_numLISA(pathtodat, pathtosave, model, var, FIREmin=0.00015, FIREmax=13.346, Z_sun=0.02, verbose=False):
+def get_interactionsep_and_numLISA(pathtocosmic, pathtoLISA, pathtoresults, model, var, FIREmin=0.00015, FIREmax=13.346, Z_sun=0.02, verbose=False):
     '''
     Creates plot files with the interaction separation of DWDs. In order to
     run this, there must be already-existing LISA band files created with
@@ -773,19 +778,19 @@ def get_interactionsep_and_numLISA(pathtodat, pathtosave, model, var, FIREmin=0.
     
     INPUTS
     ----------------------
-    pathtodat [str]: path to folder containing datfiles 
-    pathtoLband [str]: path to folder containing LISA band files
-    pathtosave [str]: path to folder to save data to
+    pathtocosmic [str]: path to folder containing COSMIC datfiles 
+    pathtoLISA [str]: path to folder containing LISA band files
+    pathtoresults [str]: path to folder to save results to
     
     RETURNS
     ----------------------
     No direct function outputs, but saves interraction separation data for all
     DWD types and metallicity bins to files contained in pathtosave.
     '''
-    def intersep(pathtodat, datfile, interkey, LISA_data):
+    def intersep(pathtocosmic, datfile, pathtoresults, interkey, LISA_data):
         if verbose:
             print('dat file: ' + datfile)
-        dat = pd.read_hdf(pathtodat+datfile, key='bpp') 
+        dat = pd.read_hdf(pathtocosmic+datfile, key='bpp') 
         if 'bin_num' not in dat.columns:
             dat.index = dat.index.rename('index')
             dat['bin_num'] = dat.index.values
@@ -808,7 +813,7 @@ def get_interactionsep_and_numLISA(pathtodat, pathtosave, model, var, FIREmin=0.
         data_RLOF['RLOFtime'] = np.repeat(RLOFsep['tphys'], RLOFsep['weights']).values
         
         data_RLOF = data_RLOF[['CEsep', 'CEtime', 'RLOFsep', 'RLOFtime', 'met']]    
-        data_RLOF.to_hdf(pathtodat+'results.hdf', key=interkey, append=True) 
+        data_RLOF.to_hdf(pathtoresults+'results.hdf', key=interkey, append=True) 
         return
        
     # FZ:
@@ -833,7 +838,7 @@ def get_interactionsep_and_numLISA(pathtodat, pathtosave, model, var, FIREmin=0.
         for f, i in zip(files, range(len(files))):
             Lsavefile = 'Lband_{}_{}_{}_{}.hdf'.format(label, var_label, model, i)
             # read in LISA data
-            LISA_data = pd.read_hdf(pathtodat + Lsavefile, key=Lkey)
+            LISA_data = pd.read_hdf(pathtoLISA + Lsavefile, key=Lkey)
 
             if verbose:
                 print('i = {}'.format(i))
@@ -845,7 +850,7 @@ def get_interactionsep_and_numLISA(pathtodat, pathtosave, model, var, FIREmin=0.
             else:
                 interkey = 'intersep_{}_{}_{}_{}'.format(k1, k2, var_label, model)
                 if model == "fiducial": 
-                    _ = intersep(pathtodat, f, interkey, LISA_data)
+                    _ = intersep(pathtocosmic, f, pathtoresults, interkey, LISA_data)
                 
                 mets.extend(LISA_data.met.values)
         
@@ -861,11 +866,11 @@ def get_interactionsep_and_numLISA(pathtodat, pathtosave, model, var, FIREmin=0.
         key = 'numLISA_30bins_{}_{}'.format("FZ", model)
     else:
         key = 'numLISA_30bins_{}_{}'.format("F50", model)
-    numLISA_30bins.to_hdf(pathtosave+'results.hdf', key=key)
+    numLISA_30bins.to_hdf(pathtoresults+'results.hdf', key=key)
 
     return
 
-def get_resolvedDWDs(pathtodat, pathtosave, var, model, window=1000):
+def get_resolvedDWDs(pathtoLISA, pathtosave, var, model, window=1000):
     '''
     Creates plot files with the DWDs that have SNR>7, and notes whether or
     not they are chirping. In order to run this, there must be already-existing 
@@ -973,10 +978,10 @@ def get_resolvedDWDs(pathtodat, pathtosave, var, model, window=1000):
             
             Lsavefile = 'Lband_{}_{}_{}_{}.hdf'.format(label, var_label, model, i)
             if len(dat) == 0:
-                Ldat = pd.read_hdf(pathtodat+Lsavefile, key=Lkey)
+                Ldat = pd.read_hdf(pathtoLISA+Lsavefile, key=Lkey)
                 dat = Ldat[['mass_1', 'mass_2', 'dist_sun', 'f_gw', 'kstar_1', 'kstar_2']]
             else:
-                Ldat = pd.read_hdf(pathtodat+Lsavefile, key=Lkey)
+                Ldat = pd.read_hdf(pathtoLISA+Lsavefile, key=Lkey)
                 dat = dat.append(Ldat[['mass_1', 'mass_2', 'dist_sun', 'f_gw', 'kstar_1', 'kstar_2']])
     
     sources = source.Source(m_1=dat.mass_1.values * u.Msun, 
@@ -1006,7 +1011,7 @@ def get_resolvedDWDs(pathtodat, pathtosave, var, model, window=1000):
     
     power_dat_median = power_dat.rolling(window).median()
     power_dat_median = power_dat_median[window:]
-    if model == 'fiducial':
+    if 'fiducial' in model:
         power_dat.to_hdf(pathtosave+'results.hdf', key=Pkey)
     power_dat = []
     
@@ -1018,7 +1023,7 @@ def get_resolvedDWDs(pathtodat, pathtosave, var, model, window=1000):
                            ydata=np.log10(power_dat_median_fit.strain_2.values))
 
     
-    if model == 'fiducial':
+    if 'fiducial' in model:
         if var:
             cosmic_confusion = cosmic_confusion_var
         else:
@@ -1053,7 +1058,7 @@ def get_resolvedDWDs(pathtodat, pathtosave, var, model, window=1000):
     return
 
 
-def get_formeff(pathtodat, pathtosave):
+def get_formeff(pathtodat, pathtosave, model):
     '''
     Creates plot files with formation efficiency of DWDs. In order to
     run this, there must be already-existing LISA band files created with
@@ -1080,10 +1085,11 @@ def get_formeff(pathtodat, pathtosave):
         lenconv = []
         masslist = []
         for i in range(15):
-            if model == 'F50':
+            if model == 'fiducial':
                 ratio = ratio_05
-            elif model == 'FZ':
-                ratio = ratios[i]
+            elif model == 'fiducial_Z':
+                # this was covered in the simulations!
+                ratio = 0
             mass_binaries = pd.read_hdf(pathtodat + datfiles[i], key='mass_stars').iloc[-1]
             mass = (1 + ratio) * mass_binaries
             conv = pd.read_hdf(pathtodat + datfiles[i], key='conv')
@@ -1100,20 +1106,15 @@ def get_formeff(pathtodat, pathtosave):
     kstar2_list = ['10', '10', '11', '10_12']
     labels = ['10_10', '11_10', '11_11', '12']
 
-    eff_var = []
-    eff_05 = []
+    eff = []
     for kstar1, kstar2, label in tqdm.tqdm(zip(kstar1_list, kstar2_list, labels)):
-        files, lab = dutil.getfiles(kstar1=kstar1, kstar2=kstar2, model='fiducial')
-        eff_var.append(formeff(files, pathtodat, 'FZ'))
-        eff_05.append(formeff(files, pathtodat, 'F50'))
+        files, lab = dutil.getfiles(kstar1=kstar1, kstar2=kstar2, model=model)
+        eff.append(formeff(files, pathtodat, model))
         print('finished {}'.format(label))
 
-    DWDeff = pd.DataFrame(np.array(eff_var).T, columns=['He', 'COHe', 'CO', 'ONe'])
-
-    DWDeff05 = pd.DataFrame(np.array(eff_05).T, columns=['He', 'COHe', 'CO', 'ONe'])
-
-    DWDeff.to_hdf('../data/results.hdf', key='DWDeff_{}_{}'.format("FZ", "fiducial"))
-    DWDeff05.to_hdf('../data/results.hdf', key='DWDeff_{}_{}'.format("F50", "fiducial"))
+    DWDeff = pd.DataFrame(np.array(eff).T, columns=['He', 'COHe', 'CO', 'ONe'])
+    
+    DWDeff.to_hdf(pathtosave+'results.hdf', key='DWDeff_{}'.format(model))
 
     return
 

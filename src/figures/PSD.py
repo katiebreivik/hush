@@ -17,6 +17,7 @@ power_dat_F50 = pd.read_hdf(
 popt_F50 = pd.read_hdf("../data/results.hdf",  key="conf_fit_DWDs_{}_{}".format("F50", model))
 popt_F50 = popt_F50.values.flatten()
 
+model = "fiducial_Z"
 power_dat_FZ = pd.read_hdf(
     "../data/results.hdf", key="total_power_DWDs_{}_{}".format("FZ", model)
 )

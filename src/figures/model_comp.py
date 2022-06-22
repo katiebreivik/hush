@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import astropy.units as u
 
-models = ["log_uniform", "qcflag_4", "alpha_0.25", "alpha_5"]
-model_names = ["fiducial", "q3", "alpha25", "alpha5"]
+models = ["fiducial", "q3", "alpha25", "alpha5", "fiducial_Z", "q3_Z", "alpha25_Z", "alpha5_Z"]
+model_names = ["fiducial", "q3", "alpha25", "alpha5", "fiducial", "q3", "alpha25", "alpha5", "fiducial_Z", "q3_Z", "alpha25_Z", "alpha5_Z"]
 colors = sns.color_palette("mako", n_colors=len(models))
 
 Tobs = 4 * u.yr
@@ -32,31 +32,30 @@ popt_F50_list = []
 popt_FZ_list = []
 
 for model in model_names:
-    numsFZ = pd.read_hdf("../data/results.hdf", key="numLISA_30bins_{}_{}".format("FZ", model))
-    numsF50 = pd.read_hdf("../data/results.hdf", key="numLISA_30bins_{}_{}".format("F50", model))
-
-
-    popt_F50 = pd.read_hdf("../data/results.hdf", key="conf_fit_DWDs_{}_{}".format("F50", model))
-    popt_FZ = pd.read_hdf("../data/results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", model))
-
-    n_lisa_F50 = np.sum(numsF50.values.flatten())
-    n_lisa_FZ = np.sum(numsFZ.values.flatten())
-
-    lisa_ratio.append(n_lisa_FZ / n_lisa_F50)
-    n_lisa_F50_list.append(n_lisa_F50)
-
-    popt_F50 = popt_F50.values.flatten()
-    popt_FZ = popt_FZ.values.flatten()
-
-    popt_F50_list.append(popt_F50)
-    popt_FZ_list.append(popt_FZ)
-
+    if 'Z' in model:
+        numsFZ = pd.read_hdf("../data/results.hdf", key="numLISA_30bins_{}_{}".format("FZ", model))
+        popt_FZ = pd.read_hdf("../data/results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", model))
+        n_lisa_FZ = np.sum(numsFZ.values.flatten())
+        lisa_ratio.append(n_lisa_FZ / n_lisa_F50)
+        popt_FZ = popt_FZ.values.flatten()
+        popt_FZ_list.append(popt_FZ)
+        
+    
+    else:
+        numsF50 = pd.read_hdf("../data/results.hdf", key="numLISA_30bins_{}_{}".format("F50", model))
+        popt_F50 = pd.read_hdf("../data/results.hdf", key="conf_fit_DWDs_{}_{}".format("F50", model))
+        print(popt_F50)
+        n_lisa_F50 = np.sum(numsF50.values.flatten())
+        n_lisa_F50_list.append(n_lisa_F50)
+        popt_F50 = popt_F50.values.flatten()
+        popt_F50_list.append(popt_F50)
+        
 
 for popt_F50, popt_FZ, ii in zip(popt_F50_list, popt_FZ_list, range(len(popt_FZ_list))):
     conf_fit_FZ = (
         10
         ** func(
-            x=np.log10(np.linspace(1e-4, 1e-1, 100000)),
+            x=np.log10(np.linspace(1e-4, 1e-1, 1000)),
             a=popt_FZ[0],
             b=popt_FZ[1],
             c=popt_FZ[2],
@@ -69,7 +68,7 @@ for popt_F50, popt_FZ, ii in zip(popt_F50_list, popt_FZ_list, range(len(popt_FZ_
     conf_fit_F50 = (
         10
         ** func(
-            x=np.log10(np.linspace(1e-4, 1e-1, 100000)),
+            x=np.log10(np.linspace(1e-4, 1e-1, 1000)),
             a=popt_F50[0],
             b=popt_F50[1],
             c=popt_F50[2],
@@ -80,7 +79,7 @@ for popt_F50, popt_FZ, ii in zip(popt_F50_list, popt_FZ_list, range(len(popt_FZ_
     )
 
     ax_dict["A"].plot(
-        np.linspace(1e-4, 1e-1, 100000),
+        np.linspace(1e-4, 1e-1, 1000),
         conf_fit_F50,
         color=colors[ii],
         ls="--",
@@ -88,7 +87,7 @@ for popt_F50, popt_FZ, ii in zip(popt_F50_list, popt_FZ_list, range(len(popt_FZ_
         zorder=10 - ii,
     )
     ax_dict["A"].plot(
-        np.linspace(1e-4, 1e-1, 100000),
+        np.linspace(1e-4, 1e-1, 1000),
         conf_fit_FZ,
         color=colors[ii],
         ls="-",
@@ -96,6 +95,7 @@ for popt_F50, popt_FZ, ii in zip(popt_F50_list, popt_FZ_list, range(len(popt_FZ_
         label=model_names[ii],
     )
 
+    print(conf_fit_FZ)
 
 ax_dict["A"].set_xscale("log")
 ax_dict["A"].set_yscale("log")

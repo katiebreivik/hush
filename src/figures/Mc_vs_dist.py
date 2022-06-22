@@ -7,9 +7,10 @@ import astropy.units as u
 import seaborn as sns
 
 model = "fiducial"
+model_Z = "fiducial_Z"
 
 resolved_dat_FZ = pd.read_hdf(
-   "../data/results.hdf", key="resolved_DWDs_{}_{}".format("FZ", model)
+   "../data/results.hdf", key="resolved_DWDs_{}_{}".format("FZ", model_Z)
 )
 resolved_dat_FZ = resolved_dat_FZ.loc[resolved_dat_FZ.resolved_chirp == 1.0]
 
