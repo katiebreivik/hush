@@ -1,12 +1,12 @@
-# Snakemake temporaries
-.snakemake
-.showyourwork
+**/.snakemake
+**/.showyourwork*
 
 # Showyourwork output files
+/*.pdf
 report.html
 arxiv.tar.gz
-ms.pdf
-dag.pdf
 
-# Showyourwork yaml info 
-showyourwork.yml
+# Figure output
+src/tex/figures/*
+# Miscellaneous
+__pycache__
