@@ -5,8 +5,8 @@ import seaborn as sns
 import astropy.units as u
 import paths
 
-models = ["log_uniform", "qcflag_4", "alpha_0.25", "alpha_5"]
-model_names = ["fiducial", "q3", "alpha25", "alpha5"]
+models = ["fiducial", "q3", "alpha25", "alpha5", "fiducial_Z", "q3_Z", "alpha25_Z", "alpha5_Z"]
+model_names = ["fiducial", "q3", "alpha25", "alpha5", "fiducial", "q3", "alpha25", "alpha5", "fiducial_Z", "q3_Z", "alpha25_Z", "alpha5_Z"]
 colors = sns.color_palette("mako", n_colors=len(models))
 
 Tobs = 4 * u.yr
@@ -33,32 +33,22 @@ popt_F50_list = []
 popt_FZ_list = []
 
 for model in model_names:
-    numsFZ = pd.read_hdf(
-        paths.data / "results.hdf", key="numLISA_30bins_{}_{}".format("FZ", model)
-    )
-    numsF50 = pd.read_hdf(
-        paths.data / "results.hdf", key="numLISA_30bins_{}_{}".format("F50", model)
-    )
-
-    popt_F50 = pd.read_hdf(
-        paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("F50", model)
-    )
-    popt_FZ = pd.read_hdf(
-        paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", model)
-    )
-
-    n_lisa_F50 = np.sum(numsF50.values.flatten())
-    n_lisa_FZ = np.sum(numsFZ.values.flatten())
-
-    lisa_ratio.append(n_lisa_FZ / n_lisa_F50)
-    n_lisa_F50_list.append(n_lisa_F50)
-
-    popt_F50 = popt_F50.values.flatten()
-    popt_FZ = popt_FZ.values.flatten()
-
-    popt_F50_list.append(popt_F50)
-    popt_FZ_list.append(popt_FZ)
-
+    if 'Z' in model:
+        numsFZ = pd.read_hdf(paths.data / "results.hdf", key="numLISA_30bins_{}_{}".format("FZ", model))
+        popt_FZ = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", model))
+        n_lisa_FZ = np.sum(numsFZ.values.flatten())
+        lisa_ratio.append(n_lisa_FZ / n_lisa_F50)
+        popt_FZ = popt_FZ.values.flatten()
+        popt_FZ_list.append(popt_FZ)
+        
+    
+    else:
+        numsF50 = pd.read_hdf(paths.data / "results.hdf", key="numLISA_30bins_{}_{}".format("F50", model))
+        popt_F50 = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("F50", model))
+        n_lisa_F50 = np.sum(numsF50.values.flatten())
+        n_lisa_F50_list.append(n_lisa_F50)
+        popt_F50 = popt_F50.values.flatten()
+        popt_F50_list.append(popt_F50)
 
 for popt_F50, popt_FZ, ii in zip(popt_F50_list, popt_FZ_list, range(len(popt_FZ_list))):
     conf_fit_FZ = (
@@ -126,7 +116,7 @@ for ii in range(len(lisa_ratio)):
 ax_dict["A"].legend(prop={"size": 12}, frameon=False, loc="upper right")
 ax_dict["B"].set_xscale("log")
 ax_dict["B"].axhline(0.5, ls="--", color="silver", lw=2, zorder=0)
-ax_dict["B"].set_ylim(0.2, 0.8)
+ax_dict["B"].set_ylim(0.0, 1.0)
 ax_dict["B"].set_xlim(3e5, 1e8)
 ax_dict["B"].set_ylabel(r"N$_{\rm{LISA, FZ}}$/N$_{\rm{LISA, F50}}$", size=18)
 ax_dict["B"].set_xlabel(r"N$_{\rm{LISA, F50}}$", size=18)

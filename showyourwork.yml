@@ -1,4 +1,4 @@
-version: 0.3.0.dev2
+version: 0.3.0
 
 datasets:
   10.5281/zenodo.5722451:
@@ -21,6 +21,27 @@ datasets:
       alpha5_11_10_{{i}}.h5: src/data/alpha5_11_10_{{i}}.h5
       alpha5_11_11_{{i}}.h5: src/data/alpha5_11_11_{{i}}.h5
       alpha5_12_10_12_{{i}}.h5: src/data/alpha5_12_10_12_{{i}}.h5
+      {% endfor %}
+        
+  10.5072/zenodo.1075885:
+    contents:
+      {% for i in range(15) %}
+      fiducial_Z_10_10_{{i}}.h5: src/data/fiducial_Z_10_10_{{i}}.h5
+      fiducial_Z_11_10_{{i}}.h5: src/data/fiducial_Z_11_10_{{i}}.h5
+      fiducial_Z_11_11_{{i}}.h5: src/data/fiducial_Z_11_11_{{i}}.h5
+      fiducial_Z_12_10_12_{{i}}.h5: src/data/fiducial_Z_12_10_12_{{i}}.h5
+      q3_Z_10_10_{{i}}.h5: src/data/q3_Z_10_10_{{i}}.h5
+      q3_Z_11_10_{{i}}.h5: src/data/q3_Z_11_10_{{i}}.h5
+      q3_Z_11_11_{{i}}.h5: src/data/q3_Z_11_11_{{i}}.h5
+      q3_Z_12_10_12_{{i}}.h5: src/data/q3_Z_12_10_12_{{i}}.h5
+      alpha25_Z_10_10_{{i}}.h5: src/data/alpha25_Z_10_10_{{i}}.h5
+      alpha25_Z_11_10_{{i}}.h5: src/data/alpha25_Z_11_10_{{i}}.h5
+      alpha25_Z_11_11_{{i}}.h5: src/data/alpha25_Z_11_11_{{i}}.h5
+      alpha25_Z_12_10_12_{{i}}.h5: src/data/alpha25_Z_12_10_12_{{i}}.h5
+      alpha5_Z_10_10_{{i}}.h5: src/data/alpha5_Z_10_10_{{i}}.h5
+      alpha5_Z_11_10_{{i}}.h5: src/data/alpha5_Z_11_10_{{i}}.h5
+      alpha5_Z_11_11_{{i}}.h5: src/data/alpha5_Z_11_11_{{i}}.h5
+      alpha5_Z_12_10_12_{{i}}.h5: src/data/alpha5_Z_12_10_12_{{i}}.h5
       {% endfor %}
 
 dependencies:

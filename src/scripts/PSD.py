@@ -8,7 +8,6 @@ import paths
 def func(x, a, b, c, d, e):
     return a + b * x + c * x ** 2 + d * x ** 3 + e * x ** 4
 
-
 model = "fiducial"
 colors = ["#add0ed", "#2b5d87", "#4288c2", "#17334a"]
 Tobs = 4 * u.yr
@@ -16,17 +15,14 @@ Tobs = 4 * u.yr
 power_dat_F50 = pd.read_hdf(
     paths.data / "results.hdf", key="total_power_DWDs_{}_{}".format("F50", model)
 )
-popt_F50 = pd.read_hdf(
-    paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("F50", model)
-)
+popt_F50 = pd.read_hdf(paths.data / "results.hdf",  key="conf_fit_DWDs_{}_{}".format("F50", model))
 popt_F50 = popt_F50.values.flatten()
 
+model = "fiducial_Z"
 power_dat_FZ = pd.read_hdf(
     paths.data / "results.hdf", key="total_power_DWDs_{}_{}".format("FZ", model)
 )
-popt_FZ = pd.read_hdf(
-    paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", model)
-)
+popt_FZ = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", model))
 popt_FZ = popt_FZ.values.flatten()
 
 conf_fit_FZ = (
@@ -101,4 +97,3 @@ plt.ylim(1e-38, 5e-34)
 plt.legend(prop={"size": 12}, ncol=2, frameon=False, loc=(0, 1))
 plt.tight_layout()
 plt.savefig(paths.figures / "PSD.pdf", dpi=100)
-ax1.set_ylabel(r"PSD [Hz$^{-1}$]", size=15)

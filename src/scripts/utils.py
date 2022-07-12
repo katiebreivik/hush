@@ -13,7 +13,9 @@ def getfiles(kstar1, kstar2, model):
     ----------------------
     kstar1 [10, 11, 12]: type of first WD
     kstar2 [10, 11, 12]: type of second WD
-    model: model variation from 'fiducial', 'q3', 'alpha25', 'alpha5'
+    model: model variation from 'fiducial', 'q3', 
+           'alpha25', 'alpha5', and 'fiducial_Z', 
+           'q3_Z', 'alpha25_Z', 'alpha5_Z'
     
     RETURNS
     ----------------------
