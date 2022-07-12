@@ -5,43 +5,43 @@ datasets:
     contents:
       FIRE.h5: src/data/FIRE.h5
       {% for i in range(15) %}
-      fiducial_10_10_{{i}}.h5: src/data/fiducial_10_10_{{i}}.h5
-      fiducial_11_10_{{i}}.h5: src/data/fiducial_11_10_{{i}}.h5
-      fiducial_11_11_{{i}}.h5: src/data/fiducial_11_11_{{i}}.h5
-      fiducial_12_10_12_{{i}}.h5: src/data/fiducial_12_10_12_{{i}}.h5
-      q3_10_10_{{i}}.h5: src/data/q3_10_10_{{i}}.h5
-      q3_11_10_{{i}}.h5: src/data/q3_11_10_{{i}}.h5
-      q3_11_11_{{i}}.h5: src/data/q3_11_11_{{i}}.h5
-      q3_12_10_12_{{i}}.h5: src/data/q3_12_10_12_{{i}}.h5
-      alpha25_10_10_{{i}}.h5: src/data/alpha25_10_10_{{i}}.h5
-      alpha25_11_10_{{i}}.h5: src/data/alpha25_11_10_{{i}}.h5
-      alpha25_11_11_{{i}}.h5: src/data/alpha25_11_11_{{i}}.h5
-      alpha25_12_10_12_{{i}}.h5: src/data/alpha25_12_10_12_{{i}}.h5
-      alpha5_10_10_{{i}}.h5: src/data/alpha5_10_10_{{i}}.h5
-      alpha5_11_10_{{i}}.h5: src/data/alpha5_11_10_{{i}}.h5
-      alpha5_11_11_{{i}}.h5: src/data/alpha5_11_11_{{i}}.h5
-      alpha5_12_10_12_{{i}}.h5: src/data/alpha5_12_10_12_{{i}}.h5
+      fiducial_10_10_{{i}}.h5: src/data/cosmic_dat/fiducial_10_10_{{i}}.h5
+      fiducial_11_10_{{i}}.h5: src/data/cosmic_dat/fiducial_11_10_{{i}}.h5
+      fiducial_11_11_{{i}}.h5: src/data/cosmic_dat/fiducial_11_11_{{i}}.h5
+      fiducial_12_10_12_{{i}}.h5: src/data/cosmic_dat/fiducial_12_10_12_{{i}}.h5
+      q3_10_10_{{i}}.h5: src/data/cosmic_dat/q3_10_10_{{i}}.h5
+      q3_11_10_{{i}}.h5: src/data/cosmic_dat/q3_11_10_{{i}}.h5
+      q3_11_11_{{i}}.h5: src/data/cosmic_dat/q3_11_11_{{i}}.h5
+      q3_12_10_12_{{i}}.h5: src/data/cosmic_dat/q3_12_10_12_{{i}}.h5
+      alpha25_10_10_{{i}}.h5: src/data/cosmic_dat/alpha25_10_10_{{i}}.h5
+      alpha25_11_10_{{i}}.h5: src/data/cosmic_dat/alpha25_11_10_{{i}}.h5
+      alpha25_11_11_{{i}}.h5: src/data/cosmic_dat/alpha25_11_11_{{i}}.h5
+      alpha25_12_10_12_{{i}}.h5: src/data/cosmic_dat/alpha25_12_10_12_{{i}}.h5
+      alpha5_10_10_{{i}}.h5: src/data/cosmic_dat/alpha5_10_10_{{i}}.h5
+      alpha5_11_10_{{i}}.h5: src/data/cosmic_dat/alpha5_11_10_{{i}}.h5
+      alpha5_11_11_{{i}}.h5: src/data/cosmic_dat/alpha5_11_11_{{i}}.h5
+      alpha5_12_10_12_{{i}}.h5: src/data/cosmic_dat/alpha5_12_10_12_{{i}}.h5
       {% endfor %}
         
   10.5072/zenodo.1075885:
     contents:
       {% for i in range(15) %}
-      fiducial_Z_10_10_{{i}}.h5: src/data/fiducial_Z_10_10_{{i}}.h5
-      fiducial_Z_11_10_{{i}}.h5: src/data/fiducial_Z_11_10_{{i}}.h5
-      fiducial_Z_11_11_{{i}}.h5: src/data/fiducial_Z_11_11_{{i}}.h5
-      fiducial_Z_12_10_12_{{i}}.h5: src/data/fiducial_Z_12_10_12_{{i}}.h5
-      q3_Z_10_10_{{i}}.h5: src/data/q3_Z_10_10_{{i}}.h5
-      q3_Z_11_10_{{i}}.h5: src/data/q3_Z_11_10_{{i}}.h5
-      q3_Z_11_11_{{i}}.h5: src/data/q3_Z_11_11_{{i}}.h5
-      q3_Z_12_10_12_{{i}}.h5: src/data/q3_Z_12_10_12_{{i}}.h5
-      alpha25_Z_10_10_{{i}}.h5: src/data/alpha25_Z_10_10_{{i}}.h5
-      alpha25_Z_11_10_{{i}}.h5: src/data/alpha25_Z_11_10_{{i}}.h5
-      alpha25_Z_11_11_{{i}}.h5: src/data/alpha25_Z_11_11_{{i}}.h5
-      alpha25_Z_12_10_12_{{i}}.h5: src/data/alpha25_Z_12_10_12_{{i}}.h5
-      alpha5_Z_10_10_{{i}}.h5: src/data/alpha5_Z_10_10_{{i}}.h5
-      alpha5_Z_11_10_{{i}}.h5: src/data/alpha5_Z_11_10_{{i}}.h5
-      alpha5_Z_11_11_{{i}}.h5: src/data/alpha5_Z_11_11_{{i}}.h5
-      alpha5_Z_12_10_12_{{i}}.h5: src/data/alpha5_Z_12_10_12_{{i}}.h5
+      fiducial_Z_10_10_{{i}}.h5: src/data/cosmic_dat/fiducial_Z_10_10_{{i}}.h5
+      fiducial_Z_11_10_{{i}}.h5: src/data/cosmic_dat/fiducial_Z_11_10_{{i}}.h5
+      fiducial_Z_11_11_{{i}}.h5: src/data/cosmic_dat/fiducial_Z_11_11_{{i}}.h5
+      fiducial_Z_12_10_12_{{i}}.h5: src/data/cosmic_dat/fiducial_Z_12_10_12_{{i}}.h5
+      q3_Z_10_10_{{i}}.h5: src/data/cosmic_dat/q3_Z_10_10_{{i}}.h5
+      q3_Z_11_10_{{i}}.h5: src/data/cosmic_dat/q3_Z_11_10_{{i}}.h5
+      q3_Z_11_11_{{i}}.h5: src/data/cosmic_dat/q3_Z_11_11_{{i}}.h5
+      q3_Z_12_10_12_{{i}}.h5: src/data/cosmic_dat/q3_Z_12_10_12_{{i}}.h5
+      alpha25_Z_10_10_{{i}}.h5: src/data/cosmic_dat/alpha25_Z_10_10_{{i}}.h5
+      alpha25_Z_11_10_{{i}}.h5: src/data/cosmic_dat/alpha25_Z_11_10_{{i}}.h5
+      alpha25_Z_11_11_{{i}}.h5: src/data/cosmic_dat/alpha25_Z_11_11_{{i}}.h5
+      alpha25_Z_12_10_12_{{i}}.h5: src/data/cosmic_dat/alpha25_Z_12_10_12_{{i}}.h5
+      alpha5_Z_10_10_{{i}}.h5: src/data/cosmic_dat/alpha5_Z_10_10_{{i}}.h5
+      alpha5_Z_11_10_{{i}}.h5: src/data/cosmic_dat/alpha5_Z_11_10_{{i}}.h5
+      alpha5_Z_11_11_{{i}}.h5: src/data/cosmic_dat/alpha5_Z_11_11_{{i}}.h5
+      alpha5_Z_12_10_12_{{i}}.h5: src/data/cosmic_dat/alpha5_Z_12_10_12_{{i}}.h5
       {% endfor %}
 
 dependencies:
