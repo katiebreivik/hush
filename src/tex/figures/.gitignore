@@ -1,7 +1,5 @@
-# Don't track anything...
+# Nothing should be tracked in this folder...
 *
 
-# ... except the following:
+# Except the gitignore file itself!
 !.gitignore
-!*.py
-!matplotlibrc

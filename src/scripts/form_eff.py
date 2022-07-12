@@ -3,11 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import utils
-from showyourwork.paths import user as Paths
-
-# instantiate the paths
-paths = Paths()
-
+import paths
 
 '''
 Creates plot files with formation efficiency of DWDs. In order to
@@ -24,11 +20,14 @@ RETURNS
 ----------------------
 No direct function outputs, but saves formation efficiency data for all
 DWD types and metallicity bins to files contained in pathtosave.
+
 '''
+
 met_arr = np.logspace(np.log10(1e-4), np.log10(0.03), 15)
 met_arr = np.round(met_arr, 8)
 met_arr = np.append(0.0, met_arr)
 Z_sun = 0.02
+
 kstar1_list = ['10', '11', '11', '12']
 kstar2_list = ['10', '10', '11', '10_12']
 labels = ['10_10', '11_10', '11_11', '12']
@@ -158,6 +157,5 @@ ax[1].set_ylim(top=6)
 ax[2].set_yticks(np.arange(1, 7, 1.25))
 ax[3].set_yticks(np.arange(0.1, 0.5, 0.1))
 ax[3].set_yticklabels(['0.10', '0.20', '0.30', '0.40'])
-
 
 plt.savefig(paths.figures / "form_eff.pdf", dpi=100)

@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import astropy.units as u
 from legwork.visualisation import plot_sensitivity_curve
 from legwork import psd
-
+import paths
 
 
 def plot_LISAcurves(var, model):
@@ -31,6 +31,7 @@ def plot_LISAcurves(var, model):
 
         psd_plus_conf = conf + lisa_psd_no_conf
         return psd_plus_conf.to(u.Hz ** (-1))
+        
     resolved = pd.read_hdf(paths.data / "results.hdf", key="resolved_DWDs_{}_{}".format(var, model))
     
     popt = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format(var, model))
@@ -111,6 +112,7 @@ def plot_LISAcurves(var, model):
         ax[i].tick_params(labelsize=20)
         ax[i].set_xlabel(r'f$_{\rm{GW}}$ [Hz]', size=24)
     ax[0].set_ylabel(r'ASD [Hz$^{-1/2}$]', size=24)
+
     plt.tight_layout()
     plt.subplots_adjust(wspace=0.25)
     plt.savefig(paths.figures / "LISA_SNR_{}.pdf".format(model), dpi=100)

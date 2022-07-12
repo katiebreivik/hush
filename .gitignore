@@ -1,3 +1,4 @@
+# Snakemake and showyourwork temporaries
 **/.snakemake
 **/.showyourwork*
 
@@ -8,5 +9,6 @@ arxiv.tar.gz
 
 # Figure output
 src/tex/figures/*
+
 # Miscellaneous
 __pycache__

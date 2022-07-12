@@ -1294,4 +1294,3 @@ def get_formeff(pathtodat, pathtosave, model, var):
     DWDeff.to_hdf(pathtosave / result_file, key='DWDeff_{}'.format(model))
     
     return
-

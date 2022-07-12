@@ -3,11 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import astropy.units as u
-from showyourwork.paths import user as Paths
-
-# instantiate the paths
-paths = Paths()
-
+import paths
 
 models = ["fiducial", "q3", "alpha25", "alpha5", "fiducial_Z", "q3_Z", "alpha25_Z", "alpha5_Z"]
 model_names = ["fiducial", "q3", "alpha25", "alpha5", "fiducial", "q3", "alpha25", "alpha5", "fiducial_Z", "q3_Z", "alpha25_Z", "alpha5_Z"]
@@ -53,7 +49,6 @@ for model in model_names:
         n_lisa_F50_list.append(n_lisa_F50)
         popt_F50 = popt_F50.values.flatten()
         popt_F50_list.append(popt_F50)
-        
 
 for popt_F50, popt_FZ, ii in zip(popt_F50_list, popt_FZ_list, range(len(popt_FZ_list))):
     conf_fit_FZ = (

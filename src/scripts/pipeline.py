@@ -15,12 +15,10 @@ import astropy.coordinates as coords
 from astropy.time import Time
 import argparse
 import postproc as pp
-from showyourwork.paths import user as Paths
 from schwimmbad import MultiPool
 import h5py
 import os
-# instantiate the paths
-paths = Paths()
+import paths
 
 
 DWD_list = ['He_He', 'CO_He', 'CO_CO', 'ONe_X']

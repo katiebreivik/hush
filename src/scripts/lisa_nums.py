@@ -2,11 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
-from showyourwork.paths import user as Paths
-
-# instantiate the paths
-paths = Paths()
-
+import paths
 
 model_Z = "fiducial_Z"
 model = "fiducial"
