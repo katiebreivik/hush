@@ -1,6 +1,6 @@
-version: 0.3.0
+version: 0.3.1.dev33+gafe0936
 
-optimize_caching: true
+optimize_caching: True
 
 datasets:
   10.5281/zenodo.5722451:
