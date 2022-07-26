@@ -1,5 +1,7 @@
 version: 0.3.0
 
+optimize_caching: true
+
 datasets:
   10.5281/zenodo.5722451:
     contents:

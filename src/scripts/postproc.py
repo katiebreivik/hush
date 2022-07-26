@@ -508,27 +508,31 @@ def make_galaxy(dat, verbose=False):
     Lkey = 'Lband_{}_{}'.format(var_label, model)
     Rkey = 'rand_seed_{}_{}'.format(var_label, model)
     Lsavefile = 'Lband_{}_{}_{}_{}.hdf'.format(label, var_label, model, i)
-    
+    FIREfile = 'FIRE.h5' 
     try:
-        breakpoint()
         pd.read_hdf(pathtosave / Lsavefile, key=Lkey)
         
         return [], [], []
     except:
-        FIRE = pd.read_hdf(fire_path+'FIRE.h5').sort_values('met')
+        FIRE = pd.read_hdf(fire_path / FIREfile).sort_values('met')
     
         rand_seed = np.random.randint(0, 100, 1)
         np.random.seed(rand_seed)
         
         rand_seed = pd.DataFrame(rand_seed)
-        rand_seed.to_hdf(pathtosave+Lsavefile, key=Rkey)
+        rand_seed.to_hdf(pathtosave / Lsavefile, key=Rkey)
     
         # Choose metallicity bin
         met_start = met_arr[i] / Z_sun
         met_end = met_arr[i+1] / Z_sun
         
         # Load DWD data at formation of the second DWD component
-        conv = pd.read_hdf(pathtodat+filename, key='conv')
+        conv = pd.read_hdf(pathtodat / filename, key='conv')
+        
+        # Limit to 1000 Rsun
+        conv = conv.loc[conv.sep < 1000]
+        
+        # get bin_num indices if needed
         if 'bin_num' not in conv.columns:
             conv.index = conv.index.rename('index')
             conv['bin_num'] = conv.index.values
@@ -645,15 +649,20 @@ def make_galaxy(dat, verbose=False):
                 jlast = int(jlast)
                 if jlast > N_sample_int:
                     jlast = N_sample_int
-            #LISA_band_list = []
-            #for dat in dat_filter:
-            #    LISA_band_list.append(filter_population(dat))
-            with MultiPool(processes=nproc) as pool:
-                LISA_band_list = list(pool.map(filter_population, dat_filter))
+            LISA_band_list = []
+            if i < 13:
+                for dat in dat_filter:
+                    LISA_band_list.append(filter_population(dat))
+                for LISA_band in LISA_band_list:
+                    LISA_band = LISA_band[final_params]
+                    LISA_band.to_hdf(pathtosave / Lsavefile, key=Lkey, format='t', append=True) 
+            else:
+                with MultiPool(processes=nproc) as pool:
+                    LISA_band_list = list(pool.map(filter_population, dat_filter))
             
-            for LISA_band in LISA_band_list:
-                LISA_band = LISA_band[final_params]
-                LISA_band.to_hdf(pathtosave / Lsavefile, key=Lkey, format='t', append=True)    
+                for LISA_band in LISA_band_list:
+                    LISA_band = LISA_band[final_params]
+                    LISA_band.to_hdf(pathtosave / Lsavefile, key=Lkey, format='t', append=True)    
            
         if N != N_sample_int:
             print('loop is incorrect')
@@ -709,7 +718,7 @@ def save_full_galaxy(DWD_list, pathtodat, fire_path, pathtosave, interfile, mode
     # binary fraction and binary fraction of 0.5
     
     dat = []
-    
+    dat_long = []
     for DWD in DWD_list:
         if DWD == 'He_He':
             kstar1 = '10'
@@ -732,10 +741,16 @@ def save_full_galaxy(DWD_list, pathtodat, fire_path, pathtosave, interfile, mode
             else:
                 dat_list = [pathtodat, fire_path, pathtosave, f, i, label, ratio_05, 0.5, interfile, model, nproc]
 
-            dat.append(dat_list)
+            if i < 13:
+                dat.append(dat_list)
+            else:
+                dat_long.append(dat_list)
             i += 1
     
-    for d in dat:
+    with MultiPool(processes=nproc) as pool:
+        _ = list(pool.map(make_galaxy, dat))
+            
+    for d in dat_long:
         _ = make_galaxy(d)
     
     return
@@ -765,7 +780,7 @@ def get_interactionsep_and_numLISA(pathtocosmic, pathtoLISA, pathtoresults, mode
         if 'bin_num' not in dat.columns:
             dat.index = dat.index.rename('index')
             dat['bin_num'] = dat.index.values
-        dat = dat[['tphys', 'evol_type', 'sep', 'bin_num']]
+        dat = dat[['tphys', 'evol_type', 'sep', 'mass_1', 'mass_2', 'porb', 'bin_num']]
     
         RLOFsep = dat.loc[dat.evol_type==3].groupby('bin_num', as_index=False).first()
         RLOFsep = RLOFsep.loc[RLOFsep.bin_num.isin(LISA_data.bin_num)]
@@ -779,11 +794,15 @@ def get_interactionsep_and_numLISA(pathtocosmic, pathtoLISA, pathtoresults, mode
     
         dat = []
         data_RLOF['CEsep'] = np.repeat(CEsep['sep'], CEsep['weights']).values
+        data_RLOF['CEporb'] = np.repeat(CEsep['porb'], CEsep['weights']).values
+        data_RLOF['CEmass1'] = np.repeat(CEsep['mass_1'], CEsep['weights']).values
+        data_RLOF['CEmass2'] = np.repeat(CEsep['mass_2'], CEsep['weights']).values
         data_RLOF['CEtime'] = np.repeat(CEsep['tphys'], CEsep['weights']).values
         data_RLOF['RLOFsep'] = np.repeat(RLOFsep['sep'], RLOFsep['weights']).values
         data_RLOF['RLOFtime'] = np.repeat(RLOFsep['tphys'], RLOFsep['weights']).values
         
-        data_RLOF = data_RLOF[['CEsep', 'CEtime', 'RLOFsep', 'RLOFtime', 'met']]    
+        data_RLOF = data_RLOF[['CEsep', 'CEporb', 'CEmass1', 'CEmass2', 'CEtime', 'RLOFsep', 'RLOFtime', 'met']]    
+        print('CEsep results path: ', pathtoresults)
         data_RLOF.to_hdf(pathtoresults / result_file, key=interkey, append=True) 
         return
     
@@ -842,6 +861,8 @@ def get_interactionsep_and_numLISA(pathtocosmic, pathtoLISA, pathtoresults, mode
         key = 'numLISA_30bins_{}_{}'.format("FZ", model)
     else:
         key = 'numLISA_30bins_{}_{}'.format("F50", model)
+    print('numLISA results path: ', pathtoresults)
+
     numLISA_30bins.to_hdf(pathtoresults / result_file, key=key)
     
     return
@@ -1156,10 +1177,10 @@ def get_resolvedDWDs(pathtoLISA, pathtosave, var, model, window):
     
     power_dat_median = power_dat.rolling(window).median()
     power_dat_median = power_dat_median[window:]
-    power_dat_downsample = power_dat.sample(int(len(power_dat)/5), replace=False)
+    power_dat_downsample = power_dat.sample(int(len(power_dat)/10), replace=False)
     power_dat_downsample = power_dat_downsample.sort_values('f_gw')
     power_dat_downsample.to_hdf(pathtosave / result_file, key=Pkey)
-    power_dat.to_hdf(pathtoLISA / result_file, key=Pkey)
+    #power_dat.to_hdf(pathtoLISA / result_file, key=Pkey)
     power_dat = []
     
     dat = dat[['mass_1', 'mass_2', 'dist_sun', 'f_gw', 'kstar_1', 'kstar_2', 'h_0']]
@@ -1265,7 +1286,7 @@ def get_formeff(pathtodat, pathtosave, model, var):
             mass_binaries = pd.read_hdf(pathtodat / datfiles[i], key='mass_stars').iloc[-1]
             mass = (1 + ratio) * mass_binaries
             conv = pd.read_hdf(pathtodat / datfiles[i], key='conv')
-
+            conv = conv.loc[conv.sep < 1000]
             masslist.append(mass)
             lenconv.append(len(conv))
 
@@ -1282,7 +1303,7 @@ def get_formeff(pathtodat, pathtosave, model, var):
     for kstar1, kstar2, label in tqdm.tqdm(zip(kstar1_list, kstar2_list, labels)):
         files, lab = dutil.getfiles(kstar1=kstar1, kstar2=kstar2, model=model)
         eff.append(formeff(files, pathtodat, model))
-        print('finished {}'.format(label))
+        #print('finished {}'.format(label))
     
     if var:
         var_label='FZ'
@@ -1290,7 +1311,7 @@ def get_formeff(pathtodat, pathtosave, model, var):
         var_label='F50'
     result_file = 'results_{}_{}.hdf'.format(var_label, model)
     DWDeff = pd.DataFrame(np.array(eff).T, columns=['He', 'COHe', 'CO', 'ONe'])
-    
+    print('DWDEff results save', pathtosave)
     DWDeff.to_hdf(pathtosave / result_file, key='DWDeff_{}'.format(model))
     
     return
