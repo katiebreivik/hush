@@ -2,10 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import astropy.units as u
-from showyourwork.paths import user as Paths
-
-# instantiate the paths
-paths = Paths()
+import paths
 
 
 def func(x, a, b, c, d, e):

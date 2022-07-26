@@ -5,20 +5,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import astropy.units as u
 import seaborn as sns
-from showyourwork.paths import user as Paths
-
-# instantiate the paths
-paths = Paths()
-
+import paths
 
 model = "fiducial"
 model_Z = "fiducial_Z"
 
 resolved_dat_FZ = pd.read_hdf(
    paths.data / "results.hdf", key="resolved_DWDs_{}_{}".format("FZ", model_Z)
+
 )
 resolved_dat_FZ = resolved_dat_FZ.loc[resolved_dat_FZ.resolved_chirp == 1.0]
-
 resolved_dat_F50 = pd.read_hdf(
     paths.data / "results.hdf", key="resolved_DWDs_{}_{}".format("F50", model)
 )

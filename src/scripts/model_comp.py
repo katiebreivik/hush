@@ -3,11 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import astropy.units as u
-from showyourwork.paths import user as Paths
-
-# instantiate the paths
-paths = Paths()
-
+import paths
 
 models = ["fiducial", "q3", "alpha25", "alpha5", "fiducial_Z", "q3_Z", "alpha25_Z", "alpha5_Z"]
 model_names = ["fiducial", "q3", "alpha25", "alpha5", "fiducial_Z", "q3_Z", "alpha25_Z", "alpha5_Z"]

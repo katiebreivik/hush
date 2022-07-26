@@ -6,10 +6,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
-from showyourwork.paths import user as Paths
-
-# instantiate the paths
-paths = Paths()
+import paths
 
 
 def get_FeH_from_Z(Z, Z_sun=0.02):
@@ -103,7 +100,7 @@ ax.legend(
     borderaxespad=0,
     frameon=False,
 )
-   
+
 ax.set_zorder(ax2.get_zorder() + 1)
 ax.patch.set_visible(False)
 ax.set_xlabel("Log$_{10}$(Z/Z$_\odot$)", size=18)
