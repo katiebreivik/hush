@@ -1,4 +1,4 @@
-version: 0.3.1.dev33+gafe0936
+version: 0.3.1
 
 optimize_caching: True
 
