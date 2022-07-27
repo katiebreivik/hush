@@ -10,7 +10,6 @@ import astropy.coordinates as coord
 from astropy.coordinates import SkyCoord
 from scipy.interpolate import interp1d, UnivariateSpline
 from scipy.optimize import curve_fit
-import tqdm
 from schwimmbad import MultiPool
 
 from legwork import psd, strain, utils
@@ -1297,7 +1296,7 @@ def get_formeff(pathtodat, pathtosave, model, var):
     labels = ['10_10', '11_10', '11_11', '12']
 
     eff = []
-    for kstar1, kstar2, label in tqdm.tqdm(zip(kstar1_list, kstar2_list, labels)):
+    for kstar1, kstar2, label in zip(kstar1_list, kstar2_list, labels):
         files, lab = dutil.getfiles(kstar1=kstar1, kstar2=kstar2, model=model)
         eff.append(formeff(files, pathtodat, model))
     
