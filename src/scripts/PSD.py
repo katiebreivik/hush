@@ -17,16 +17,16 @@ for i, model in enumerate(models):
     Tobs = 4 * u.yr
 
     power_dat_F50 = pd.read_hdf(
-        "../data/results.hdf", key="total_power_DWDs_{}_{}".format("F50", model)
+        paths.data / "results.hdf", key="total_power_DWDs_{}_{}".format("F50", model)
     )
-    popt_F50 = pd.read_hdf("../data/results.hdf",  key="conf_fit_DWDs_{}_{}".format("F50", model))
+    popt_F50 = pd.read_hdf(paths.data / "results.hdf",  key="conf_fit_DWDs_{}_{}".format("F50", model))
     popt_F50 = popt_F50.values.flatten()
 
     model = model + "_Z"
     power_dat_FZ = pd.read_hdf(
-        "../data/results.hdf", key="total_power_DWDs_{}_{}".format("FZ", model)
+        paths.data / "results.hdf", key="total_power_DWDs_{}_{}".format("FZ", model)
     )
-    popt_FZ = pd.read_hdf("../data/results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", model))
+    popt_FZ = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", model))
     popt_FZ = popt_FZ.values.flatten()
 
     conf_fit_FZ = (

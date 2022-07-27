@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.ticker import AutoMinorLocator
+import paths
 
 FIREmin = 0.00015
 FIREmax = 13.346
@@ -15,8 +16,8 @@ model_labels = ["fiducial", "$q3$", "$\\alpha 25$", "$\\alpha 5$"]
 
 for m, model in enumerate(models):
     model_Z = model + "_Z"
-    numsFZ = pd.read_hdf("../data/results.hdf", key="numLISA_30bins_{}_{}".format("FZ", model_Z))
-    numsF50 = pd.read_hdf("../data/results.hdf", key="numLISA_30bins_{}_{}".format("F50", model))
+    numsFZ = pd.read_hdf(paths.data / "results.hdf", key="numLISA_30bins_{}_{}".format("FZ", model_Z))
+    numsF50 = pd.read_hdf(paths.data / "results.hdf", key="numLISA_30bins_{}_{}".format("F50", model))
 
     Henums = numsFZ.He.values
     COHenums = numsFZ.COHe.values

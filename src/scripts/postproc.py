@@ -802,7 +802,6 @@ def get_interactionsep_and_numLISA(pathtocosmic, pathtoLISA, pathtoresults, mode
         data_RLOF['RLOFtime'] = np.repeat(RLOFsep['tphys'], RLOFsep['weights']).values
         
         data_RLOF = data_RLOF[['CEsep', 'CEporb', 'CEmass1', 'CEmass2', 'CEtime', 'RLOFsep', 'RLOFtime', 'met']]    
-        print('CEsep results path: ', pathtoresults)
         data_RLOF.to_hdf(pathtoresults / result_file, key=interkey, append=True) 
         return
     
@@ -861,7 +860,6 @@ def get_interactionsep_and_numLISA(pathtocosmic, pathtoLISA, pathtoresults, mode
         key = 'numLISA_30bins_{}_{}'.format("FZ", model)
     else:
         key = 'numLISA_30bins_{}_{}'.format("F50", model)
-    print('numLISA results path: ', pathtoresults)
 
     numLISA_30bins.to_hdf(pathtoresults / result_file, key=key)
     
@@ -1242,7 +1240,6 @@ def get_resolvedDWDs(pathtoLISA, pathtosave, var, model, window):
     
     dat.to_hdf(pathtosave / result_file, key=Rkey)    
     sources_conf = []
-    print('sources written')
     
     dat = []
     popt_df = pd.DataFrame(popt)
@@ -1303,7 +1300,6 @@ def get_formeff(pathtodat, pathtosave, model, var):
     for kstar1, kstar2, label in tqdm.tqdm(zip(kstar1_list, kstar2_list, labels)):
         files, lab = dutil.getfiles(kstar1=kstar1, kstar2=kstar2, model=model)
         eff.append(formeff(files, pathtodat, model))
-        #print('finished {}'.format(label))
     
     if var:
         var_label='FZ'
@@ -1311,7 +1307,6 @@ def get_formeff(pathtodat, pathtosave, model, var):
         var_label='F50'
     result_file = 'results_{}_{}.hdf'.format(var_label, model)
     DWDeff = pd.DataFrame(np.array(eff).T, columns=['He', 'COHe', 'CO', 'ONe'])
-    print('DWDEff results save', pathtosave)
     DWDeff.to_hdf(pathtosave / result_file, key='DWDeff_{}'.format(model))
     
     return

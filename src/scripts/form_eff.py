@@ -2,6 +2,7 @@ from matplotlib.ticker import AutoMinorLocator
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import paths
 
 '''
 Creates plot files with formation efficiency of DWDs. In order to
@@ -26,7 +27,7 @@ Z_sun = 0.02
 kstar1_list = ['10', '11', '11', '12']
 kstar2_list = ['10', '10', '11', '10_12']
 labels = ['10_10', '11_10', '11_11', '12']
-pathtodat = "../data/"
+pathtodat = paths.data
 
 models = ["fiducial", "q3", "alpha25", "alpha5"]
 model_labels = ["fiducial", "$q3$", "$\\alpha 25$", "$\\alpha 5$"]
@@ -34,8 +35,8 @@ model_labels = ["fiducial", "$q3$", "$\\alpha 25$", "$\\alpha 5$"]
 for m, model_F50 in enumerate(models):
     model_FZ = model_F50 + "_Z"
 
-    DWDeff = pd.read_hdf(pathtodat+'results.hdf', key='DWDeff_{}'.format(model_FZ))
-    DWDeff05 = pd.read_hdf(pathtodat+'results.hdf', key='DWDeff_{}'.format(model_F50))
+    DWDeff = pd.read_hdf(pathtodat / 'results.hdf', key='DWDeff_{}'.format(model_FZ))
+    DWDeff05 = pd.read_hdf(pathtodat / 'results.hdf', key='DWDeff_{}'.format(model_F50))
 
     effHe = DWDeff.He.values
     effCOHe = DWDeff.COHe.values
@@ -157,14 +158,17 @@ for m, model_F50 in enumerate(models):
         ax[0].set_ylim(top=2.6)
         ax[1].set_yticks(np.arange(1.5, 10.0, 1.))
         ax[1].set_ylim(1.4, 5.7)
-        ax[2].set_yticks(np.arange(1., 7., 1.))
-        ax[2].set_yticklabels(['1.0', '2.0', '3.0', '4.0', '5.0', '6.0'])
-        ax[2].set_ylim(top=6.2)
+        #ax[2].set_yticks(np.arange(1., 7., 1.))
+        #ax[2].set_yticklabels(['1.0', '2.0', '3.0', '4.0', '5.0', '6.0'])
+        ax[2].set_ylim(top=3.2)
         ax[3].set_yticks(np.arange(0.1, 0.5, 0.1))
         ax[3].set_yticklabels(['0.1', '0.2', '0.3', '0.4'])
         ax[3].set_ylim(top=0.415)
 
     if "q3" in model_F50:
         ax[2].set_ylim(bottom=5)
+        
+    if "alpha25" in model_F50:
+        
 
     plt.savefig("form_eff_{}.pdf".format(model_F50), dpi=100)

@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import astropy.units as u
+import paths 
 
 models = ["fiducial", "q3", "alpha25", "alpha5", "fiducial_Z", "q3_Z", "alpha25_Z", "alpha5_Z"]
 model_names = ["fiducial", "q3", "alpha25", "alpha5", "fiducial", "q3", "alpha25", "alpha5", "fiducial_Z", "q3_Z", "alpha25_Z", "alpha5_Z"]
@@ -34,8 +35,8 @@ popt_FZ_list = []
 
 for model in model_names:
     if 'Z' in model:
-        numsFZ = pd.read_hdf("../data/results.hdf", key="numLISA_30bins_{}_{}".format("FZ", model))
-        popt_FZ = pd.read_hdf("../data/results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", model))
+        numsFZ = pd.read_hdf(paths.data / "results.hdf", key="numLISA_30bins_{}_{}".format("FZ", model))
+        popt_FZ = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", model))
         n_lisa_FZ = np.sum(numsFZ.values.flatten())
         print('\n'+ model)
         print('n_lisa_FZ: ', n_lisa_FZ)
@@ -46,8 +47,8 @@ for model in model_names:
         
     
     else:
-        numsF50 = pd.read_hdf("../data/results.hdf", key="numLISA_30bins_{}_{}".format("F50", model))
-        popt_F50 = pd.read_hdf("../data/results.hdf", key="conf_fit_DWDs_{}_{}".format("F50", model))
+        numsF50 = pd.read_hdf(paths.data / "results.hdf", key="numLISA_30bins_{}_{}".format("F50", model))
+        popt_F50 = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("F50", model))
         #print(popt_F50)
         n_lisa_F50 = np.sum(numsF50.values.flatten())
         print('\n'+ model)

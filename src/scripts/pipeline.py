@@ -66,7 +66,7 @@ for model in models:
     
 with MultiPool(processes=nproc_results) as pool:
     _ = list(pool.map(get_results, dat))
-             
+            
 for model in models:
     if 'Z' in model:
         var_label = 'FZ'
