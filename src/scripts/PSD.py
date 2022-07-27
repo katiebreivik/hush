@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import astropy.units as u
-
+import paths
 
 def func(x, a, b, c, d, e):
     return a + b * x + c * x ** 2 + d * x ** 3 + e * x ** 4
@@ -12,7 +12,6 @@ names = ["fiducial", "$q3$", "$\\alpha25$", "$\\alpha5$"]
 
 fig, ax = plt.subplots(1, 4, figsize=(25, 5))
 for i, model in enumerate(models):
-    print(model)
     colors = ["#add0ed", "#2b5d87", "#4288c2", "#17334a"]
     Tobs = 4 * u.yr
 
