@@ -105,4 +105,4 @@ for i, model in enumerate(models):
 
 plt.subplots_adjust(wspace=0.25)
 plt.tight_layout()
-plt.savefig("PSD.pdf".format(model), dpi=100)
+plt.savefig(paths.figures / "PSD.pdf".format(model), dpi=100)

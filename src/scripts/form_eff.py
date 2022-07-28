@@ -168,7 +168,4 @@ for m, model_F50 in enumerate(models):
     if "q3" in model_F50:
         ax[2].set_ylim(bottom=5)
         
-    if "alpha25" in model_F50:
-        
-
-    plt.savefig("form_eff_{}.pdf".format(model_F50), dpi=100)
+    plt.savefig(paths.figures / "form_eff_{}.pdf".format(model_F50), dpi=100)

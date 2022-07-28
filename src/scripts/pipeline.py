@@ -75,10 +75,6 @@ for model in models:
     result_file = 'results_{}_{}.hdf'.format(var_label, model)
     file = h5py.File(results_path / result_file, "r")
     for key in file.keys():
-        if ('fiducial' in model) & ('total_power' in key):
-            df = pd.read_hdf(results_path / result_file, key)
-            df.to_hdf(results_path / 'results.hdf', key=key)
-        elif 'total_power' not in key:
-            df = pd.read_hdf(results_path / result_file, key)
-            df.to_hdf(results_path / 'results.hdf', key=key)
+        df = pd.read_hdf(results_path / result_file, key)
+        df.to_hdf(results_path / 'results.hdf', key=key)
         #os.remove(results_path / result_file)

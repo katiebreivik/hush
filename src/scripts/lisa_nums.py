@@ -150,4 +150,4 @@ for m, model in enumerate(models):
         ax[1].set_yticklabels(np.arange(0, 20, 4).astype(float).astype(str))
         ax[3].set_ylim(top=0.81)
 
-    plt.savefig("lisa_nums_{}.pdf".format(model), dpi=100)
+    plt.savefig(paths.figures / "lisa_nums_{}.pdf".format(model), dpi=100)
