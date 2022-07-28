@@ -3,7 +3,7 @@ version: eb3eb4be365dcc08769782c90b35c2be0c58a6cf
 optimize_caching: true
 
 datasets:
-  10.5281/zenodo.5722451:
+  10.5281/zenodo.1089484:
     contents:
       FIRE.h5: src/data/FIRE.h5
       {% for i in range(15) %}
@@ -24,9 +24,6 @@ datasets:
       alpha5_11_11_{{i}}.h5: src/data/cosmic_dat/alpha5_11_11_{{i}}.h5
       alpha5_12_10_12_{{i}}.h5: src/data/cosmic_dat/alpha5_12_10_12_{{i}}.h5
       {% endfor %}
-        
-  10.5072/zenodo.1075885:
-    contents:
       {% for i in range(15) %}
       fiducial_Z_10_10_{{i}}.h5: src/data/cosmic_dat/fiducial_Z_10_10_{{i}}.h5
       fiducial_Z_11_10_{{i}}.h5: src/data/cosmic_dat/fiducial_Z_11_10_{{i}}.h5
