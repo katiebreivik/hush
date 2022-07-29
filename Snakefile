@@ -43,6 +43,6 @@ rule results:
     cache:
         True
     output:
-        "src/data/results.hdf"
+        temp("src/data/results.hdf")
     script:
         "src/scripts/pipeline.py"
