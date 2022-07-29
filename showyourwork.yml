@@ -3,7 +3,7 @@ version: eb3eb4be365dcc08769782c90b35c2be0c58a6cf
 optimize_caching: true
 
 datasets:
-  10.5281/zenodo.1089484:
+  10.5072/zenodo.1089603:
     contents:
       FIRE.h5: src/data/FIRE.h5
       {% for i in range(15) %}
