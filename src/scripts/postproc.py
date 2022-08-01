@@ -1309,3 +1309,26 @@ def get_formeff(pathtodat, pathtosave, model, var):
     DWDeff.to_hdf(pathtosave / result_file, key='DWDeff_{}'.format(model))
     
     return
+
+def get_FIRE_met_dat(FIRE_path, pathtosave):
+    FIRE = pd.read_hdf(FIRE_path / "FIRE.h5")
+    met_arr = np.logspace(np.log10(1e-4), np.log10(0.03), 15)
+    met_arr = np.round(met_arr, 8)
+    met_arr = np.append(0.0, met_arr)
+    
+    Z_sun = 0.02
+
+    bins = np.append(met_arr[1:-1] / Z_sun, FIRE.met.max())
+    bins = np.append(FIRE.met.min(), bins)
+    bins = np.log10(bins)
+    
+    
+    hist, bin_edges = np.histogram(np.log10(FIRE.met), bins=bins) 
+
+    hist = pd.DataFrame(hist)
+    hist.to_hdf(pathtosave / "results.hdf", key='FIRE_mets')
+    bins = pd.DataFrame(bins)
+    hist.to_hdf(pathtosave / "results.hdf", key='FIRE_bins')
+    return
+    
+    

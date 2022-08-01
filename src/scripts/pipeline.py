@@ -30,13 +30,19 @@ models = ['fiducial', 'fiducial_Z', 'alpha25', 'alpha25_Z', 'alpha5', 'alpha5_Z'
 interfile = False
 nproc_gx = 28
 nproc_results = len(models)
+  
+
+# Get the FIRE metallicity data for the results file
+pp.get_FIRE_met_dat(FIRE_path, results_path)
     
+# Generate Milky Way galaxies for each model
 for model in models:
     pp.save_full_galaxy(
         DWD_list, dat_path, FIRE_path, LISA_path, interfile, model, nproc_gx
     )
     print('Gx done!')
-    
+
+# Get the results for each model
 def get_results(dat):
     
     dat_path, LISA_path, results_path, var, model, window = dat
@@ -66,7 +72,8 @@ for model in models:
     
 with MultiPool(processes=nproc_results) as pool:
     _ = list(pool.map(get_results, dat))
-            
+    
+#Save the results into a single file            
 for model in models:
     if 'Z' in model:
         var_label = 'FZ'

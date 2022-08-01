@@ -59,15 +59,15 @@ met_arr = np.append(0.0, met_arr)
 
 Z_sun = 0.02
 
-FIRE = pd.read_hdf(paths.data / "FIRE.h5")
+hist = pd.read_hdf(pathtosave / "results.hdf", key='FIRE_mets')
+bins = pd.read_hdf(pathtosave / "results.hdf", key='FIRE_bins')
+
 fig, ax = plt.subplots()
 plt.grid(lw=0.25, which="both")
-bins = np.append(met_arr[1:-1] / Z_sun, FIRE.met.max())
-bins = np.append(FIRE.met.min(), bins)
-bins = np.log10(bins)
 ax2 = ax.twinx()
-h, bins, _ = ax2.hist(
-    np.log10(FIRE.met),
+
+ax2.stairs(
+    hist,
     bins=bins,
     histtype="step",
     lw=2,
