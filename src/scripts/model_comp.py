@@ -15,6 +15,7 @@ Tobs = 4 * u.yr
 def func(x, a, b, c, d, e):
     return a + b * x + c * x ** 2 + d * x ** 3 + e * x ** 4
 
+verbose=False
 
 mosaic = """
 AA
@@ -38,8 +39,9 @@ for model in model_names:
         numsFZ = pd.read_hdf(paths.data / "results.hdf", key="numLISA_30bins_{}_{}".format("FZ", model))
         popt_FZ = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", model))
         n_lisa_FZ = np.sum(numsFZ.values.flatten())
-        print('\n'+ model)
-        print('n_lisa_FZ: ', n_lisa_FZ)
+        if verbose:
+            print('\n'+ model)
+            print('n_lisa_FZ: ', n_lisa_FZ)
         n_lisa_FZ_list.append(n_lisa_FZ)
         lisa_ratio.append(n_lisa_FZ / n_lisa_F50)
         popt_FZ = popt_FZ.values.flatten()
@@ -49,10 +51,10 @@ for model in model_names:
     else:
         numsF50 = pd.read_hdf(paths.data / "results.hdf", key="numLISA_30bins_{}_{}".format("F50", model))
         popt_F50 = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("F50", model))
-        #print(popt_F50)
         n_lisa_F50 = np.sum(numsF50.values.flatten())
-        print('\n'+ model)
-        print('n_lisa_F50: ', n_lisa_F50)
+        if verbose:
+            print('\n'+ model)
+            print('n_lisa_F50: ', n_lisa_F50)
         n_lisa_F50_list.append(n_lisa_F50)
         popt_F50 = popt_F50.values.flatten()
         popt_F50_list.append(popt_F50)
