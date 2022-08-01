@@ -23,8 +23,6 @@ datasets:
       alpha5_11_10_{{i}}.h5: src/data/cosmic_dat/alpha5_11_10_{{i}}.h5
       alpha5_11_11_{{i}}.h5: src/data/cosmic_dat/alpha5_11_11_{{i}}.h5
       alpha5_12_10_12_{{i}}.h5: src/data/cosmic_dat/alpha5_12_10_12_{{i}}.h5
-      {% endfor %}
-      {% for i in range(15) %}
       fiducial_Z_10_10_{{i}}.h5: src/data/cosmic_dat/fiducial_Z_10_10_{{i}}.h5
       fiducial_Z_11_10_{{i}}.h5: src/data/cosmic_dat/fiducial_Z_11_10_{{i}}.h5
       fiducial_Z_11_11_{{i}}.h5: src/data/cosmic_dat/fiducial_Z_11_11_{{i}}.h5
@@ -45,7 +43,7 @@ datasets:
 
 dependencies:
   src/scripts/sfh_vs_fb.py:
-    - src/data/FIRE.h5
+    - src/data/results.hdf
 
   src/scripts/form_eff.py:
     - src/data/results.hdf
