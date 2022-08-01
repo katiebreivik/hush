@@ -59,20 +59,20 @@ met_arr = np.append(0.0, met_arr)
 
 Z_sun = 0.02
 
-hist = pd.read_hdf(pathtosave / "results.hdf", key='FIRE_mets')
-bins = pd.read_hdf(pathtosave / "results.hdf", key='FIRE_bins')
+hist = pd.read_hdf(paths.data / "results.hdf", key='FIRE_mets')
+bins = pd.read_hdf(paths.data / "results.hdf", key='FIRE_bins')
 
 fig, ax = plt.subplots()
 plt.grid(lw=0.25, which="both")
 ax2 = ax.twinx()
 
 ax2.stairs(
-    hist,
-    bins=bins,
-    histtype="step",
+    hist.values.flatten(),
+    bins.values.flatten(),
+    fill=False,
     lw=2,
     color="xkcd:tomato red",
-    label="Latte m12i",
+    label="Latte m12i"
 )
 ax2.set_yscale("log")
 ax2.legend(
@@ -90,9 +90,11 @@ ax.scatter(
     zorder=2,
     label="COSMIC Z grid",
 )
-met_plot = np.linspace(FIRE.met.min() * Z_sun, FIRE.met.max() * Z_sun, 10000)
+FIRE_met_min = 0.000149
+FIRE_met_max = 13.34559
+met_plot = np.linspace(FIRE_met_min * Z_sun, FIRE_met_max * Z_sun, 10000)
 ax.plot(np.log10(met_plot / Z_sun), get_binfrac_of_Z(met_plot), color="k", label="FZ")
-ax.set_xlim(bins[1] - 0.17693008, bins[-2] + 2 * 0.17693008)
+ax.set_xlim(bins.values[1] - 0.17693008, bins.values[-2] + 2 * 0.17693008)
 ax.legend(
     loc="lower left",
     bbox_to_anchor=(-0.07, 1.01),

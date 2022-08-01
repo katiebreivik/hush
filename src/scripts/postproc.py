@@ -1327,8 +1327,8 @@ def get_FIRE_met_dat(FIRE_path, pathtosave):
 
     hist = pd.DataFrame(hist)
     hist.to_hdf(pathtosave / "results.hdf", key='FIRE_mets')
-    bins = pd.DataFrame(bins)
-    hist.to_hdf(pathtosave / "results.hdf", key='FIRE_bins')
+    bin_edges = pd.DataFrame(bin_edges)
+    bin_edges.to_hdf(pathtosave / "results.hdf", key='FIRE_bins')
     return
     
     
