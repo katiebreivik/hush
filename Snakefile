@@ -33,7 +33,8 @@ for i in range(15):
             f"src/data/cosmic_dat/alpha5_Z_10_10_{i}.h5",
             f"src/data/cosmic_dat/alpha5_Z_11_10_{i}.h5",
             f"src/data/cosmic_dat/alpha5_Z_11_11_{i}.h5",
-            f"src/data/cosmic_dat/alpha5_Z_12_10_12_{i}.h5"
+            f"src/data/cosmic_dat/alpha5_Z_12_10_12_{i}.h5",
+            f"src/data/FIRE.h5"
         ]
     )
 

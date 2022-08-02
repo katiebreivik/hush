@@ -66,3 +66,5 @@ dependencies:
   src/scripts/model_comp.py:
     - src/data/results.hdf
 
+  src/scripts/pipeline.py:
+    - src/scripts/postproc.py
