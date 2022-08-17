@@ -1,4 +1,8 @@
 import numpy as np
+import paths
+import astropy.units as u
+import pandas as pd
+from legwork import psd
 
 #===================================================================================
 # File and Organizing Functions:
@@ -63,6 +67,7 @@ def get_binfrac_of_Z(Z):
     binfrac = np.append(binfrac_low, binfrac_high)
     return binfrac
 
+
 def get_Z_from_FeH(FeH, Z_sun=0.02):
     '''
     Converts from FeH to Z under the assumption that
@@ -80,6 +85,7 @@ def get_Z_from_FeH(FeH, Z_sun=0.02):
     Z = 10**(FeH + np.log10(Z_sun))
     return Z
 
+
 def get_FeH_from_Z(Z, Z_sun=0.02):
     '''
     Converts from Z to FeH under the assumption that
@@ -96,3 +102,157 @@ def get_FeH_from_Z(Z, Z_sun=0.02):
     '''
     FeH = np.log10(Z) - np.log10(Z_sun)
     return FeH
+
+
+def func(x, a, b, c, d, e):
+        return a + b*x + c*x**2 + d*x**3 + e*x**4
+
+    
+def cosmic_confusion_var_fiducial(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
+    popt = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", "fiducial_Z"))
+    popt = popt.values.flatten()
+
+    lisa_psd_no_conf = psd.power_spectral_density(
+        f, confusion_noise=None, t_obs=4 * u.yr
+    )
+    conf = 10 ** func(
+        x=np.log10(f.value),
+        a=popt[0],
+        b=popt[1],
+        c=popt[2],
+        d=popt[3],
+        e=popt[4]
+    ) * t_obs.to(u.s)
+
+    psd_plus_conf = conf + lisa_psd_no_conf
+    return psd_plus_conf.to(u.Hz ** (-1))
+
+def cosmic_confusion_var_alpha25(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
+    popt = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", "alpha25_Z"))
+    popt = popt.values.flatten()
+
+    lisa_psd_no_conf = psd.power_spectral_density(
+        f, confusion_noise=None, t_obs=4 * u.yr
+    )
+    conf = 10 ** func(
+        x=np.log10(f.value),
+        a=popt[0],
+        b=popt[1],
+        c=popt[2],
+        d=popt[3],
+        e=popt[4]
+    ) * t_obs.to(u.s)
+
+    psd_plus_conf = conf + lisa_psd_no_conf
+    return psd_plus_conf.to(u.Hz ** (-1))
+
+def cosmic_confusion_var_alpha5(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
+    popt = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", "alpha5_Z"))
+    popt = popt.values.flatten()
+
+    lisa_psd_no_conf = psd.power_spectral_density(
+        f, confusion_noise=None, t_obs=4 * u.yr
+    )
+    conf = 10 ** func(
+        x=np.log10(f.value),
+        a=popt[0],
+        b=popt[1],
+        c=popt[2],
+        d=popt[3],
+        e=popt[4]
+    ) * t_obs.to(u.s)
+
+    psd_plus_conf = conf + lisa_psd_no_conf
+    return psd_plus_conf.to(u.Hz ** (-1))
+
+def cosmic_confusion_var_q3(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
+    popt = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("FZ", "q3_Z"))
+    popt = popt.values.flatten()
+    lisa_psd_no_conf = psd.power_spectral_density(
+        f, confusion_noise=None, t_obs=4 * u.yr
+    )
+    conf = 10 ** func(
+        x=np.log10(f.value),
+        a=popt[0],
+        b=popt[1],
+        c=popt[2],
+        d=popt[3],
+        e=popt[4]
+    ) * t_obs.to(u.s)
+
+    psd_plus_conf = conf + lisa_psd_no_conf
+    return psd_plus_conf.to(u.Hz ** (-1))
+
+def cosmic_confusion_50_fiducial(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
+    popt = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("F50", "fiducial"))
+    popt = popt.values.flatten()
+
+    lisa_psd_no_conf = psd.power_spectral_density(
+        f, confusion_noise=None, t_obs=4 * u.yr
+    )
+    conf = 10 ** func(
+        x=np.log10(f.value),
+        a=popt[0],
+        b=popt[1],
+        c=popt[2],
+        d=popt[3],
+        e=popt[4]
+    ) * t_obs.to(u.s)
+
+    psd_plus_conf = conf + lisa_psd_no_conf
+    return psd_plus_conf.to(u.Hz ** (-1))
+
+def cosmic_confusion_50_alpha25(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
+    popt = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("F50", "alpha25"))
+    popt = popt.values.flatten()
+
+    lisa_psd_no_conf = psd.power_spectral_density(
+        f, confusion_noise=None, t_obs=4 * u.yr
+    )
+    conf = 10 ** func(
+        x=np.log10(f.value),
+        a=popt[0],
+        b=popt[1],
+        c=popt[2],
+        d=popt[3],
+        e=popt[4]
+    ) * t_obs.to(u.s)
+
+    psd_plus_conf = conf + lisa_psd_no_conf
+    return psd_plus_conf.to(u.Hz ** (-1))
+
+def cosmic_confusion_50_alpha5(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
+    popt = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("F50", "alpha5"))
+    popt = popt.values.flatten()
+    lisa_psd_no_conf = psd.power_spectral_density(
+        f, confusion_noise=None, t_obs=4 * u.yr
+    )
+    conf = 10 ** func(
+        x=np.log10(f.value),
+        a=popt[0],
+        b=popt[1],
+        c=popt[2],
+        d=popt[3],
+        e=popt[4]
+    ) * t_obs.to(u.s)
+
+    psd_plus_conf = conf + lisa_psd_no_conf
+    return psd_plus_conf.to(u.Hz ** (-1))
+
+def cosmic_confusion_50_q3(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
+    popt = pd.read_hdf(paths.data / "results.hdf", key="conf_fit_DWDs_{}_{}".format("F50", "q3"))
+    popt = popt.values.flatten()
+    lisa_psd_no_conf = psd.power_spectral_density(
+        f, confusion_noise=None, t_obs=4 * u.yr
+    )
+    conf = 10 ** func(
+        x=np.log10(f.value),
+        a=popt[0],
+        b=popt[1],
+        c=popt[2],
+        d=popt[3],
+        e=popt[4]
+    ) * t_obs.to(u.s)
+
+    psd_plus_conf = conf + lisa_psd_no_conf
+    return psd_plus_conf.to(u.Hz ** (-1))

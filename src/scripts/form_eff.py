@@ -29,9 +29,11 @@ kstar2_list = ['10', '10', '11', '10_12']
 labels = ['10_10', '11_10', '11_11', '12']
 pathtodat = paths.data
 
-models = ["fiducial", "q3", "alpha25", "alpha5"]
-model_labels = ["fiducial", "$q3$", "$\\alpha 25$", "$\\alpha 5$"]
+models = ["fiducial", "alpha25", "alpha5", "q3"]
+model_labels = ["fiducial", "$\\alpha 25$", "$\\alpha 5$",  "$q3$"]
 
+fig, ax = plt.subplots(4, 4, figsize=(16, 14))
+ii = 0
 for m, model_F50 in enumerate(models):
     model_FZ = model_F50 + "_Z"
 
@@ -48,8 +50,8 @@ for m, model_F50 in enumerate(models):
     effCO05 = DWDeff05.CO.values
     effONe05 = DWDeff05.ONe.values
 
-    fig, ax = plt.subplots(1, 4, figsize=(16, 4.5))
-    ax[0].plot(
+    
+    ax[ii, 0].plot(
         np.log10(met_arr[1:] / Z_sun),
         effHe * 1e3,
         color='xkcd:tomato red',
@@ -59,7 +61,7 @@ for m, model_F50 in enumerate(models):
         rasterized=True
     )
 
-    ax[0].plot(
+    ax[ii, 0].plot(
         np.log10(met_arr[1:] / Z_sun),
         effHe05 * 1e3,
         color='xkcd:tomato red',
@@ -70,7 +72,7 @@ for m, model_F50 in enumerate(models):
         rasterized=True
     )
 
-    ax[1].plot(
+    ax[ii, 1].plot(
         np.log10(met_arr[1:] / Z_sun),
         effCOHe * 1e3,
         color='xkcd:blurple',
@@ -80,7 +82,7 @@ for m, model_F50 in enumerate(models):
         rasterized=True
     )
 
-    ax[1].plot(
+    ax[ii, 1].plot(
         np.log10(met_arr[1:] / Z_sun),
         effCOHe05 * 1e3,
         color='xkcd:blurple',
@@ -91,7 +93,7 @@ for m, model_F50 in enumerate(models):
         rasterized=True
     )
 
-    ax[2].plot(
+    ax[ii, 2].plot(
         np.log10(met_arr[1:] / Z_sun),
         effCO * 1e3,
         color='xkcd:pink',
@@ -101,7 +103,7 @@ for m, model_F50 in enumerate(models):
         rasterized=True
     )
 
-    ax[2].plot(
+    ax[ii, 2].plot(
         np.log10(met_arr[1:] / Z_sun),
         effCO05 * 1e3,
         color='xkcd:pink',
@@ -112,7 +114,7 @@ for m, model_F50 in enumerate(models):
         rasterized=True
     )
 
-    ax[3].plot(
+    ax[ii, 3].plot(
         np.log10(met_arr[1:] / Z_sun),
         effONe * 1e3,
         color='xkcd:light blue',
@@ -122,7 +124,7 @@ for m, model_F50 in enumerate(models):
         rasterized=True
     )
 
-    ax[3].plot(
+    ax[ii, 3].plot(
         np.log10(met_arr[1:] / Z_sun),
         effONe05 * 1e3,
         color='xkcd:light blue',
@@ -133,39 +135,44 @@ for m, model_F50 in enumerate(models):
         rasterized=True
     )
 
-    ax[0].set_ylabel(
+    ax[ii, 0].set_ylabel(
         r'$\eta_{\rm{form}}$ [10$^{-3}$ M$_\odot^{-1}$]',
         fontsize=18
     )
 
     labels = ['He + He', "CO + He", 'CO + CO', "ONe + X"]
     for i in range(4):
-        ax[i].set_xticks([-2, -1.5, -1, -0.5, 0.])
-        ax[i].text(0.05, 0.05, model_labels[m], fontsize=18, transform=ax[i].transAxes)
-        ax[i].text(0.05, 0.175, labels[i], fontsize=18, transform=ax[i].transAxes)
-        ax[i].legend(loc='lower left', bbox_to_anchor=(0.0, 1.01), ncol=3, borderaxespad=0,
-                     frameon=False, fontsize=15)
-        ax[i].set_xlabel('Log$_{10}$(Z/Z$_\odot$)', fontsize=18)
-        ax[i].xaxis.set_minor_locator(AutoMinorLocator())
-        ax[i].yaxis.set_minor_locator(AutoMinorLocator())
-        ax[i].tick_params(labelsize=15)
-
-    plt.tight_layout()
-    plt.subplots_adjust(wspace=0.25)
+        ax[ii, i].set_xticks([-2, -1.5, -1, -0.5, 0.])
+        ax[ii, i].text(0.05, 0.05, model_labels[m], fontsize=18, transform=ax[ii, i].transAxes)
+        if ii == 0:
+            ax[ii, i].text(0.05, 0.175, labels[i], fontsize=18, transform=ax[ii, i].transAxes)
+        if ii == 0:
+            ax[ii, i].legend(loc='lower left', bbox_to_anchor=(0.0, 1.01), ncol=3, borderaxespad=0,
+                         frameon=False, fontsize=15)
+        if ii == 3:
+            ax[ii, i].set_xlabel('Log$_{10}$(Z/Z$_\odot$)', fontsize=18)
+        ax[ii, i].xaxis.set_minor_locator(AutoMinorLocator())
+        ax[ii, i].yaxis.set_minor_locator(AutoMinorLocator())
+        ax[ii, i].tick_params(labelsize=15)
     
     if "fiducial" in model_F50:
         #ax[0].set_yticks(np.arange(0.25, 2.75, 0.5))
-        ax[0].set_ylim(top=2.6)
-        ax[1].set_yticks(np.arange(1.5, 10.0, 1.))
-        ax[1].set_ylim(1.4, 5.7)
+        ax[ii, 0].set_ylim(top=2.6)
+        ax[ii, 1].set_yticks(np.arange(1.5, 10.0, 1.))
+        ax[ii, 1].set_ylim(1.4, 5.7)
         #ax[2].set_yticks(np.arange(1., 7., 1.))
         #ax[2].set_yticklabels(['1.0', '2.0', '3.0', '4.0', '5.0', '6.0'])
-        ax[2].set_ylim(top=3.2)
-        ax[3].set_yticks(np.arange(0.1, 0.5, 0.1))
-        ax[3].set_yticklabels(['0.1', '0.2', '0.3', '0.4'])
-        ax[3].set_ylim(top=0.415)
+        ax[ii, 2].set_ylim(top=11)
+        ax[ii, 3].set_yticks(np.arange(0.1, 0.5, 0.1))
+        ax[ii, 3].set_yticklabels(['0.1', '0.2', '0.3', '0.4'])
+        ax[ii, 3].set_ylim(top=0.415)
 
     if "q3" in model_F50:
-        ax[2].set_ylim(bottom=5)
+        ax[ii, 2].set_ylim(bottom=5)
         
-    plt.savefig(paths.figures / "form_eff_{}.pdf".format(model_F50), dpi=100)
+    if "alpha25" in model_F50:
+        ax[ii, 2].set_ylim(top=10.2)
+    ii += 1
+
+plt.tight_layout()
+plt.savefig(paths.figures / "form_eff.pdf", dpi=100)

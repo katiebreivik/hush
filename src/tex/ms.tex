@@ -10,6 +10,8 @@
 \newcommand{\legwork}{\texttt{LEGWORK}}
 \usepackage{xcolor}
 \usepackage{showyourwork}
+\newcommand{\snotes}[1]{\textcolor{purple}{#1}}
+\newcommand{\kb}[1]{\textcolor{teal}{#1}}
 
 \shorttitle{Applying a metallicity-dependent binary fraction to DWD formation}
 \shortauthors{Thiele, Breivik, \& Sanderson}
@@ -64,6 +66,39 @@ In Section \ref{sec:simulations} we discuss our binary evolution assumptions use
 \section{Simulating a Galactic DWD population}\label{sec:simulations}
 In this section we describe the setup of our DWD simulations using the binary population synthesis suite \cosmic, and the process to scale these simulations to create Milky Way-like galaxies using the star formation history of galaxy \textbf{\textbf{m12i}} in the Latte suite of the FIRE-2 simulations \citep{Wetzel2016, Hopkins2018} and stellar positions assigned according to the the Ananke framework \citep{Sanderson2020}. 
 
+\subsection{Metallicity-dependent binary fraction}\label{subsec:metbinfrac}
+\snotes{The binary fraction in the Galaxy has been empirically shown to depend on metallicity. This is manifested through an explicit dependence of the companion frequency on orbital period \citep{Moe2021}. When anchored to a log-normal orbital period distribution, the \emph{frequency} of solar-type binary companions is skewed to shorter orbital periods. The companion frequency differs from the binary fraction: the companion frequency is the probability of a star having a companion at a given orbital period, and the integration of this probability over all periods results in the binary fraction of the population. The metallicity dependence of the companion frequency is observed only } %\kb{\sout{orbital period-dependence of the companion frequency is dependent on metallicity only}} 
+\snotes{below P$_{\rm{orb}}=10^6$ days, above which there are not sufficient observational results of binary systems to infer a metallicity dependence.} %\kb{\sout{Below this threshold, we see an increasing skew to shorter periods with decreasing metallicity}}.}
+
+
+\begin{figure}
+	\includegraphics[width=\columnwidth]{figures/met_dep_porb.pdf}
+    \caption{}
+    \label{fig:met_dep_porb}
+    \script{met_dep_porb.py}
+\end{figure}
+
+\snotes{Figure \ref{fig:binfrac_porb}, shows the companion frequency f$_{\rm{logP}}$ for solar-type stars as a function of the logarithm of orbital period, mirroring the inner binaries curve of Figure 2 in \citet{Moe2021} and scaling to an overall multiplicity frequency of 0.67 (equivalent to an integrated binary fraction of 50\%) at solar metallicity.} To obtain the normalization of the companion frequency for close binaries ($\log_{10}(P_{\rm{orb}}/\rm{day}$), we fit the results presented in \citet{Moe2019} using linear regression to obtain a piecewise relation between the metallicity, [Fe/H] and \snotes{close} binary fraction $f_{\rm{b}}$ as
+
+\[f_{\rm{b}}= \begin{cases} 
+      - 0.0648 \cdot [\rm{Fe/H}] + 0.3356, & [\rm{Fe/H}]\leq -1.0 \numberthis \\
+      -0.1977 \cdot [\rm{Fe/H}] + 0.2025, & [\rm{Fe/H}]> -1.0  , 
+   \end{cases}
+\]
+
+\noindent where we convert between [Fe/H] and metallicity Z, assuming all stars have solar abundance such that
+\begin{equation}
+\label{eq:metallicity}
+    [\rm{Fe/H}] = \log_{10}\Big(\frac{Z}{Z_{\odot}}\Big),
+\end{equation}
+\noindent where we assume $Z_{\odot}=0.02$.
+
+\snotes{We count all higher-order companions as secondary, or binary, components. We show curves for all 15 of our metallicity bins, increasing in metallicity from darkest to lightest curve colour. The lowest metallicity ([Fe/H]=-2.3) shows the highest propensity for short-period binaries, in contrast to higher metallicity systems which have a frequency distribution that has a relatively constant companion frequency \kb{for orbital periods between $10^4$ and $10^6$ days.}}
+%between log$_{10}(\rm{P}_{\rm{orb}}/$day) of four and six.}
+
+
+%\kb{\sout{Note that this fit represents the binary fraction only for close binaries, equivalent to an integration of the companion frequency curve of Figure \ref{fig:binfrac_porb} up to log$_{10}(\rm{P}_{\rm{orb}}/$day)=6.}}
+\snotes{While we simulate binaries across the entire orbital period distribution, the close binary fraction, which exhibits the discussed metallicity dependence, will be that which impacts the LISA population as systems with $\log_{10}(\rm{P}_{\rm{orb}}/$day)$>4$ will be unlikely to evolve enough to enter the LISA band by present day.}
 
 \subsection{Binary population models}
 \label{sec:bin_pop}
@@ -225,10 +260,7 @@ As discussed in Section\,\ref{sec:bin_pop}, we consider four DWD sub-types, whic
 He WDs are unable to form through single star evolution within the lifetime of the Milky Way. Instead, they originate through interactions in close binary systems or binaries with large eccentricities. Because of this, He WDs are able to form with low component masses on order $\sim$ 0.1M$_\odot$, with the majority of He WDs in our simulations having masses between 0.2-0.5 M$_\odot$. He + He DWDs form through evolution of close binary systems, during which their envelopes are both stripped through RLO and CE phase interactions before Helium ignition occurs. The two progenitor stars generally have masses $\lesssim 3 M_\odot$ which is lower than the progenitors of other DWD types. Our simulated He + He DWDs have an approximately constant distribution of formation times $\gtrsim$ 2.5 Gyr. Lastly, since the ZAMS separations are skewed towards shorter values, we also see that the resulting DWD separations are smaller on average than that of other DWD types. 
 
 \begin{figure*}
-	\includegraphics[width=\textwidth]{figures/form_eff_fiducial.pdf}
-	\includegraphics[width=\textwidth]{figures/form_eff_alpha25.pdf}
-	\includegraphics[width=\textwidth]{figures/form_eff_alpha5.pdf}
-	\includegraphics[width=\textwidth]{figures/form_eff_q3.pdf}
+	\includegraphics[width=\textwidth]{figures/form_eff.pdf}
     \caption{The DWD formation efficiency vs metallicity of DWD populations simulated with \cosmic. Each panel shows the formation efficiency for a given DWD type. The solid lines indicate the formation efficiency for model FZ which incorporates a metallicity-dependent binary fraction. The dashed lines indicate the formation efficiency for model F50, which assumes a constant binary fraction of $50\%$. The DWD formation efficiency drops by a factor of $4-5$ for model FZ and a factor of 2-5 for model F50. See Section~\ref{sec:formeff} for a careful description of the trends for each DWD type.}
     \label{fig:form_eff}
     \script{form_eff.py}
@@ -273,10 +305,7 @@ The strongest effect which hinders formations of higher-metallicity ONe + X DWDs
 \subsection{Metallicity trends in DWD progenitor common envelope separation}\label{sec:CEsep}
 
 \begin{figure*}
-	\includegraphics[width=\textwidth]{figures/lisa_nums_fiducial.pdf}
-	\includegraphics[width=\textwidth]{figures/lisa_nums_alpha25.pdf}
-	\includegraphics[width=\textwidth]{figures/lisa_nums_alpha5.pdf}
-	\includegraphics[width=\textwidth]{figures/lisa_nums_q3.pdf}
+	\includegraphics[width=\textwidth]{figures/lisa_nums.pdf}
     \caption{The number of LISA-band systems formed for each DWD type as a function of the base-10 logarithm of metallicity, normalized to solar value. The solid line shows the FZ population with a metallicity-dependent binary fraction incorporated, and the dashed line shows the F50 population for a standard binary fraction of 0.5. The LISA population of DWDs is dominated by stars with super-solar metallicities. This is true even for model FZ, which drops off significantly for higher metallicities, because of the large number of stars formed in \textbf{m12i} beyond Z$\simeq$Z$_\odot$. There is a double peak in the He + He population; the first peak is caused by the sharp drop in formation efficiency past Z$\simeq$0.1$Z_\odot$ which is then greatly overcompensated for by the amount of star formation at higher metallicities which forms the second peak.}
     \label{fig:lisa_nums}
     \script{lisa_nums.py}
@@ -294,16 +323,15 @@ Note that the average CE separation is close to the qualitative limit for close 
 While metallicity impacts the intrinsic properties of our simulated DWD populations as described in Sections~\ref{sec:formeff} and \ref{sec:CEsep}, when we consider the present-day Galactic close DWDs we find that the population detectable by LISA changes only numerically. The number of DWDs in the LISA frequency band decreases by $\sim50\%$ when comparing model F50 to model FZ.
 
 
-\begin{figure}
-	\includegraphics[width=1\columnwidth]{figures/PSD.pdf}
+\begin{figure*}
+	\includegraphics[width=\textwidth]{figures/PSD.pdf}
     \caption{The PSD of the entire Galactic DWD GW foreground, summed over all metallicities and DWD types vs GW frequency for models FZ and F50. The vertical lines show the PSD where model F50 is shown in dark blue and model FZ is shown in light blue. The dashed lines show fits to the rolling boxcar median of width 1000 bins for each PSD (see \ref{sec:LISA_obs} for a discussion). A metallicity-dependent binary fraction (model FZ) yields fewer DWDs across all frequencies than a $50\%$ binary fraction (model F50) by roughly a factor of $2$. This produces a lower GW confusion foreground for frequencies with f$_{\rm{GW}}\leq\sim10^{-3}$ Hz.}
     \label{fig:PSD}
     \script{PSD.py}
-\end{figure}
+\end{figure*}
 
 
 \begin{figure*}
-	\includegraphics[width=\textwidth]{figures/LISA_SNR_fiducial_Z.pdf}
 	\includegraphics[width=\textwidth]{figures/LISA_SNR_fiducial.pdf}
     \caption{The ASD vs GW frequency for DWDs resolved with SNR $> 7$ for each DWD type where the top row shows the population from model FZ and the bottom row shows the population from model F50. In each panel, the LISA sensitivity curve, including the confusion foreground for each model, is shown in black and the total population for each model is shown in grey. We find that each model qualitatively exhibits similar characteristics and that the only change is in the yield of resolved DWDs for each type based on the strength of the confusion foreground.}
     \label{fig:LISA_SNR}

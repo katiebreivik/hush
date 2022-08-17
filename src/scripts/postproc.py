@@ -500,27 +500,32 @@ def make_galaxy(dat, verbose=False):
     '''
     pathtodat, fire_path, pathtosave, filename, i, label, ratio, binfrac, interfile, model, nproc = dat
     
+    
     if binfrac < 0.5:
         var_label = 'FZ'
     else:
         var_label = 'F50'
+    
+    
+        
     Lkey = 'Lband_{}_{}'.format(var_label, model)
     Rkey = 'rand_seed_{}_{}'.format(var_label, model)
     Lsavefile = 'Lband_{}_{}_{}_{}.hdf'.format(label, var_label, model, i)
     FIREfile = 'FIRE.h5' 
-    try:
-        pd.read_hdf(pathtosave / Lsavefile, key=Lkey)
-        
-        return [], [], []
-    except:
-        FIRE = pd.read_hdf(fire_path / FIREfile).sort_values('met')
     
+    try:
+        lisa_dat = pd.read_hdf(pathtosave / Lsavefile, key=Lkey)
+        return [], [], [], []
+    except FileNotFoundError:
+        
+        FIRE = pd.read_hdf(fire_path / FIREfile).sort_values('met')
+        
         rand_seed = np.random.randint(0, 100, 1)
         np.random.seed(rand_seed)
         
         rand_seed = pd.DataFrame(rand_seed)
         rand_seed.to_hdf(pathtosave / Lsavefile, key=Rkey)
-    
+        
         # Choose metallicity bin
         met_start = met_arr[i] / Z_sun
         met_end = met_arr[i+1] / Z_sun
@@ -528,8 +533,8 @@ def make_galaxy(dat, verbose=False):
         # Load DWD data at formation of the second DWD component
         conv = pd.read_hdf(pathtodat / filename, key='conv')
         
-        # Limit to 1000 Rsun
-        conv = conv.loc[conv.sep < 1000]
+        # Limit to 10000 Rsun
+        conv = conv.loc[conv.sep < 10000]
         
         # get bin_num indices if needed
         if 'bin_num' not in conv.columns:
@@ -593,7 +598,7 @@ def make_galaxy(dat, verbose=False):
         # systems added from the decimal component of N_astro
         dat = [pop_init_dec[params_list], i, label, ratio, binfrac, pathtosave, interfile]
         LISA_band = filter_population(dat)
-    
+        
         if len(LISA_band) > 0:
             LISA_band = LISA_band[final_params]
             LISA_band.to_hdf(pathtosave / Lsavefile, key=Lkey, format='t', append=True)
@@ -665,12 +670,12 @@ def make_galaxy(dat, verbose=False):
            
         if N != N_sample_int:
             print('loop is incorrect')
-    
+        
         FIRE_repeat = pd.DataFrame()
         sample_int = pd.DataFrame()
+        
+        return DWD_per_mass, label, i, binfrac
     
-    return DWD_per_mass, label, i, binfrac
-
 
 def save_full_galaxy(DWD_list, pathtodat, fire_path, pathtosave, interfile, model, nproc):
     '''
@@ -885,7 +890,7 @@ def get_resolvedDWDs(pathtoLISA, pathtosave, var, model, window):
         return a + b*x + c*x**2 + d*x**3 + e*x**4
     
     def cosmic_confusion_var_fiducial(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
-        power_dat = pd.read_hdf(pathtoLISA / result_file, key='total_power_DWDs_{}_{}'.format('FZ', 'fiducial_Z'))
+        power_dat = pd.read_hdf(pathtosave / result_file, key='total_power_DWDs_{}_{}'.format('FZ', 'fiducial_Z'))
 
         power_dat_median = power_dat.rolling(window).median()
         power_dat_median = power_dat_median[window:]
@@ -913,7 +918,7 @@ def get_resolvedDWDs(pathtoLISA, pathtosave, var, model, window):
         return psd_plus_conf.to(u.Hz ** (-1))
     
     def cosmic_confusion_var_alpha25(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
-        power_dat = pd.read_hdf(pathtoLISA / result_file, key='total_power_DWDs_{}_{}'.format('FZ', 'alpha25_Z'))
+        power_dat = pd.read_hdf(pathtosave / result_file, key='total_power_DWDs_{}_{}'.format('FZ', 'alpha25_Z'))
 
         power_dat_median = power_dat.rolling(window).median()
         power_dat_median = power_dat_median[window:]
@@ -941,7 +946,7 @@ def get_resolvedDWDs(pathtoLISA, pathtosave, var, model, window):
         return psd_plus_conf.to(u.Hz ** (-1))
     
     def cosmic_confusion_var_alpha5(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
-        power_dat = pd.read_hdf(pathtoLISA / result_file, key='total_power_DWDs_{}_{}'.format('FZ', 'alpha5_Z'))
+        power_dat = pd.read_hdf(pathtosave / result_file, key='total_power_DWDs_{}_{}'.format('FZ', 'alpha5_Z'))
 
         power_dat_median = power_dat.rolling(window).median()
         power_dat_median = power_dat_median[window:]
@@ -969,7 +974,7 @@ def get_resolvedDWDs(pathtoLISA, pathtosave, var, model, window):
         return psd_plus_conf.to(u.Hz ** (-1))
     
     def cosmic_confusion_var_q3(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
-        power_dat = pd.read_hdf(pathtoLISA / result_file, key='total_power_DWDs_{}_{}'.format('FZ', 'q3_Z'))
+        power_dat = pd.read_hdf(pathtosave / result_file, key='total_power_DWDs_{}_{}'.format('FZ', 'q3_Z'))
 
         power_dat_median = power_dat.rolling(window).median()
         power_dat_median = power_dat_median[window:]
@@ -997,7 +1002,7 @@ def get_resolvedDWDs(pathtoLISA, pathtosave, var, model, window):
         return psd_plus_conf.to(u.Hz ** (-1))
 
     def cosmic_confusion_50_fiducial(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
-        power_dat = pd.read_hdf(pathtoLISA / result_file, key='total_power_DWDs_{}_{}'.format('F50', 'fiducial'))
+        power_dat = pd.read_hdf(pathtosave / result_file, key='total_power_DWDs_{}_{}'.format('F50', 'fiducial'))
 
         power_dat_median = power_dat.rolling(window).median()
         power_dat_median = power_dat_median[window:]
@@ -1025,7 +1030,7 @@ def get_resolvedDWDs(pathtoLISA, pathtosave, var, model, window):
         return psd_plus_conf.to(u.Hz ** (-1))
     
     def cosmic_confusion_50_alpha25(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
-        power_dat = pd.read_hdf(pathtoLISA / result_file, key='total_power_DWDs_{}_{}'.format('F50', 'alpha25'))
+        power_dat = pd.read_hdf(pathtosave / result_file, key='total_power_DWDs_{}_{}'.format('F50', 'alpha25'))
 
         power_dat_median = power_dat.rolling(window).median()
         power_dat_median = power_dat_median[window:]
@@ -1053,7 +1058,7 @@ def get_resolvedDWDs(pathtoLISA, pathtosave, var, model, window):
         return psd_plus_conf.to(u.Hz ** (-1))
     
     def cosmic_confusion_50_alpha5(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
-        power_dat = pd.read_hdf(pathtoLISA / result_file, key='total_power_DWDs_{}_{}'.format('F50', 'alpha5'))
+        power_dat = pd.read_hdf(pathtosave / result_file, key='total_power_DWDs_{}_{}'.format('F50', 'alpha5'))
 
         power_dat_median = power_dat.rolling(window).median()
         power_dat_median = power_dat_median[window:]
@@ -1081,7 +1086,7 @@ def get_resolvedDWDs(pathtoLISA, pathtosave, var, model, window):
         return psd_plus_conf.to(u.Hz ** (-1))
     
     def cosmic_confusion_50_q3(f, L, t_obs=4 * u.yr, approximate_R=True, confusion_noise=None):
-        power_dat = pd.read_hdf(pathtoLISA / result_file, key='total_power_DWDs_{}_{}'.format('F50', 'q3'))
+        power_dat = pd.read_hdf(pathtosave / result_file, key='total_power_DWDs_{}_{}'.format('F50', 'q3'))
 
         power_dat_median = power_dat.rolling(window).median()
         power_dat_median = power_dat_median[window:]
@@ -1174,7 +1179,7 @@ def get_resolvedDWDs(pathtoLISA, pathtosave, var, model, window):
     
     power_dat_median = power_dat.rolling(window).median()
     power_dat_median = power_dat_median[window:]
-    power_dat_downsample = power_dat.sample(int(len(power_dat)/10), replace=False)
+    power_dat_downsample = power_dat.sample(int(len(power_dat)/5), replace=False)
     power_dat_downsample = power_dat_downsample.sort_values('f_gw')
     power_dat_downsample.to_hdf(pathtosave / result_file, key=Pkey)
     #power_dat.to_hdf(pathtoLISA / result_file, key=Pkey)
@@ -1221,7 +1226,7 @@ def get_resolvedDWDs(pathtoLISA, pathtosave, var, model, window):
                                      f_orb=dat.f_gw.values[nstart:nstop]/2 * u.Hz,
                                      stat_tol = 1/(Tobs.to(u.s).value),
                                      interpolate_g=True, 
-                                     interpolate_sc=False, 
+                                     interpolate_sc=True, 
                                      sc_params={"instrument": "custom",
                                                 "t_obs": Tobs,
                                                 "L": 2.5e9 * u.m,
@@ -1282,7 +1287,7 @@ def get_formeff(pathtodat, pathtosave, model, var):
             mass_binaries = pd.read_hdf(pathtodat / datfiles[i], key='mass_stars').iloc[-1]
             mass = (1 + ratio) * mass_binaries
             conv = pd.read_hdf(pathtodat / datfiles[i], key='conv')
-            conv = conv.loc[conv.sep < 1000]
+            conv = conv.loc[conv.sep < 10000]
             masslist.append(mass)
             lenconv.append(len(conv))
 

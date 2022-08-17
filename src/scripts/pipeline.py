@@ -28,13 +28,14 @@ FIRE_path = paths.data
 results_path = paths.data
 models = ['fiducial', 'fiducial_Z', 'alpha25', 'alpha25_Z', 'alpha5', 'alpha5_Z', 'q3', 'q3_Z']
 interfile = False
-nproc_gx = 28
+nproc_gx = 40
 nproc_results = len(models)
   
 
 # Get the FIRE metallicity data for the results file
 pp.get_FIRE_met_dat(FIRE_path, results_path)
-    
+
+print('FIRE done!')
 # Generate Milky Way galaxies for each model
 for model in models:
     pp.save_full_galaxy(
