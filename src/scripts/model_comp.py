@@ -46,6 +46,7 @@ for model in model_names:
         lisa_ratio.append(n_lisa_FZ / n_lisa_F50)
         popt_FZ = popt_FZ.values.flatten()
         popt_FZ_list.append(popt_FZ)
+        print(model, popt_FZ)
         
     
     else:
@@ -58,6 +59,7 @@ for model in model_names:
         n_lisa_F50_list.append(n_lisa_F50)
         popt_F50 = popt_F50.values.flatten()
         popt_F50_list.append(popt_F50)
+        print(model, popt_F50)
         
 
 for popt_F50, popt_FZ, ii in zip(popt_F50_list, popt_FZ_list, range(len(popt_FZ_list))):

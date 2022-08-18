@@ -6,18 +6,19 @@ import matplotlib.pyplot as plt
 import astropy.units as u
 import seaborn as sns
 import paths
+from matplotlib import patches
 
 models = ["fiducial", "alpha25", "alpha5", "q3"]
 model_Zs = ["fiducial_Z", "alpha25_Z", "alpha5_Z", "q3_Z"]
 
-fig, ax = plt.subplots(4, 4, figsize=(16,16))
-levels = [0.05, 0.25, 0.50, 0.75]
+levels = [0.05, 0.25, 0.50, 0.75, 0.95]
+#levels=5
 label_y = [0.35, 0.49, 0.95, 1.6]
 colors = ['#add0ed', '#2b5d87', '#4288c2', '#17334a']
 figlabels = ['He + He', 'CO + He', 'CO + CO', 'ONe + X']
 
-ii = 0
 for model, model_Z in zip(models, model_Zs):
+    fig, ax = plt.subplots(1, 4, figsize=(16,4.5))
 
     resolved_dat_FZ = pd.read_hdf(
        paths.data / "results.hdf", key="resolved_DWDs_{}_{}".format("FZ", model_Z)
@@ -73,70 +74,97 @@ for model, model_Z in zip(models, model_Zs):
         for x in [Heplot_F50, COHeplot_F50, COplot_F50, ONeplot_F50]
     ]
     
-    for dist, Mc, dist_F50, Mc_F50, jj in zip(dists[:1], M_c[:1], dists_F50[:1], M_c_F50[:1], range(len(dists))[:1]):
-        sns.kdeplot(
-            x=dist, 
-            y=Mc, 
-            fill=False, 
-            ax=ax[ii, jj], 
-            color=colors[0], 
-            zorder=3, 
-            linewidths=3.5, 
-            label='FZ', 
-            levels=levels
-        )
-        sns.kdeplot(
-            x=dist_F50, 
-            y=Mc_F50, 
-            fill=False, 
-            ax=ax[ii, jj], 
-            color=colors[1], 
-            zorder=6,
-            linewidths=3.5, 
-            linestyles='--', 
-            label='F50', 
-            levels=levels 
-        )
-        handles, labels = ax[ii, jj].get_legend_handles_labels(legend_handler_map=None)
-        ax[ii, jj].legend(handles=handles,
-                      labels=labels,
-                      loc=(0, 1.01),
-                      prop={'size': 15},
-                      ncol=2, 
-                      frameon=False)
+    for dist, Mc, dist_F50, Mc_F50, jj in zip(dists, M_c, dists_F50, M_c_F50, range(len(dists))):
+        if ("alpha25" in model) & (jj in [0, 3]):
+            ax[jj].scatter(dist, Mc, color=colors[0], label='FZ') 
+            ax[jj].scatter(dist_F50, Mc_F50, color=colors[1], label='F50')
+            ax[jj].legend(loc=(0, 1.01),
+                          prop={'size': 15},
+                          ncol=2,
+                          frameon=False)
+                
+        else:
+            
+            sns.kdeplot(
+                x=dist, 
+                y=Mc, 
+                fill=False, 
+                ax=ax[jj], 
+                color=colors[0], 
+                zorder=3, 
+                linewidths=3.5, 
+                label='FZ', 
+                levels=levels
+            )
+            sns.kdeplot(
+                x=dist_F50, 
+                y=Mc_F50, 
+                fill=False, 
+                ax=ax[jj], 
+                color=colors[1], 
+                zorder=6,
+                linewidths=3.5, 
+                linestyles='--', 
+                label='F50', 
+                levels=levels 
+            )
+            labels=["FZ", "F50"]
+            handles = [patches.Patch(color=color, label=label, ls='-', lw=2) for color, label in zip(colors, labels)]
+            leg = ax[jj].legend(handles=handles,
+                                labels=labels,
+                                loc=(0, 1.01),
+                                prop={'size': 15},
+                                ncol=2,
+                                frameon=False)
+            for patch in leg.get_patches():
+                patch.set_height(2)
+                patch.set_y(5)
+                
 
-    ax[ii, 0].set_ylabel('Chirp Mass [M$_\odot$]', fontsize=18)
+    ax[0].set_ylabel('Chirp Mass [M$_\odot$]', fontsize=18)
     for i, name in zip(range(4), figlabels):
-        if ii == 1:
-            ax[ii, i].set_xlabel(r'Distance [kpc]', fontsize=18)
-        ax[ii, i].text(0.05, 0.9, name, fontsize=18, horizontalalignment='left',
-                   transform=ax[ii, i].transAxes)
-        ax[ii, i].xaxis.set_minor_locator(AutoMinorLocator())
-        ax[ii, i].yaxis.set_minor_locator(AutoMinorLocator())
-        ax[ii, i].tick_params(labelsize=15)
+        ax[i].set_xlabel(r'Distance [kpc]', fontsize=18)
+        ax[i].text(0.05, 0.9, name, fontsize=18, horizontalalignment='left',
+                   transform=ax[i].transAxes)
+        ax[i].xaxis.set_minor_locator(AutoMinorLocator())
+        ax[i].yaxis.set_minor_locator(AutoMinorLocator())
+        ax[i].tick_params(labelsize=15)
     
     
     for j in range(4):
-        ax[ii, j].set_xlim(0, 30)
+        ax[j].set_xlim(0, 35)
+        
+        
     
     if "fiducial" in model:
-        ax[ii, 0].set_yticks(np.arange(0.2, 0.42, 0.05))
-        ax[ii, 0].set_ylim(0.17, 0.36)
+        ax[0].set_yticks(np.arange(0.2, 0.42, 0.05))
+        ax[0].set_ylim(0.17, 0.36)
         
-        ax[ii, 1].set_yticks([0.25, 0.3, 0.35, 0.4, 0.45, 0.5])
-        ax[ii, 1].set_ylim(0.23, 0.525)
+        ax[1].set_yticks([0.25, 0.3, 0.35, 0.4, 0.45, 0.5])
+        ax[1].set_ylim(0.23, 0.525)
         
-        ax[ii, 2].set_yticks(np.arange(0.25, 1.05, 0.15))
-        ax[ii, 2].set_ylim(0.345, 0.95)
+        ax[2].set_yticks(np.arange(0.25, 1.05, 0.15))
+        ax[2].set_ylim(0.345, 0.95)
         
-        ax[ii, 3].set_yticks(np.arange(0.3, 1.6, 0.3))
-        ax[ii, 3].set_yticklabels(['0.30', '0.60', '0.90', '1.20', '1.50'])
-        ax[ii, 3].set_ylim(0.175, 1.55)
+        ax[3].set_yticks(np.arange(0.3, 1.6, 0.3))
+        ax[3].set_yticklabels(['0.30', '0.60', '0.90', '1.20', '1.50'])
+        ax[3].set_ylim(0.175, 1.55)
+        
+    if "alpha25" in model:
+        ax[0].set_yticks(np.arange(0.2, 0.42, 0.05))
+        ax[0].set_ylim(0.23, 0.4)
+        
+        #ax[1].set_yticks([0.25, 0.3, 0.35, 0.4, 0.45, 0.5])
+        ax[1].set_ylim(0.25, 0.6)
+        
+        ax[2].set_yticks(np.arange(0.25, 1.05, 0.15))
+        ax[2].set_ylim(0.345, 1.05)
+        
+        ax[3].set_yticks(np.arange(0.3, 1.6, 0.3))
+        ax[3].set_yticklabels(['0.30', '0.60', '0.90', '1.20', '1.50'])
+        ax[3].set_ylim(0.175, 1.55)
+    plt.tight_layout()    
+    plt.subplots_adjust(wspace=0.25)
+    plt.savefig(paths.figures / "Mc_vs_dist_{}.pdf".format(model), dpi=100)
     
-    ii+=1
-    print(ii)
 
-plt.tight_layout()
-#plt.subplots_adjust(wspace=0.25)
-
-plt.savefig(paths.figures / "Mc_vs_dist.pdf", dpi=100)
