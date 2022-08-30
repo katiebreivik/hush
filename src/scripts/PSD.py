@@ -7,8 +7,8 @@ import paths
 def func(x, a, b, c, d, e):
     return a + b * x + c * x ** 2 + d * x ** 3 + e * x ** 4
 
-models = ["fiducial", "q3", "alpha25", "alpha5"]
-names = ["fiducial", "$q3$", "$\\alpha25$", "$\\alpha5$"]
+models = ["fiducial", "alpha25", "alpha5", "q3"]
+names = ["fiducial", "$\\alpha25$", "$\\alpha5$", "$q3$"]
 
 fig, ax = plt.subplots(1, 4, figsize=(25, 5))
 for i, model in enumerate(models):
