@@ -1179,7 +1179,7 @@ def get_resolvedDWDs(pathtoLISA, pathtosave, var, model, window):
     
     power_dat_median = power_dat.rolling(window).median()
     power_dat_median = power_dat_median[window:]
-    power_dat_downsample = power_dat.sample(int(len(power_dat)/5), replace=False)
+    power_dat_downsample = power_dat.sample(int(len(power_dat)/10), replace=False)
     power_dat_downsample = power_dat_downsample.sort_values('f_gw')
     power_dat_downsample.to_hdf(pathtosave / result_file, key=Pkey)
     #power_dat.to_hdf(pathtoLISA / result_file, key=Pkey)
