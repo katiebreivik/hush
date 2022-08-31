@@ -11,8 +11,8 @@ num = 30
 
 met_bins = np.logspace(np.log10(FIREmin), np.log10(FIREmax), num) * Z_sun
     
-models = ["fiducial", "q3", "alpha25", "alpha5"]
-model_labels = ["fiducial", "$q3$", "$\\alpha 25$", "$\\alpha 5$"]
+models = ["fiducial",  "alpha25", "alpha5", "q3"]
+model_labels = ["fiducial",  "$\\alpha 25$", "$\\alpha 5$", "$q3$"]
 
 fig, ax = plt.subplots(4, 4, figsize=(16, 14))
 

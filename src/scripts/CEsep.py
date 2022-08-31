@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import paths
 
-models = ["fiducial", "alpha25", "alpha5"]
-model_labels = ["fiducial", "$\\alpha 25$", "$\\alpha 5$"]
+models = ["fiducial", "alpha25", "alpha5", "q3"]
+model_labels = ["fiducial", "$\\alpha 25$", "$\\alpha 5$", "$q3$"]
 metmodel = "F50"
 
 FIREmin = 0.00015
@@ -17,7 +17,7 @@ met_bins = np.logspace(np.log10(FIREmin), np.log10(FIREmax), num)
 met_mids = (met_bins[1:] + met_bins[:-1]) / 2
 whichsep = "CEsep"
 
-fig, ax = plt.subplots(3, 4, figsize=(16, 11))
+fig, ax = plt.subplots(4, 4, figsize=(16, 15))
 
 for m, model in enumerate(models):
     if "Z" in model:
@@ -140,7 +140,7 @@ for m, model in enumerate(models):
         ax[m, i].set_xticks([-3., -2., -1., 0., 1.])
         ax[m, i].tick_params(labelsize=15)
         ax[m, i].set_xlim(np.log10(met_mids[0]), np.log10(met_mids[-1]))
-        if m == 2:
+        if m == 3:
             ax[m, i].set_xlabel('Log$_{10}$(Z/Z$_\odot$)', fontsize=18)
         if m == 0:
             ax[m, i].legend(

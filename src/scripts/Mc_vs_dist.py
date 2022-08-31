@@ -10,14 +10,14 @@ from matplotlib import patches
 
 models = ["fiducial", "alpha25", "alpha5", "q3"]
 model_Zs = ["fiducial_Z", "alpha25_Z", "alpha5_Z", "q3_Z"]
-
+model_labels = ["fiducial", r"$\alpha25$", r"$\alpha5$", r"$q3$"]
 levels = [0.05, 0.25, 0.50, 0.75, 0.95]
 #levels=5
 label_y = [0.35, 0.49, 0.95, 1.6]
 colors = ['#add0ed', '#2b5d87', '#4288c2', '#17334a']
 figlabels = ['He + He', 'CO + He', 'CO + CO', 'ONe + X']
 
-for model, model_Z in zip(models, model_Zs):
+for model, model_Z, model_label in zip(models, model_Zs, model_labels):
     fig, ax = plt.subplots(1, 4, figsize=(16,4.5))
 
     resolved_dat_FZ = pd.read_hdf(
@@ -124,8 +124,12 @@ for model, model_Z in zip(models, model_Zs):
     ax[0].set_ylabel('Chirp Mass [M$_\odot$]', fontsize=18)
     for i, name in zip(range(4), figlabels):
         ax[i].set_xlabel(r'Distance [kpc]', fontsize=18)
-        ax[i].text(0.05, 0.9, name, fontsize=18, horizontalalignment='left',
-                   transform=ax[i].transAxes)
+        if "fiducial" not in model_label:
+            ax[i].text(0.05, 0.9, model_label+', '+name, fontsize=18, horizontalalignment='left',
+                       transform=ax[i].transAxes)
+        else:
+            ax[i].text(0.05, 0.9, name, fontsize=18, horizontalalignment='left',
+                       transform=ax[i].transAxes)
         ax[i].xaxis.set_minor_locator(AutoMinorLocator())
         ax[i].yaxis.set_minor_locator(AutoMinorLocator())
         ax[i].tick_params(labelsize=15)
@@ -162,6 +166,9 @@ for model, model_Z in zip(models, model_Zs):
         
         ax[3].set_yticks(np.arange(0.3, 1.6, 0.3))
         ax[3].set_yticklabels(['0.30', '0.60', '0.90', '1.20', '1.50'])
+        ax[3].set_ylim(0.175, 1.55)
+    
+    if ("q3" in model) or ("alpha5" in model):
         ax[3].set_ylim(0.175, 1.55)
     plt.tight_layout()    
     plt.subplots_adjust(wspace=0.25)
