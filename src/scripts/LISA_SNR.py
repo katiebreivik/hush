@@ -66,7 +66,11 @@ def plot_LISAcurves(var, model, label, ii):
     ax[ii, 0].scatter(resolved_HeHe.f_gw, Heasd, zorder=10, color='xkcd:tomato red', label='He + He', rasterized=True)
     lgnd = ax[ii, 0].legend(loc='lower left', ncol=4, borderaxespad=0, frameon=False, fontsize=22, markerscale=2.5, handletextpad=0.15)
     lgnd.legendHandles[0]._sizes = [100]
-    ax[ii, 0].text(0.1, 2e-16, var+', SNR > 7: {}'.format(len(Heasd)), fontsize=24, horizontalalignment='right')
+    if ("Z" not in model) & ("fiducial" not in model):
+        ax[ii, 0].text(0.1, 2e-16, label+', '+var+', SNR > 7: {}'.format(len(Heasd)), fontsize=24, horizontalalignment='right')
+    else:
+        ax[ii, 0].text(0.1, 2e-16, var+', SNR > 7: {}'.format(len(Heasd)), fontsize=24, horizontalalignment='right')
+    
     
     ax[ii, 2].plot(np.linspace(1e-4, 1e-1, 1000000), psd_conf**0.5, c='black', rasterized=True, lw=2)
     ax[ii, 2].scatter(resolved_COHe.f_gw, COHeasd, zorder=10, color='xkcd:light grey', rasterized=True)
@@ -75,8 +79,10 @@ def plot_LISAcurves(var, model, label, ii):
     ax[ii, 2].scatter(resolved_COCO.f_gw, COasd, zorder=10, color='xkcd:pink', label='CO + CO', rasterized=True)
     lgnd = ax[ii, 2].legend(loc='lower left',  ncol=4, borderaxespad=0, frameon=False, fontsize=22, markerscale=2.5, handletextpad=0.15)
     lgnd.legendHandles[0]._sizes = [100]
-    ax[ii, 2].text(0.1, 2e-16, var+', SNR > 7: {}'.format(len(COasd)),  fontsize=24, horizontalalignment='right')
-    
+    if ("Z" not in model) & ("fiducial" not in model):
+        ax[ii, 2].text(0.1, 2e-16, label+', '+var+', SNR > 7: {}'.format(len(COasd)),  fontsize=24, horizontalalignment='right')
+    else:
+        ax[ii, 2].text(0.1, 2e-16, var+', SNR > 7: {}'.format(len(COasd)),  fontsize=24, horizontalalignment='right')
     
     ax[ii, 1].plot(np.linspace(1e-4, 1e-1, 1000000), psd_conf**0.5, c='black', rasterized=True, lw=2)
     ax[ii, 1].scatter(resolved_ONeX.f_gw, ONeasd, zorder=10, color='xkcd:light grey', rasterized=True)
@@ -86,9 +92,13 @@ def plot_LISAcurves(var, model, label, ii):
     lgnd = ax[ii, 1].legend(loc='lower left', ncol=4, borderaxespad=0, frameon=False,
                         fontsize=22, markerscale=2.5, handletextpad=0.15)
     lgnd.legendHandles[0]._sizes = [100]
-    ax[ii, 1].text(0.1, 2e-16, var+', SNR > 7: {}'.format(len(COHeasd)), fontsize=24,
+    if ("Z" not in model) & ("fiducial" not in model):
+        ax[ii, 1].text(0.1, 2e-16, label+', '+var+', SNR > 7: {}'.format(len(COHeasd)), fontsize=24,
            horizontalalignment='right')
-    
+    else:
+        ax[ii, 1].text(0.1, 2e-16, var+', SNR > 7: {}'.format(len(COHeasd)), fontsize=24,
+           horizontalalignment='right')
+   
     
 
     ax[ii, 3].plot(np.linspace(1e-4, 1e-1, 1000000), psd_conf**0.5, c='black', rasterized=True, lw=2)
@@ -99,7 +109,11 @@ def plot_LISAcurves(var, model, label, ii):
     lgnd = ax[ii, 3].legend(loc='lower left', ncol=4, borderaxespad=0, frameon=False,
                         fontsize=22, markerscale=2.5, handletextpad=0.15)
     lgnd.legendHandles[0]._sizes = [100]
-    ax[ii, 3].text(0.1, 2e-16, var+', SNR > 7: {}'.format(len(ONeasd)), fontsize=24,
+    if ("Z" not in model) & ("fiducial" not in model):
+        ax[ii, 3].text(0.1, 2e-16, label+', '+var+', SNR > 7: {}'.format(len(ONeasd)), fontsize=24,
+               horizontalalignment='right')
+    else:
+        ax[ii, 3].text(0.1, 2e-16, var+', SNR > 7: {}'.format(len(ONeasd)), fontsize=24,
                horizontalalignment='right')
     
     for i in range(4):
