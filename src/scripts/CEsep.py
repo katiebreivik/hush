@@ -171,4 +171,3 @@ plt.tight_layout()
 #plt.subplots_adjust(wspace=0.25)
 
 plt.savefig(paths.figures / "CEsep.pdf", dpi=100)
-    
