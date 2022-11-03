@@ -28,7 +28,7 @@ FIRE_path = paths.data
 results_path = paths.data
 models = ['fiducial', 'fiducial_Z', 'alpha25', 'alpha25_Z', 'alpha5', 'alpha5_Z', 'q3', 'q3_Z']
 interfile = False
-nproc_gx = 28
+nproc_gx = 40
 nproc_results = len(models)
   
 
@@ -50,17 +50,17 @@ def get_results(dat):
     pp.get_formeff(
         pathtodat=dat_path, pathtosave=results_path, model=model, var=var,
     )
-    #print('formation efficiency done for model: {}'.format(model))
+    print('formation efficiency done for model: {}'.format(model))
     
     pp.get_interactionsep_and_numLISA(
         pathtocosmic=dat_path, pathtoLISA=LISA_path, pathtoresults=results_path, model=model, var=var,     
     )
-    #print('interaction sep done')
+    print('interaction sep done')
     
     pp.get_resolvedDWDs(
         pathtoLISA=LISA_path, pathtosave=results_path, var=var, model=model, window=window
     )
-    #print('resolved sources done')
+    print('resolved sources done')
     
     return []
 

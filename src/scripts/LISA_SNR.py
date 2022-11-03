@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import astropy.units as u
 from legwork.visualisation import plot_sensitivity_curve
 from legwork import psd
-import utils
+import dutils
 import paths
 
 
@@ -14,21 +14,21 @@ def plot_LISAcurves(var, model, label, ii):
         return a + b * x + c * x ** 2 + d * x ** 3 + e * x ** 4
     
     if model == 'fiducial_Z':
-        cosmic_confusion = utils.cosmic_confusion_var_fiducial
+        cosmic_confusion = dutils.cosmic_confusion_var_fiducial
     elif model == 'alpha25_Z':
-        cosmic_confusion = utils.cosmic_confusion_var_alpha25
+        cosmic_confusion = dutils.cosmic_confusion_var_alpha25
     elif model == 'alpha5_Z':
-        cosmic_confusion = utils.cosmic_confusion_var_alpha5
+        cosmic_confusion = dutils.cosmic_confusion_var_alpha5
     elif model == 'q3_Z':
-        cosmic_confusion = utils.cosmic_confusion_var_q3
+        cosmic_confusion = dutils.cosmic_confusion_var_q3
     elif model == 'fiducial':
-        cosmic_confusion = utils.cosmic_confusion_50_fiducial
+        cosmic_confusion = dutils.cosmic_confusion_50_fiducial
     elif model == 'alpha25':
-        cosmic_confusion = utils.cosmic_confusion_50_alpha25
+        cosmic_confusion = dutils.cosmic_confusion_50_alpha25
     elif model == 'alpha5':
-        cosmic_confusion = utils.cosmic_confusion_50_alpha5
+        cosmic_confusion = dutils.cosmic_confusion_50_alpha5
     elif model == 'q3':
-        cosmic_confusion = utils.cosmic_confusion_50_q3
+        cosmic_confusion = dutils.cosmic_confusion_50_q3
             
     resolved = pd.read_hdf(paths.data / "results.hdf", key="resolved_DWDs_{}_{}".format(var, model))
     

@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.interpolate import interp1d
-from utils import get_Z_from_FeH, get_FeH_from_Z, get_binfrac_of_Z
+from dutils import get_Z_from_FeH, get_FeH_from_Z, get_binfrac_of_Z
 import scipy.integrate as integrate
 from matplotlib import rcParams
 import paths
