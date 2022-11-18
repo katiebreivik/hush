@@ -125,7 +125,7 @@ def plot_LISAcurves(var, model, label, ii):
         ax[ii, i].set_ylim(top=5e-16)
     ax[ii, 0].set_ylabel(r'ASD [Hz$^{-1/2}$]', size=24)
 
-    return
+    return resolved_HeHe, resolved_COHe, resolved_COCO, resolved_ONeX
 
 
 
