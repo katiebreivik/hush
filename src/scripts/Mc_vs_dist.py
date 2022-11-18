@@ -156,10 +156,10 @@ for model, model_Z, model_label in zip(models, model_Zs, model_labels):
         
     if "alpha25" in model:
         ax[0].set_yticks(np.arange(0.2, 0.42, 0.05))
-        ax[0].set_ylim(0.23, 0.4)
+        ax[0].set_ylim(0.23, 0.41)
         
         #ax[1].set_yticks([0.25, 0.3, 0.35, 0.4, 0.45, 0.5])
-        ax[1].set_ylim(0.25, 0.6)
+        ax[1].set_ylim(0.26, 0.62)
         
         ax[2].set_yticks(np.arange(0.25, 1.05, 0.15))
         ax[2].set_ylim(0.345, 1.05)
@@ -168,8 +168,13 @@ for model, model_Z, model_label in zip(models, model_Zs, model_labels):
         ax[3].set_yticklabels(['0.30', '0.60', '0.90', '1.20', '1.50'])
         ax[3].set_ylim(0.175, 1.55)
     
-    if ("q3" in model) or ("alpha5" in model):
+    if "q3" in model:
         ax[3].set_ylim(0.175, 1.55)
+    
+    if "alpha5" in model:
+        ax[0].set_ylim(0.16, 0.32)
+        ax[1].set_ylim(top=0.55)
+        ax[3].set_yticks([0.2, 0.6, 1.0, 1.4])
     plt.tight_layout()    
     plt.subplots_adjust(wspace=0.25)
     plt.savefig(paths.figures / "Mc_vs_dist_{}.pdf".format(model), dpi=100)
