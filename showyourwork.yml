@@ -2,6 +2,9 @@ version: 0.4.2.dev3+g83b4b00
 
 optimize_caching: true
 
+stamp:
+  enabled: false
+
 datasets:
   10.5281/zenodo.7144944:
     contents:
