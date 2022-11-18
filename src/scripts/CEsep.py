@@ -4,6 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import paths
+plt.rcParams['mathtext.fontset'] = 'dejavuserif'
 
 models = ["fiducial", "alpha25", "alpha5", "q3"]
 model_labels = ["fiducial", "$\\alpha 25$", "$\\alpha 5$", "$q3$"]
@@ -154,7 +155,6 @@ for m, model in enumerate(models):
     else:
         ax[m, 0].set_ylabel(r'$\overline{\mathit{a}}_{\rm{RLO}}$  [10$^3$ R$_\odot$]', fontsize=16)
     
-    
     if "fiducial" in model:
         ax[m, 0].set_yticks(np.arange(0.1, 0.6, 0.1))
         ax[m, 0].set_ylim(0.09, 0.51)
@@ -167,8 +167,35 @@ for m, model in enumerate(models):
         ax[m, 3].set_yticklabels(['1.00', '1.50', '2.00', '2.50', '3.00'])
         ax[m, 3].set_ylim(top=3.05)
         
+    if "alpha25" in model:
+        ax[m, 0].set_yticks(np.arange(0.15, 0.55, 0.1))
+        ax[m, 0].set_yticklabels(['0.15', '0.25', '0.35', '0.45'])
+        ax[m, 1].set_yticks(np.arange(0.5, 3.0, 0.75))
+        ax[m, 1].set_ylim(top=2.9)
+        ax[m, 2].set_yticks(np.arange(0.75, 4.0, 0.75))
+        ax[m, 2].set_ylim(0.15, 3.4)
+        ax[m, 3].set_yticks([1., 2., 3., 4.])
+        ax[m, 3].set_yticklabels(['1.00', '2.00', '3.00', '4.00'])
+        
+    if "alpha5" in model:
+        ax[m, 0].yaxis.set_minor_locator(AutoMinorLocator(3))
+        ax[m, 1].set_yticks([0.0, 0.1, 0.2, 0.3])
+        ax[m, 1].set_yticklabels(['0.00', '0.10', '0.20', '0.30'])
+        ax[m, 2].set_yticks([0.0, 0.15, 0.3, 0.45])
+        ax[m, 2].yaxis.set_minor_locator(AutoMinorLocator(4))
+        ax[m, 3].set_yticks(np.arange(0.0, 0.9, 0.2))
+        ax[m, 3].set_yticklabels(['0.00', '0.20', '0.40', '0.60', '0.80'])
+        
+    if "q3" in model:
+        ax[m, 0].set_yticks(np.arange(0.04, 0.16, 0.02))
+        ax[m, 0].set_ylim(top=0.145)
+        ax[m, 1].set_yticks(np.arange(0.04, 0.2, 0.04))
+        ax[m, 1].yaxis.set_minor_locator(AutoMinorLocator(5))
+        ax[m, 3].set_yticks(np.arange(0.0, 1.5, 0.3))
+        ax[m, 3].set_yticklabels(['0.00', '0.30', '0.60', '0.90', '1.20'])
+        ax[m, 3].set_ylim(bottom=-0.05)
+
+        
 plt.tight_layout()
-#plt.subplots_adjust(wspace=0.25)
 
 plt.savefig(paths.figures / "CEsep.pdf", dpi=100)
-    

@@ -156,23 +156,39 @@ for m, model_F50 in enumerate(models):
         ax[ii, i].tick_params(labelsize=15)
     
     if "fiducial" in model_F50:
-        #ax[0].set_yticks(np.arange(0.25, 2.75, 0.5))
         ax[ii, 0].set_ylim(top=2.6)
         ax[ii, 1].set_yticks(np.arange(1.5, 10.0, 1.))
-        ax[ii, 1].set_ylim(1.4, 5.7)
-        #ax[2].set_yticks(np.arange(1., 7., 1.))
-        #ax[2].set_yticklabels(['1.0', '2.0', '3.0', '4.0', '5.0', '6.0'])
-        ax[ii, 2].set_ylim(top=11)
+        ax[ii, 1].set_ylim(1.35, 5.7)
+        ax[ii, 2].set_ylim(top=2.9)
         ax[ii, 3].set_yticks(np.arange(0.1, 0.5, 0.1))
-        ax[ii, 3].set_yticklabels(['0.1', '0.2', '0.3', '0.4'])
-        ax[ii, 3].set_ylim(top=0.415)
-
-    if "q3" in model_F50:
-        ax[ii, 2].set_ylim(bottom=5)
+        ax[ii, 3].set_ylim(top=0.33)
         
     if "alpha25" in model_F50:
-        ax[ii, 2].set_ylim(top=10.2)
-    ii += 1
+        ax[ii, 0].set_yticks([0.02, 0.05, 0.08, 0.11, 0.14])
+        ax[ii, 2].set_ylim(top=2.15)
 
+    if "alpha5" in model_F50:
+        ax[ii, 0].set_yticks([2, 3, 4, 5])
+        ax[ii, 0].set_yticklabels(['2.0', '3.0', '4.0', '5.0'])        
+        ax[ii, 1].set_yticks([3, 4, 5, 6])
+        ax[ii, 1].set_yticklabels(['3.0', '4.0', '5.0', '6.0'])
+        ax[ii, 2].set_ylim(top=5.6)
+        ax[ii, 2].set_yticks([2, 3, 4, 5])
+        ax[ii, 2].set_yticklabels(['2.0', '3.0', '4.0', '5.0'])
+        ax[ii, 3].set_yticks([0.3, 0.5, 0.7])
+        
+    if "q3" in model_F50:
+        ax[ii, 0].set_yticks([2, 3, 4, 5, 6])
+        ax[ii, 0].set_yticklabels(['2.0', '3.0', '4.0', '5.0', '6.0'])
+        ax[ii, 0].set_ylim(top=6.2)
+        ax[ii, 1].set_ylim(top=3.1)
+        ax[ii, 2].set_ylim(4.8, 11.5)
+        ax[ii, 2].set_yticks([5, 7, 9, 11])
+        ax[ii, 2].set_yticklabels(['5.0', '7.0','9.0', '11.0'])
+        ax[ii, 3].set_ylim(bottom=0.28)
+        ax[ii, 3].set_yticks([0.3, 0.5, 0.7, 0.9])
+    
+    ii += 1
+    
 plt.tight_layout()
 plt.savefig(paths.figures / "form_eff.pdf", dpi=100)

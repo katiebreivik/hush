@@ -152,6 +152,36 @@ for m, model in enumerate(models):
         ax[m, 1].set_ylim(top=17.25)
         ax[m, 1].set_yticklabels(np.arange(0, 20, 4).astype(float).astype(str))
         ax[m, 3].set_ylim(top=0.81)
+    
+    if "alpha25" in model:
+        ax[m, 0].set_yticks(np.arange(0.0, 0.015, 0.003))
+        ax[m, 1].set_yticks(np.arange(0.0, 1.0, 0.2))
+        ax[m, 1].set_ylim(top=0.82)
+        ax[m, 3].yaxis.set_minor_locator(AutoMinorLocator(4))
+        
+    if "alpha5" in model:
+        ax[m, 0].set_yticks([0, 10, 20, 30])
+        ax[m, 0].set_yticklabels(['0.0', '10.0', '20.0', '30.0'])
+        ax[m, 1].set_yticks([0, 20, 40, 60])
+        ax[m, 1].set_yticklabels(['0.0', '20.0', '40.0', '60.0'])
+        ax[m, 2].set_yticks(np.arange(0, 30, 5))
+        ax[m, 2].set_yticklabels(['0.0', '5.0', '10.0', 
+                                  '15.0', '20.0', '25.0'])
+        ax[m, 2].yaxis.set_minor_locator(AutoMinorLocator(4))
+        ax[m, 3].set_yticks(np.arange(0.0, 1.3, 0.3))
+        ax[m, 3].yaxis.set_minor_locator(AutoMinorLocator(4))
+        
+    if "q3" in model:
+        ax[m, 0].set_yticks(np.arange(0, 25, 5))
+        ax[m, 0].set_yticklabels(['0.0', '5.0', '10.0', '15.0', '20.0'])
+        ax[m, 1].set_yticks(np.arange(0, 60, 10))
+        ax[m, 1].set_yticklabels(['0.0', '10.0', '20.0', '30.0', '40.0', '50.0'])
+        ax[m, 1].set_ylim(top=51)
+        ax[m, 2].set_yticks(np.arange(0, 30, 5))
+        ax[m, 2].set_yticklabels(['0.0', '5.0', '10.0', '15.0', '20.0', '25.0'])
+        ax[m, 2].set_ylim(top=24)
+        ax[m, 3].yaxis.set_minor_locator(AutoMinorLocator(5))
+
 plt.tight_layout()
 plt.subplots_adjust(wspace=0.25)
 plt.savefig(paths.figures / "lisa_nums.pdf".format(model), dpi=100)
