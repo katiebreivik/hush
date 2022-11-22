@@ -20,6 +20,10 @@ RETURNS
 No direct function outputs, but saves formation efficiency data for all
 DWD types and metallicity bins to files contained in pathtosave.
 '''
+
+plt.rcParams["font.family"] = "serif"
+plt.rcParams["mathtext.fontset"] = "dejavuserif"
+
 met_arr = np.logspace(np.log10(1e-4), np.log10(0.03), 15)
 met_arr = np.round(met_arr, 8)
 met_arr = np.append(0.0, met_arr)
@@ -152,41 +156,56 @@ for m, model_F50 in enumerate(models):
         if ii == 3:
             ax[ii, i].set_xlabel('Log$_{10}$(Z/Z$_\odot$)', fontsize=18)
         ax[ii, i].xaxis.set_minor_locator(AutoMinorLocator())
-        ax[ii, i].yaxis.set_minor_locator(AutoMinorLocator())
+        ax[ii, i].yaxis.set_minor_locator(AutoMinorLocator(5))
         ax[ii, i].tick_params(labelsize=15)
     
     if "fiducial" in model_F50:
+        ax[ii, 0].set_yticks(np.arange(0.5, 3.0, 0.5))
+        ax[ii, 0].set_yticklabels(['0.50', '1.00', '1.50', '2.00', '2.50'])
         ax[ii, 0].set_ylim(top=2.6)
-        ax[ii, 1].set_yticks(np.arange(1.5, 10.0, 1.))
-        ax[ii, 1].set_ylim(1.35, 5.7)
+        
+        ax[ii, 1].set_yticks(np.arange(1.5, 6.0, 1.))
+        ax[ii, 1].set_yticklabels(['1.50', '2.50', '3.50', '4.50', '5.50'])
+        ax[ii, 1].set_ylim(1.3, 5.7)
+
+        ax[ii, 2].set_yticks(np.arange(0.75, 3.0, 0.5))
         ax[ii, 2].set_ylim(top=2.9)
-        ax[ii, 3].set_yticks(np.arange(0.1, 0.5, 0.1))
-        ax[ii, 3].set_ylim(top=0.33)
+        ax[ii, 3].set_yticks(np.arange(0.08, 0.5, 0.06))
+        ax[ii, 3].set_ylim(0.07, 0.33)
         
     if "alpha25" in model_F50:
-        ax[ii, 0].set_yticks([0.02, 0.05, 0.08, 0.11, 0.14])
+        ax[ii, 0].set_yticks(np.arange(0.01, 0.15, 0.03))
+        ax[ii, 1].set_yticks(np.arange(0.2, 1.2, 0.2))
+        ax[ii, 1].set_yticklabels(['0.20', '0.40', '0.60', '0.80', '1.00'])
+        ax[ii, 2].set_yticks(np.arange(0.5, 2.5, 0.5))
+        ax[ii, 2].set_yticklabels(['0.50', '1.00', '1.50', '2.00'])
         ax[ii, 2].set_ylim(top=2.15)
 
     if "alpha5" in model_F50:
-        ax[ii, 0].set_yticks([2, 3, 4, 5])
-        ax[ii, 0].set_yticklabels(['2.0', '3.0', '4.0', '5.0'])        
+        ax[ii, 0].set_yticks([1, 2, 3, 4, 5])
+        ax[ii, 0].set_yticklabels(['1.00', '2.00', '3.00', '4.00', '5.00']) 
+        ax[ii, 0].set_ylim(bottom=0.8)
         ax[ii, 1].set_yticks([3, 4, 5, 6])
-        ax[ii, 1].set_yticklabels(['3.0', '4.0', '5.0', '6.0'])
+        ax[ii, 1].set_yticklabels(['3.00', '4.00', '5.00', '6.00'])
         ax[ii, 2].set_ylim(top=5.6)
         ax[ii, 2].set_yticks([2, 3, 4, 5])
-        ax[ii, 2].set_yticklabels(['2.0', '3.0', '4.0', '5.0'])
-        ax[ii, 3].set_yticks([0.3, 0.5, 0.7])
+        ax[ii, 2].set_yticklabels(['2.00', '3.00', '4.00', '5.00'])
+        ax[ii, 3].set_yticks(np.arange(0.15, 1.0, 0.15))
+        ax[ii, 3].set_ylim(0.13, 0.77)
         
     if "q3" in model_F50:
         ax[ii, 0].set_yticks([2, 3, 4, 5, 6])
-        ax[ii, 0].set_yticklabels(['2.0', '3.0', '4.0', '5.0', '6.0'])
+        ax[ii, 0].set_yticklabels(['2.00', '3.00', '4.00', '5.00', '6.00'])
         ax[ii, 0].set_ylim(top=6.2)
+        ax[ii, 1].set_yticks(np.arange(1.5, 3.5, 0.5))
+        ax[ii, 1].set_yticklabels(['1.50', '2.00', '2.50', '3.00'])
         ax[ii, 1].set_ylim(top=3.1)
         ax[ii, 2].set_ylim(4.8, 11.5)
         ax[ii, 2].set_yticks([5, 7, 9, 11])
-        ax[ii, 2].set_yticklabels(['5.0', '7.0','9.0', '11.0'])
+        ax[ii, 2].set_yticklabels(['5.00', '7.00','9.00', '11.00'])
         ax[ii, 3].set_ylim(bottom=0.28)
-        ax[ii, 3].set_yticks([0.3, 0.5, 0.7, 0.9])
+        ax[ii, 3].set_yticks(np.arange(0.3, 1.0, 0.2))
+        ax[ii, 3].set_yticklabels(['0.30', '0.50', '0.70', '0.90'])
     
     ii += 1
     

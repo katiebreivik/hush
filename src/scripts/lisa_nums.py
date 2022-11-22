@@ -9,6 +9,11 @@ FIREmax = 13.346
 Z_sun = 0.02
 num = 30
 
+plt.rcParams["font.family"] = "serif"
+plt.rcParams["mathtext.fontset"] = "dejavuserif"
+plt.rcParams["font.size"] = 14
+
+
 met_bins = np.logspace(np.log10(FIREmin), np.log10(FIREmax), num) * Z_sun
     
 models = ["fiducial",  "alpha25", "alpha5", "q3"]

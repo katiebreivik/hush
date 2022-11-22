@@ -110,9 +110,8 @@ for Z in met_arr:
     
     
 rcParams["font.family"] = "serif"
+rcParams["mathtext.fontset"] = "dejavuserif"
 rcParams["font.size"] = 14
-rcParams["mathtext.default"] = "regular"
-
 
 logP_lo_lim=0
 logP_hi_lim=9
@@ -142,8 +141,8 @@ for norm_wide, norm_close, Z, FeH, color in zip(norm_wide_list, norm_close_list,
 
 plt.legend(ncol=2, loc=[0, 1.01], frameon=False, prop={'size':16})
 plt.tick_params(labelsize=15)
-plt.xlabel(r'log$_{10}(P_{\rm{orb}}/day)$', size=18)
-plt.ylabel(r'$f_{\rm{logP}}$', size=18)
+plt.xlabel(r'Log$_{10}(P_{\rm{orb}}/\rm{day})$', size=18)
+plt.ylabel(r'f$_{\rm{logP}}$', size=18)
 plt.xlim(0, 8.5)
 plt.ylim(0, 0.23)
 plt.tight_layout()

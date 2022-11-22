@@ -8,6 +8,10 @@ import seaborn as sns
 import paths
 from matplotlib import patches
 
+plt.rcParams["font.family"] = "serif"
+plt.rcParams["mathtext.fontset"] = "dejavuserif"
+plt.rcParams["font.size"] = 14
+
 models = ["fiducial", "alpha25", "alpha5", "q3"]
 model_Zs = ["fiducial_Z", "alpha25_Z", "alpha5_Z", "q3_Z"]
 model_labels = ["fiducial", r"$\alpha25$", r"$\alpha5$", r"$q3$"]
@@ -17,19 +21,19 @@ label_y = [0.35, 0.49, 0.95, 1.6]
 colors = ['#add0ed', '#2b5d87', '#4288c2', '#17334a']
 figlabels = ['He + He', 'CO + He', 'CO + CO', 'ONe + X']
 
-for model, model_Z, model_label in zip(models, model_Zs, model_labels):
+for model, model_Z, model_label in zip(models, model_Zs, model_labels):  
     fig, ax = plt.subplots(1, 4, figsize=(16,4.5))
 
     resolved_dat_FZ = pd.read_hdf(
        paths.data / "results.hdf", key="resolved_DWDs_{}_{}".format("FZ", model_Z)
-    
+
     )
     resolved_dat_FZ = resolved_dat_FZ.loc[resolved_dat_FZ.resolved_chirp == 1.0]
     resolved_dat_F50 = pd.read_hdf(
         paths.data / "results.hdf", key="resolved_DWDs_{}_{}".format("F50", model)
     )
     resolved_dat_F50 = resolved_dat_F50.loc[resolved_dat_F50.resolved_chirp == 1.0]
-    
+
     Heplot = resolved_dat_FZ.loc[
         (resolved_dat_FZ.kstar_1 == 10) & (resolved_dat_FZ.kstar_2 == 10)
     ]
@@ -44,8 +48,8 @@ for model, model_Z, model_label in zip(models, model_Zs, model_labels):
         ((resolved_dat_FZ.kstar_1 == 12) & (resolved_dat_FZ.kstar_2.isin([10, 11, 12]))) |
         ((resolved_dat_FZ.kstar_2 == 12) & (resolved_dat_FZ.kstar_1.isin([10, 11, 12])))
     ]
-    
-    
+
+
     Heplot_F50 = resolved_dat_F50.loc[
         (resolved_dat_F50.kstar_1 == 10) & (resolved_dat_F50.kstar_2 == 10)
     ]
@@ -60,7 +64,7 @@ for model, model_Z, model_label in zip(models, model_Zs, model_labels):
         ((resolved_dat_F50.kstar_1 == 12) & (resolved_dat_F50.kstar_2.isin([10, 11, 12]))) |
         ((resolved_dat_F50.kstar_2 == 12) & (resolved_dat_F50.kstar_1.isin([10, 11, 12])))
     ]
-    
+
     dists = [x.dist_sun.values for x in [Heplot, COHeplot, COplot, ONeplot]]
     dists_F50 = [
         x.dist_sun.values for x in [Heplot_F50, COHeplot_F50, COplot_F50, ONeplot_F50]
@@ -73,7 +77,7 @@ for model, model_Z, model_label in zip(models, model_Zs, model_labels):
         utils.chirp_mass(x.mass_1.values * u.M_sun, x.mass_2.values * u.M_sun).value
         for x in [Heplot_F50, COHeplot_F50, COplot_F50, ONeplot_F50]
     ]
-    
+
     for dist, Mc, dist_F50, Mc_F50, jj in zip(dists, M_c, dists_F50, M_c_F50, range(len(dists))):
         if ("alpha25" in model) & (jj in [0, 3]):
             ax[jj].scatter(dist, Mc, color=colors[0], label='FZ') 
@@ -82,9 +86,9 @@ for model, model_Z, model_label in zip(models, model_Zs, model_labels):
                           prop={'size': 15},
                           ncol=2,
                           frameon=False)
-                
+
         else:
-            
+
             sns.kdeplot(
                 x=dist, 
                 y=Mc, 
@@ -119,7 +123,7 @@ for model, model_Z, model_label in zip(models, model_Zs, model_labels):
             for patch in leg.get_patches():
                 patch.set_height(2)
                 patch.set_y(5)
-                
+
 
     ax[0].set_ylabel('Chirp Mass [M$_\odot$]', fontsize=18)
     for i, name in zip(range(4), figlabels):
@@ -131,52 +135,76 @@ for model, model_Z, model_label in zip(models, model_Zs, model_labels):
             ax[i].text(0.05, 0.9, name, fontsize=18, horizontalalignment='left',
                        transform=ax[i].transAxes)
         ax[i].xaxis.set_minor_locator(AutoMinorLocator())
-        ax[i].yaxis.set_minor_locator(AutoMinorLocator())
+        ax[i].yaxis.set_minor_locator(AutoMinorLocator(5))
         ax[i].tick_params(labelsize=15)
-    
-    
+
+
     for j in range(4):
         ax[j].set_xlim(0, 35)
         
-        
-    
     if "fiducial" in model:
         ax[0].set_yticks(np.arange(0.2, 0.42, 0.05))
-        ax[0].set_ylim(0.17, 0.36)
-        
-        ax[1].set_yticks([0.25, 0.3, 0.35, 0.4, 0.45, 0.5])
-        ax[1].set_ylim(0.23, 0.525)
-        
-        ax[2].set_yticks(np.arange(0.25, 1.05, 0.15))
-        ax[2].set_ylim(0.345, 0.95)
-        
-        ax[3].set_yticks(np.arange(0.3, 1.6, 0.3))
-        ax[3].set_yticklabels(['0.30', '0.60', '0.90', '1.20', '1.50'])
-        ax[3].set_ylim(0.175, 1.55)
+        ax[0].set_ylim(0.168, 0.36)
+
+        ax[1].set_yticks(np.arange(0.20, 0.6, 0.1))
+        ax[1].set_yticklabels(['0.20', '0.30', '0.40', '0.50'])
+        ax[1].set_ylim(0.23, 0.516)
+        ax[1].yaxis.set_minor_locator(AutoMinorLocator(6))
+
+        ax[2].set_yticks(np.arange(0.45, 1.0, 0.15))
+        ax[2].set_ylim(0.35, 0.93)
+
+        ax[3].set_yticks(np.arange(0.4, 1.4, 0.3))
+        ax[3].set_yticklabels(['0.40', '0.70', '1.00', '1.30'])
+        ax[3].set_ylim(0.20, 1.36)
         
     if "alpha25" in model:
         ax[0].set_yticks(np.arange(0.2, 0.42, 0.05))
         ax[0].set_ylim(0.23, 0.41)
-        
-        #ax[1].set_yticks([0.25, 0.3, 0.35, 0.4, 0.45, 0.5])
+
+        ax[1].set_yticks(np.arange(0.3, 0.7, 0.1))
+        ax[1].set_yticklabels(['0.30', '0.40', '0.50', '0.60'])
         ax[1].set_ylim(0.26, 0.62)
+
+        ax[2].set_yticks(np.arange(0.4, 1.05, 0.2))
+        ax[2].set_yticklabels(['0.40', '0.60', '0.80', '1.00'])
+        ax[2].set_ylim(0.345, 1.04)
+
+        ax[3].set_yticks(np.arange(0.3, 1.6, 0.4))
+        ax[3].set_yticklabels(['0.30', '0.70', '1.10', '1.50'])
+        ax[3].set_ylim(0.2, 1.58)
         
-        ax[2].set_yticks(np.arange(0.25, 1.05, 0.15))
-        ax[2].set_ylim(0.345, 1.05)
+    elif "alpha5" in model:
+        ax[0].set_yticks(np.arange(0.18, 0.36, 0.04))
+        ax[0].set_ylim(0.165, 0.308)
         
-        ax[3].set_yticks(np.arange(0.3, 1.6, 0.3))
-        ax[3].set_yticklabels(['0.30', '0.60', '0.90', '1.20', '1.50'])
-        ax[3].set_ylim(0.175, 1.55)
-    
-    if "q3" in model:
-        ax[3].set_ylim(0.175, 1.55)
-    
-    if "alpha5" in model:
-        ax[0].set_ylim(0.16, 0.32)
-        ax[1].set_ylim(top=0.55)
+        ax[1].set_yticks(np.arange(0.2, 0.6, 0.1))
+        ax[1].set_yticklabels(['0.20', '0.30', '0.40', '0.50'])
+        ax[1].set_ylim(top=0.52)
+        
+        ax[2].set_yticks(np.arange(0.3, 1.1, 0.2))
+        ax[2].set_yticklabels(['0.30', '0.50', '0.70', '0.90'])
+        ax[2].set_ylim(0.25, 0.94)
+        
         ax[3].set_yticks([0.2, 0.6, 1.0, 1.4])
+        ax[3].set_yticklabels(['0.20', '0.60', '1.00', '1.40'])
+        ax[3].set_ylim(top=1.48)
+        
+    elif "q3" in model:
+        ax[0].set_yticks(np.arange(0.2, 0.5, 0.06))
+        ax[0].set_ylim(0.17, 0.392)
+        
+        ax[1].set_yticks(np.arange(0.26, 0.55, 0.08))
+        ax[1].set_ylim(0.22, 0.516)
+        
+        ax[2].set_yticks(np.arange(0.4, 1.2, 0.2))
+        ax[2].set_yticklabels(['0.40', '0.60', '0.80', '1.00'])
+        ax[2].set_ylim(0.30, 1.04)
+        
+        ax[3].set_yticks(np.arange(0.4, 1.8, 0.4))
+        ax[3].set_yticklabels(['0.40', '0.80', '1.20', '1.60'])
+        ax[3].set_ylim(0.12, 1.68)
+        
     plt.tight_layout()    
     plt.subplots_adjust(wspace=0.25)
     plt.savefig(paths.figures / "Mc_vs_dist_{}.pdf".format(model), dpi=100)
-    
-
