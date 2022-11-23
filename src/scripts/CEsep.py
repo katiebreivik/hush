@@ -161,7 +161,6 @@ for m, model in enumerate(models):
     if "fiducial" in model:
         ax[m, 0].set_yticks(np.arange(0.1, 0.6, 0.1))
         ax[m, 0].set_ylim(0.08, 0.52)
-        ax[m, 0].set_yticklabels(['0.10', '0.20', '0.30', '0.40', '0.50'])
         
         ax[m, 1].set_yticks(np.arange(0.25, 1.5, 0.25))
         ax[m, 1].set_ylim(0.2, 1.3)
@@ -170,41 +169,37 @@ for m, model in enumerate(models):
         ax[m, 2].set_ylim(top=2.35)
         
         ax[m, 3].set_yticks(np.arange(1.0, 3.5, 0.5))
-        ax[m, 3].set_yticklabels(['1.00', '1.50', '2.00', '2.50', '3.00'])
         ax[m, 3].set_ylim(0.9, 3.1)
         
     if "alpha25" in model:
         ax[m, 0].set_yticks(np.arange(0.15, 0.55, 0.1))
-        ax[m, 0].set_yticklabels(['0.15', '0.25', '0.35', '0.45'])
         ax[m, 0].set_ylim(top=0.49)
         
         ax[m, 1].set_yticks(np.arange(0.5, 3.0, 0.75))
         ax[m, 1].set_ylim(top=3.05)
         
         ax[m, 2].set_yticks(np.arange(0.8, 4.0, 0.8))
-        ax[m, 2].set_yticklabels(['0.80', '1.60', '2.40', '3.20'])
         ax[m, 2].set_ylim(0.15, 3.52)
         
         ax[m, 3].set_yticks([1., 2., 3., 4.])
-        ax[m, 3].set_yticklabels(['1.00', '2.00', '3.00', '4.00'])
+        ax[m, 3].set_yticklabels(['1.0', '2.0', '3.0', '4.0'])
         ax[m, 3].set_ylim(top=4.4)
         
     if "alpha5" in model:
-        ax[m, 0].set_yticks(np.arange(0.02, 2.5, 0.07))
-        ax[m, 0].set_ylim(top=0.258)
+        ax[m, 0].set_yticks(np.arange(0.0, 2.5, 0.05))
+        ax[m, 0].set_ylim(top=0.235)
         
         ax[m, 1].set_yticks([0.0, 0.1, 0.2, 0.3])
-        ax[m, 1].set_yticklabels(['0.00', '0.10', '0.20', '0.30'])
         
         ax[m, 2].set_yticks([0.0, 0.15, 0.3, 0.45])
         ax[m, 2].set_ylim(top=0.51)
         
-        ax[m, 3].set_yticks(np.arange(0.05, 0.9, 0.25))
-        ax[m, 3].set_ylim(top=0.9)
+        ax[m, 3].set_yticks(np.arange(0.0, 1.2, 0.3))
+        ax[m, 3].set_ylim(top=0.95)
         
     if "q3" in model:
-        ax[m, 0].set_yticks(np.arange(0.04, 0.16, 0.03))
-        ax[m, 0].set_ylim(0.03, 0.142)
+        ax[m, 0].set_yticks(np.arange(0.03, 0.16, 0.03))
+        ax[m, 0].set_ylim(0.02, 0.142)
         
         ax[m, 1].set_yticks(np.arange(0.04, 0.2, 0.04))
         ax[m, 1].set_ylim(0.03, 0.176)
@@ -213,7 +208,6 @@ for m, model in enumerate(models):
         ax[m, 2].set_ylim(0.037, 0.35)
         
         ax[m, 3].set_yticks(np.arange(0.2, 1.6, 0.4))
-        ax[m, 3].set_yticklabels(['0.20', '0.60', '1.00', '1.40'])
         ax[m, 3].set_ylim(top=1.56)
         
         

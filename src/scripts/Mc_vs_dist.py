@@ -135,7 +135,7 @@ for model, model_Z, model_label in zip(models, model_Zs, model_labels):
             ax[i].text(0.05, 0.9, name, fontsize=18, horizontalalignment='left',
                        transform=ax[i].transAxes)
         ax[i].xaxis.set_minor_locator(AutoMinorLocator())
-        ax[i].yaxis.set_minor_locator(AutoMinorLocator(5))
+        ax[i].yaxis.set_minor_locator(AutoMinorLocator())
         ax[i].tick_params(labelsize=15)
 
 
@@ -147,62 +147,52 @@ for model, model_Z, model_label in zip(models, model_Zs, model_labels):
         ax[0].set_ylim(0.168, 0.36)
 
         ax[1].set_yticks(np.arange(0.20, 0.6, 0.1))
-        ax[1].set_yticklabels(['0.20', '0.30', '0.40', '0.50'])
         ax[1].set_ylim(0.23, 0.516)
         ax[1].yaxis.set_minor_locator(AutoMinorLocator(6))
 
         ax[2].set_yticks(np.arange(0.45, 1.0, 0.15))
         ax[2].set_ylim(0.35, 0.93)
 
-        ax[3].set_yticks(np.arange(0.4, 1.4, 0.3))
-        ax[3].set_yticklabels(['0.40', '0.70', '1.00', '1.30'])
-        ax[3].set_ylim(0.20, 1.36)
+        ax[3].set_yticks(np.arange(0.3, 1.4, 0.3))
+        ax[3].set_ylim(0.20, 1.35)
         
     if "alpha25" in model:
         ax[0].set_yticks(np.arange(0.2, 0.42, 0.05))
         ax[0].set_ylim(0.23, 0.41)
 
         ax[1].set_yticks(np.arange(0.3, 0.7, 0.1))
-        ax[1].set_yticklabels(['0.30', '0.40', '0.50', '0.60'])
         ax[1].set_ylim(0.26, 0.62)
 
         ax[2].set_yticks(np.arange(0.4, 1.05, 0.2))
-        ax[2].set_yticklabels(['0.40', '0.60', '0.80', '1.00'])
         ax[2].set_ylim(0.345, 1.04)
 
-        ax[3].set_yticks(np.arange(0.3, 1.6, 0.4))
-        ax[3].set_yticklabels(['0.30', '0.70', '1.10', '1.50'])
-        ax[3].set_ylim(0.2, 1.58)
+        ax[3].set_yticks(np.arange(0.3, 1.6, 0.3))
+        ax[3].set_ylim(0.2, 1.275)
         
     elif "alpha5" in model:
         ax[0].set_yticks(np.arange(0.18, 0.36, 0.04))
         ax[0].set_ylim(0.165, 0.308)
         
         ax[1].set_yticks(np.arange(0.2, 0.6, 0.1))
-        ax[1].set_yticklabels(['0.20', '0.30', '0.40', '0.50'])
         ax[1].set_ylim(top=0.52)
         
         ax[2].set_yticks(np.arange(0.3, 1.1, 0.2))
-        ax[2].set_yticklabels(['0.30', '0.50', '0.70', '0.90'])
         ax[2].set_ylim(0.25, 0.94)
         
         ax[3].set_yticks([0.2, 0.6, 1.0, 1.4])
-        ax[3].set_yticklabels(['0.20', '0.60', '1.00', '1.40'])
         ax[3].set_ylim(top=1.48)
         
     elif "q3" in model:
-        ax[0].set_yticks(np.arange(0.2, 0.5, 0.06))
-        ax[0].set_ylim(0.17, 0.392)
+        ax[0].set_yticks(np.arange(0.2, 0.5, 0.05))
+        ax[0].set_ylim(0.175, 0.41)
         
-        ax[1].set_yticks(np.arange(0.26, 0.55, 0.08))
+        ax[1].set_yticks(np.arange(0.2, 0.55, 0.1))
         ax[1].set_ylim(0.22, 0.516)
         
         ax[2].set_yticks(np.arange(0.4, 1.2, 0.2))
-        ax[2].set_yticklabels(['0.40', '0.60', '0.80', '1.00'])
         ax[2].set_ylim(0.30, 1.04)
         
         ax[3].set_yticks(np.arange(0.4, 1.8, 0.4))
-        ax[3].set_yticklabels(['0.40', '0.80', '1.20', '1.60'])
         ax[3].set_ylim(0.12, 1.68)
         
     plt.tight_layout()    

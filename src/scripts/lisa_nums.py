@@ -152,18 +152,16 @@ for m, model in enumerate(models):
     
     if "fiducial" in model:
         ax[m, 0].set_yticks(np.arange(0.0, 2.5, 0.5))
-        ax[m, 0].set_yticklabels(['0.00', '0.50', '1.00', '1.50', '2.00'])
+        ax[m, 0].set_yticklabels(['0.0', '0.5', '1.0', '1.5', '2.0'])
         ax[m, 0].set_ylim(top=2.05)
         
         ax[m, 1].set_yticks(np.arange(0, 20, 4))
         ax[m, 1].set_ylim(top=17.25)
         ax[m, 1].set_yticklabels(np.arange(0, 20, 4).astype(float).astype(str))
         
-        ax[m, 2].set_yticks(np.arange(0.0, 3.0, 0.75))
-        #ax[m, 2].set_yticklabels(['0.00', '0.50', '1.00', '1.50', '2.00', '2.50'])
+        ax[m, 2].set_yticks(np.arange(0.0, 3., 0.8))
         
         ax[m, 3].set_yticks(np.arange(0., 1.0, 0.2))
-        ax[m, 3].set_yticklabels(['0.00', '0.20', '0.40', '0.60', '0.80'])
         ax[m, 3].set_ylim(top=0.82)
     
     if "alpha25" in model:
@@ -171,11 +169,9 @@ for m, model in enumerate(models):
         ax[m, 0].set_ylim(top=0.0123)
         
         ax[m, 1].set_yticks(np.arange(0.0, 1.0, 0.2))
-        ax[m, 1].set_yticklabels(['0.00', '0.20', '0.40', '0.60', '0.80'])
         ax[m, 1].set_ylim(top=0.83)
         
         ax[m, 2].set_yticks(np.arange(0.0, 0.4, 0.1))
-        ax[m, 2].set_yticklabels(['0.00', '0.10', '0.20', '0.30'])
         
         ax[m, 3].yaxis.set_minor_locator(AutoMinorLocator(4))
         
@@ -187,14 +183,12 @@ for m, model in enumerate(models):
         ax[m, 1].set_yticklabels(['0.0', '20.0', '40.0', '60.0'])
         
         ax[m, 2].set_yticks(np.arange(0, 30, 7.5))
-        #ax[m, 2].set_yticklabels(['0.0', '5.0', '10.0', 
-        #                          '15.0', '20.0', '25.0'])
         ax[m, 2].yaxis.set_minor_locator(AutoMinorLocator(6))
         ax[m, 2].set_ylim(top=26)
         
-        ax[m, 3].set_yticks(np.arange(0.0, 1.3, 0.3))
-        ax[m, 3].set_yticklabels(['0.00', '0.30', '0.60', '0.90', '1.20'])
+        ax[m, 3].set_yticks(np.arange(0.0, 1.5, 0.45))
         ax[m, 3].yaxis.set_minor_locator(AutoMinorLocator(4))
+        ax[m, 3].set_ylim(top=1.5)
         
     if "q3" in model:
         ax[m, 0].set_yticks(np.arange(0, 25, 5))
@@ -205,8 +199,6 @@ for m, model in enumerate(models):
         ax[m, 1].set_ylim(top=50)
         
         ax[m, 2].set_yticks(np.arange(0, 30, 7.5))
-        #ax[m, 2].set_yticklabels(['0.0', '5.0', '10.0', 
-        #'15.0', '20.0', '25.0'])
         ax[m, 2].set_ylim(top=25)
         
         ax[m, 3].set_yticks(np.arange(0, 0.8, 0.25))
