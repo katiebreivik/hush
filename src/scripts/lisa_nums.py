@@ -145,47 +145,73 @@ for m, model in enumerate(models):
                 fontsize=15
             )
         ax[m, i].xaxis.set_minor_locator(AutoMinorLocator())
-        ax[m, i].yaxis.set_minor_locator(AutoMinorLocator())
+        ax[m, i].yaxis.set_minor_locator(AutoMinorLocator(5))
         ax[m, i].tick_params(labelsize=15)
 
     ax[m, 0].set_ylabel(r'N$_{f_{\rm{GW}} \geq 10^{-4} \rm{Hz}}$ (Z) [10$^5$]', fontsize=18)
     
     if "fiducial" in model:
         ax[m, 0].set_yticks(np.arange(0.0, 2.5, 0.5))
+        ax[m, 0].set_yticklabels(['0.00', '0.50', '1.00', '1.50', '2.00'])
         ax[m, 0].set_ylim(top=2.05)
+        
         ax[m, 1].set_yticks(np.arange(0, 20, 4))
         ax[m, 1].set_ylim(top=17.25)
         ax[m, 1].set_yticklabels(np.arange(0, 20, 4).astype(float).astype(str))
-        ax[m, 3].set_ylim(top=0.81)
+        
+        ax[m, 2].set_yticks(np.arange(0.0, 3.0, 0.75))
+        #ax[m, 2].set_yticklabels(['0.00', '0.50', '1.00', '1.50', '2.00', '2.50'])
+        
+        ax[m, 3].set_yticks(np.arange(0., 1.0, 0.2))
+        ax[m, 3].set_yticklabels(['0.00', '0.20', '0.40', '0.60', '0.80'])
+        ax[m, 3].set_ylim(top=0.82)
     
     if "alpha25" in model:
         ax[m, 0].set_yticks(np.arange(0.0, 0.015, 0.003))
+        ax[m, 0].set_ylim(top=0.0123)
+        
         ax[m, 1].set_yticks(np.arange(0.0, 1.0, 0.2))
-        ax[m, 1].set_ylim(top=0.82)
+        ax[m, 1].set_yticklabels(['0.00', '0.20', '0.40', '0.60', '0.80'])
+        ax[m, 1].set_ylim(top=0.83)
+        
+        ax[m, 2].set_yticks(np.arange(0.0, 0.4, 0.1))
+        ax[m, 2].set_yticklabels(['0.00', '0.10', '0.20', '0.30'])
+        
         ax[m, 3].yaxis.set_minor_locator(AutoMinorLocator(4))
         
     if "alpha5" in model:
         ax[m, 0].set_yticks([0, 10, 20, 30])
         ax[m, 0].set_yticklabels(['0.0', '10.0', '20.0', '30.0'])
+        
         ax[m, 1].set_yticks([0, 20, 40, 60])
         ax[m, 1].set_yticklabels(['0.0', '20.0', '40.0', '60.0'])
-        ax[m, 2].set_yticks(np.arange(0, 30, 5))
-        ax[m, 2].set_yticklabels(['0.0', '5.0', '10.0', 
-                                  '15.0', '20.0', '25.0'])
-        ax[m, 2].yaxis.set_minor_locator(AutoMinorLocator(4))
+        
+        ax[m, 2].set_yticks(np.arange(0, 30, 7.5))
+        #ax[m, 2].set_yticklabels(['0.0', '5.0', '10.0', 
+        #                          '15.0', '20.0', '25.0'])
+        ax[m, 2].yaxis.set_minor_locator(AutoMinorLocator(6))
+        ax[m, 2].set_ylim(top=26)
+        
         ax[m, 3].set_yticks(np.arange(0.0, 1.3, 0.3))
+        ax[m, 3].set_yticklabels(['0.00', '0.30', '0.60', '0.90', '1.20'])
         ax[m, 3].yaxis.set_minor_locator(AutoMinorLocator(4))
         
     if "q3" in model:
         ax[m, 0].set_yticks(np.arange(0, 25, 5))
         ax[m, 0].set_yticklabels(['0.0', '5.0', '10.0', '15.0', '20.0'])
-        ax[m, 1].set_yticks(np.arange(0, 60, 10))
-        ax[m, 1].set_yticklabels(['0.0', '10.0', '20.0', '30.0', '40.0', '50.0'])
-        ax[m, 1].set_ylim(top=51)
-        ax[m, 2].set_yticks(np.arange(0, 30, 5))
-        ax[m, 2].set_yticklabels(['0.0', '5.0', '10.0', '15.0', '20.0', '25.0'])
-        ax[m, 2].set_ylim(top=24)
-        ax[m, 3].yaxis.set_minor_locator(AutoMinorLocator(5))
+        
+        ax[m, 1].set_yticks(np.arange(0, 60, 15))
+        ax[m, 1].set_yticklabels(['0.0', '15.0', '30.0', '45.0'])
+        ax[m, 1].set_ylim(top=50)
+        
+        ax[m, 2].set_yticks(np.arange(0, 30, 7.5))
+        #ax[m, 2].set_yticklabels(['0.0', '5.0', '10.0', 
+        #'15.0', '20.0', '25.0'])
+        ax[m, 2].set_ylim(top=25)
+        
+        ax[m, 3].set_yticks(np.arange(0, 0.8, 0.25))
+        ax[m, 3].yaxis.set_minor_locator(AutoMinorLocator(6))
+        ax[m, 3].set_ylim(top=0.81)
 
 plt.tight_layout()
 plt.subplots_adjust(wspace=0.25)
