@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 import astropy.units as u
 import paths
 
+plt.rcParams["font.family"] = "serif"
+plt.rcParams["mathtext.fontset"] = "dejavuserif"
+
 def func(x, a, b, c, d, e):
     return a + b * x + c * x ** 2 + d * x ** 3 + e * x ** 4
 
@@ -94,7 +97,7 @@ for i, model in enumerate(models):
 
     ax[i].set_ylabel('')
     ax[0].set_ylabel(r"PSD [Hz$^{-1}$]", size=24)
-    ax[i].set_xlabel(r"f$_{\rm{GW}}$ [Hz]", size=24)
+    ax[i].set_xlabel(r"$f_{\rm{GW}}$ [Hz]", size=24)
     ax[i].tick_params(labelsize=20)
     ax[i].set_yticks([1e-38, 1e-37, 1e-36, 1e-35, 1e-34])
     ax[i].set_xlim(1e-4, 3e-2)

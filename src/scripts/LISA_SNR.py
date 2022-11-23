@@ -7,6 +7,8 @@ from legwork import psd
 import dutils
 import paths
 
+plt.rcParams["font.family"] = "serif"
+plt.rcParams["mathtext.fontset"] = "dejavuserif"
 
 def plot_LISAcurves(var, model, label, ii):
     
@@ -121,7 +123,7 @@ def plot_LISAcurves(var, model, label, ii):
         ax[ii, i].set_xscale('log')
         ax[ii, i].tick_params(labelsize=20)
         if ii == 1:
-            ax[ii, i].set_xlabel(r'f$_{\rm{GW}}$ [Hz]', size=24)
+            ax[ii, i].set_xlabel(r'$f_{\rm{GW}}$ [Hz]', size=24)
         ax[ii, i].set_ylim(top=5e-16)
     ax[ii, 0].set_ylabel(r'ASD [Hz$^{-1/2}$]', size=24)
 

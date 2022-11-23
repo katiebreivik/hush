@@ -4,6 +4,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import paths
+
+plt.rcParams["font.family"] = "serif"
+plt.rcParams["font.size"] = 14
 plt.rcParams['mathtext.fontset'] = 'dejavuserif'
 
 models = ["fiducial", "alpha25", "alpha5", "q3"]
@@ -20,7 +23,7 @@ whichsep = "CEsep"
 
 fig, ax = plt.subplots(4, 4, figsize=(16, 15))
 
-for m, model in enumerate(models):
+for m, model in enumerate(models):        
     if "Z" in model:
         Heinter = pd.read_hdf(paths.data / "results.hdf", key = 'intersep_{}_{}_{}_{}'.format(10, 10, "FZ", model))
         COHeinter = pd.read_hdf(paths.data / "results.hdf", key='intersep_{}_{}_{}_{}'.format(11, 10,  "FZ", model))
@@ -148,54 +151,65 @@ for m, model in enumerate(models):
                 loc='lower left', bbox_to_anchor= (0.0, 1.01), ncol=2, 
                 borderaxespad=0, frameon=False, fontsize=15, markerscale=0.5)
         ax[m, i].xaxis.set_minor_locator(AutoMinorLocator())
-        ax[m, i].yaxis.set_minor_locator(AutoMinorLocator())
+        ax[m, i].yaxis.set_minor_locator(AutoMinorLocator(5))
         
     if whichsep == 'CEsep':
         ax[m, 0].set_ylabel(r'$\overline{\mathit{a}}_{\rm{CE}}$  [10$^3$ R$_\odot$]', fontsize=16)
     else:
         ax[m, 0].set_ylabel(r'$\overline{\mathit{a}}_{\rm{RLO}}$  [10$^3$ R$_\odot$]', fontsize=16)
-    
+        
     if "fiducial" in model:
         ax[m, 0].set_yticks(np.arange(0.1, 0.6, 0.1))
-        ax[m, 0].set_ylim(0.09, 0.51)
-        ax[m, 0].set_yticklabels(['0.10', '0.20', '0.30', '0.40', '0.50'])
+        ax[m, 0].set_ylim(0.08, 0.52)
+        
         ax[m, 1].set_yticks(np.arange(0.25, 1.5, 0.25))
-        ax[m, 1].set_ylim(top=1.28)
+        ax[m, 1].set_ylim(0.2, 1.3)
+        
         ax[m, 2].set_yticks(np.arange(0.25, 2.75,0.5))
-        ax[m, 2].set_ylim(top=2.3)
+        ax[m, 2].set_ylim(top=2.35)
+        
         ax[m, 3].set_yticks(np.arange(1.0, 3.5, 0.5))
-        ax[m, 3].set_yticklabels(['1.00', '1.50', '2.00', '2.50', '3.00'])
-        ax[m, 3].set_ylim(top=3.05)
+        ax[m, 3].set_ylim(0.9, 3.1)
         
     if "alpha25" in model:
         ax[m, 0].set_yticks(np.arange(0.15, 0.55, 0.1))
-        ax[m, 0].set_yticklabels(['0.15', '0.25', '0.35', '0.45'])
+        ax[m, 0].set_ylim(top=0.49)
+        
         ax[m, 1].set_yticks(np.arange(0.5, 3.0, 0.75))
-        ax[m, 1].set_ylim(top=2.9)
-        ax[m, 2].set_yticks(np.arange(0.75, 4.0, 0.75))
-        ax[m, 2].set_ylim(0.15, 3.4)
+        ax[m, 1].set_ylim(top=3.05)
+        
+        ax[m, 2].set_yticks(np.arange(0.8, 4.0, 0.8))
+        ax[m, 2].set_ylim(0.15, 3.52)
+        
         ax[m, 3].set_yticks([1., 2., 3., 4.])
-        ax[m, 3].set_yticklabels(['1.00', '2.00', '3.00', '4.00'])
+        ax[m, 3].set_yticklabels(['1.0', '2.0', '3.0', '4.0'])
+        ax[m, 3].set_ylim(top=4.4)
         
     if "alpha5" in model:
-        ax[m, 0].yaxis.set_minor_locator(AutoMinorLocator(3))
+        ax[m, 0].set_yticks(np.arange(0.0, 2.5, 0.05))
+        ax[m, 0].set_ylim(top=0.235)
+        
         ax[m, 1].set_yticks([0.0, 0.1, 0.2, 0.3])
-        ax[m, 1].set_yticklabels(['0.00', '0.10', '0.20', '0.30'])
+        
         ax[m, 2].set_yticks([0.0, 0.15, 0.3, 0.45])
-        ax[m, 2].yaxis.set_minor_locator(AutoMinorLocator(4))
-        ax[m, 3].set_yticks(np.arange(0.0, 0.9, 0.2))
-        ax[m, 3].set_yticklabels(['0.00', '0.20', '0.40', '0.60', '0.80'])
+        ax[m, 2].set_ylim(top=0.51)
+        
+        ax[m, 3].set_yticks(np.arange(0.0, 1.2, 0.3))
+        ax[m, 3].set_ylim(top=0.95)
         
     if "q3" in model:
-        ax[m, 0].set_yticks(np.arange(0.04, 0.16, 0.02))
-        ax[m, 0].set_ylim(top=0.145)
+        ax[m, 0].set_yticks(np.arange(0.03, 0.16, 0.03))
+        ax[m, 0].set_ylim(0.02, 0.142)
+        
         ax[m, 1].set_yticks(np.arange(0.04, 0.2, 0.04))
-        ax[m, 1].yaxis.set_minor_locator(AutoMinorLocator(5))
-        ax[m, 3].set_yticks(np.arange(0.0, 1.5, 0.3))
-        ax[m, 3].set_yticklabels(['0.00', '0.30', '0.60', '0.90', '1.20'])
-        ax[m, 3].set_ylim(bottom=-0.05)
-
+        ax[m, 1].set_ylim(0.03, 0.176)
+        
+        ax[m, 2].set_yticks(np.arange(0.08, 0.4, 0.08))
+        ax[m, 2].set_ylim(0.037, 0.35)
+        
+        ax[m, 3].set_yticks(np.arange(0.2, 1.6, 0.4))
+        ax[m, 3].set_ylim(top=1.56)
+        
         
 plt.tight_layout()
-
 plt.savefig(paths.figures / "CEsep.pdf", dpi=100)

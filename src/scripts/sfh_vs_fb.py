@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import paths
 
+plt.rcParams["font.family"] = "serif"
+plt.rcParams["mathtext.fontset"] = "dejavuserif"
 
 def get_FeH_from_Z(Z, Z_sun=0.02):
     """
@@ -49,9 +51,9 @@ def get_binfrac_of_Z(Z):
     return binfrac
 
 
-rcParams["font.family"] = "serif"
-rcParams["font.size"] = 14
-rcParams["mathtext.default"] = "regular"
+plt.rcParams["font.family"] = "serif"
+plt.rcParams["mathtext.default"] = "regular"
+plt.rcParams["font.size"] = 14
 
 met_arr = np.logspace(np.log10(1e-4), np.log10(0.03), 15)
 met_arr = np.round(met_arr, 8)

@@ -5,6 +5,9 @@ import seaborn as sns
 import astropy.units as u
 import paths 
 
+plt.rcParams["font.family"] = "serif"
+plt.rcParams["mathtext.fontset"] = "dejavuserif"
+
 models = ["fiducial", "alpha25", "alpha5", "q3", "fiducial_Z", "alpha25_Z", "alpha5_Z", "q3_Z"]
 model_names = ["fiducial", "alpha25", "alpha5", "q3", "fiducial_Z", "alpha25_Z", "alpha5_Z", "q3_Z"]
 colors = sns.color_palette("mako", n_colors=4)
