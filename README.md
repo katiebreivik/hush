@@ -17,7 +17,7 @@
 
 ## Welcome to _hush_!
 
-This repository contains all of the code necessary to create the results and figures in [Thiele+2021](https://arxiv.org). In this study, we simulate populations of double white dwarf binaries which are orbiting in the frequency band observable by the future space-based gravitational wave detector [LISA](https://www.elisascience.org). Specificially, we investigate the effects of incorporating a [metallicity-dependent binary fraction](https://iopscience.iop.org/article/10.3847/1538-4357/ab0d88) for the first time.
+This repository contains all of the code necessary to create the results and figures in [Thiele+2023](https://ui.adsabs.harvard.edu/abs/2023ApJ...945..162T/abstract). In this study, we simulate populations of double white dwarf binaries which are orbiting in the frequency band observable by the future space-based gravitational wave detector [LISA](https://www.elisascience.org). Specificially, we investigate the effects of incorporating a [metallicity-dependent binary fraction](https://iopscience.iop.org/article/10.3847/1538-4357/ab0d88) for the first time.
 
 ### Getting started and usage:
 
